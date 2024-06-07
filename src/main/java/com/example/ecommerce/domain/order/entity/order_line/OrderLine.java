@@ -1,6 +1,7 @@
 package com.example.ecommerce.domain.order.entity.order_line;
 
 import jakarta.persistence.*;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -21,4 +22,12 @@ public class OrderLine {
     private String name;
     private int unitPrice;
     private int quantity;
+
+    @Builder
+    private OrderLine(Long productId, String name, int unitPrice, int quantity) {
+        this.productId = productId;
+        this.name = name;
+        this.unitPrice = unitPrice;
+        this.quantity = quantity;
+    }
 }
