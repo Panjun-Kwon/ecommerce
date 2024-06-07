@@ -11,9 +11,11 @@ import org.springframework.stereotype.Service;
 @Service
 @RequiredArgsConstructor
 public class PartnerRegisterService {
+
     private final PartnerFactory partnerFactory;
     private final PartnerStore partnerStore;
     private final PartnerValidator partnerValidator;
+
     public Long register(PartnerCommand.Register command) {
         partnerValidator.validateName(command.getName());
         Partner initPartner = partnerFactory.make(command);

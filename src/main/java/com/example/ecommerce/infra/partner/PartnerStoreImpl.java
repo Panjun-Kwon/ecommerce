@@ -9,7 +9,9 @@ import org.springframework.stereotype.Component;
 @Component
 @RequiredArgsConstructor
 public class PartnerStoreImpl implements PartnerStore {
+
     private final PartnerRepository partnerRepository;
+
     @Override
     public Partner store(Partner initPartner) {
         return partnerRepository.save(initPartner);

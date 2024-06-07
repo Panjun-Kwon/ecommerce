@@ -8,7 +8,9 @@ import org.springframework.stereotype.Component;
 @Component
 @RequiredArgsConstructor
 public class PartnerValidatorImpl implements PartnerValidator {
+
     private final PartnerRepository partnerRepository;
+
     @Override
     public void validateName(String name) {
         if (partnerRepository.existsByName(name)) {

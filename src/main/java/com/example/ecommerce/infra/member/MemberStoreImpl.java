@@ -9,7 +9,9 @@ import org.springframework.stereotype.Component;
 @Component
 @RequiredArgsConstructor
 public class MemberStoreImpl implements MemberStore {
+
     private final MemberRepository memberRepository;
+
     @Override
     public Member store(Member initMember) {
         return memberRepository.save(initMember);

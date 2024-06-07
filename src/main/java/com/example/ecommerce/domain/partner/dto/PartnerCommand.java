@@ -3,6 +3,7 @@ package com.example.ecommerce.domain.partner.dto;
 import lombok.*;
 
 public class PartnerCommand {
+
     @Getter
     @Builder
     @AllArgsConstructor

@@ -11,9 +11,11 @@ import org.springframework.stereotype.Service;
 @Service
 @RequiredArgsConstructor
 public class MemberSignUpService {
+
     private final MemberStore memberStore;
     private final MemberFactory memberFactory;
     private final MemberValidator memberValidator;
+
     public Long signUp(MemberCommand.SignUp command) {
         memberValidator.validateUsername(command.getUsername());
         Member initMember = memberFactory.make(command);

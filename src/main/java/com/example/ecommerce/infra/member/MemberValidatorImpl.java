@@ -8,7 +8,9 @@ import org.springframework.stereotype.Component;
 @Component
 @RequiredArgsConstructor
 public class MemberValidatorImpl implements MemberValidator {
+
     private final MemberRepository memberRepository;
+
     @Override
     public void validateUsername(String username) {
         if (memberRepository.existsByUsername(username)) {
