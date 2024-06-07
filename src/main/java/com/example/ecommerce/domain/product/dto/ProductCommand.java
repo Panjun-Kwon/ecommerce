@@ -3,7 +3,7 @@ package com.example.ecommerce.domain.product.dto;
 import lombok.*;
 
 public class ProductCommand {
-    
+
     @Getter
     @Builder
     @AllArgsConstructor

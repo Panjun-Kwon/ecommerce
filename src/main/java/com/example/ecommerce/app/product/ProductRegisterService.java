@@ -7,8 +7,10 @@ import com.example.ecommerce.domain.product.service.ProductStore;
 import com.example.ecommerce.domain.product.service.ProductValidator;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
+@Transactional
 @RequiredArgsConstructor
 public class ProductRegisterService {
 
