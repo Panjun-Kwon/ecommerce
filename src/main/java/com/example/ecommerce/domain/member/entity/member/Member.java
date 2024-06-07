@@ -1,6 +1,7 @@
-package com.example.ecommerce.domain.member;
+package com.example.ecommerce.domain.member.entity.member;
 
 import jakarta.persistence.*;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -20,4 +21,10 @@ public class Member {
     private String username;
     @Embedded
     private Address address;
+
+    @Builder
+    private Member(String username, Address address) {
+        this.username = username;
+        this.address = address;
+    }
 }
