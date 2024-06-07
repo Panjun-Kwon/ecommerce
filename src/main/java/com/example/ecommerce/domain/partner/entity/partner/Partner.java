@@ -1,6 +1,7 @@
 package com.example.ecommerce.domain.partner.entity.partner;
 
 import jakarta.persistence.*;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -18,4 +19,9 @@ public class Partner {
     private Long id;
 
     private String name;
+
+    @Builder
+    private Partner(String name) {
+        this.name = name;
+    }
 }
