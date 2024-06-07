@@ -1,5 +1,6 @@
-package com.example.ecommerce.domain.order.entity;
+package com.example.ecommerce.domain.order.entity.order;
 
+import com.example.ecommerce.domain.order.entity.order_line.OrderLine;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

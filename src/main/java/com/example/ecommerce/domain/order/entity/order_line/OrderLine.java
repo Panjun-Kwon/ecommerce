@@ -1,4 +1,4 @@
-package com.example.ecommerce.domain.order.entity;
+package com.example.ecommerce.domain.order.entity.order_line;
 
 import jakarta.persistence.*;
 import lombok.Getter;

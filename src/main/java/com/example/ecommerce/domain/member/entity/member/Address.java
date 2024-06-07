@@ -1,4 +1,4 @@
-package com.example.ecommerce.domain.member;
+package com.example.ecommerce.domain.member.entity.member;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Embeddable;

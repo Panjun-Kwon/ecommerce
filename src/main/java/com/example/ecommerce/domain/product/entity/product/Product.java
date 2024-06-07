@@ -1,4 +1,4 @@
-package com.example.ecommerce.domain;
+package com.example.ecommerce.domain.product.entity.product;
 
 import jakarta.persistence.*;
 import lombok.Getter;
