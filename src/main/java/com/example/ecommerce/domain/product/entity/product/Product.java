@@ -1,6 +1,7 @@
 package com.example.ecommerce.domain.product.entity.product;
 
 import jakarta.persistence.*;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -21,4 +22,12 @@ public class Product {
     private int unitPrice;
     private int stock;
     private Long partnerId;
+
+    @Builder
+    private Product(String name, int unitPrice, int stock, Long partnerId) {
+        this.name = name;
+        this.unitPrice = unitPrice;
+        this.stock = stock;
+        this.partnerId = partnerId;
+    }
 }
