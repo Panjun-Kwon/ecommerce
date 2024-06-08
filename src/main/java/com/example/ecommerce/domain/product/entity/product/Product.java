@@ -30,4 +30,13 @@ public class Product {
         this.stock = stock;
         this.partnerId = partnerId;
     }
+
+    public void increaseStock(int num) {
+        this.stock = this.stock + num;
+    }
+
+    public void decreaseStock(int num) {
+        this.stock = this.stock - num;
+    }
+
 }
