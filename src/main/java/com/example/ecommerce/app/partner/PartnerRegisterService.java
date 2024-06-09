@@ -19,7 +19,7 @@ public class PartnerRegisterService {
     private final PartnerValidator partnerValidator;
 
     public Long register(PartnerCommand.Register command) {
-        partnerValidator.validateName(command.getName());
+        partnerValidator.validate(command);
         Partner initPartner = partnerFactory.make(command);
         Partner partner = partnerStore.store(initPartner);
         return partner.getId();

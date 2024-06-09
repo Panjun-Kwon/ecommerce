@@ -39,12 +39,12 @@ public class Product {
         this.partnerId = partnerId;
     }
 
-    public void increaseStock(int num) {
-        this.stock = this.stock + num;
+    public int increaseStock(int num) {
+        return this.stock = this.stock + num;
     }
 
-    public void decreaseStock(int num) {
-        this.stock = this.stock - num;
+    public int decreaseStock(int num) {
+        return this.stock = this.stock - num;
     }
 
 }

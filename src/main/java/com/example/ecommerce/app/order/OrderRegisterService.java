@@ -5,9 +5,8 @@ import com.example.ecommerce.domain.order.entity.order.Order;
 import com.example.ecommerce.domain.order.entity.order_line.OrderLine;
 import com.example.ecommerce.domain.order.service.OrderFactory;
 import com.example.ecommerce.domain.order.service.OrderStore;
+import com.example.ecommerce.domain.order.service.OrderValidator;
 import com.example.ecommerce.domain.product.service.ProductReader;
-import com.example.ecommerce.domain.product.service.ProductStockAdjuster;
-import jakarta.persistence.EntityManager;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -24,10 +23,10 @@ public class OrderRegisterService {
     private final OrderFactory orderFactory;
     private final OrderStore orderStore;
     private final ProductReader productReader;
-    private final ProductStockAdjuster productStockAdjuster;
-    private final EntityManager em;
+    private final OrderValidator orderValidator;
 
     public Long register(OrderCommand.Register command) {
+        orderValidator.validate(command);
         Order initOrder = orderFactory.make(command);
         Order order = orderStore.store(initOrder);
 
@@ -51,7 +50,11 @@ public class OrderRegisterService {
 
         productReader.getProductAll(productIdList)
                 .stream()
-                .forEach(p -> p.decreaseStock(quantityMap.get(p.getId())));
+                .forEach(p -> {
+                    if (p.decreaseStock(quantityMap.get(p.getId())) < 0) {
+                        throw new RuntimeException(p.getName() + "\'STOCK NOT ENOUGH");
+                    }
+                });
 
         // 방법 3 : Product 조회 x, 도메인 서비스(update 쿼리)
 //        order.getOrderLineList().forEach(ol -> {

@@ -19,7 +19,7 @@ public class MemberSignUpService {
     private final MemberValidator memberValidator;
 
     public Long signUp(MemberCommand.SignUp command) {
-        memberValidator.validateUsername(command.getUsername());
+        memberValidator.validate(command);
         Member initMember = memberFactory.make(command);
         Member member = memberStore.store(initMember);
         return member.getId();

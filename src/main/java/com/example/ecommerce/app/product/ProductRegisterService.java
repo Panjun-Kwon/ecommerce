@@ -19,7 +19,7 @@ public class ProductRegisterService {
     private final ProductValidator productValidator;
 
     public Long register(ProductCommand.Register command) {
-        productValidator.validateName(command.getName());
+        productValidator.validate(command);
         Product initProduct = productFactory.make(command);
         Product product = productStore.store(initProduct);
         return product.getId();
