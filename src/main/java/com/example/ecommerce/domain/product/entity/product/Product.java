@@ -1,6 +1,8 @@
 package com.example.ecommerce.domain.product.entity.product;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotNull;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -18,9 +20,15 @@ public class Product {
     @Column(name = "product_id")
     private Long id;
 
+    @Column(unique = true)
+    @NotNull
     private String name;
+    @Min(0)
     private int unitPrice;
+    @Min(0)
     private int stock;
+    @Column(updatable = false)
+    @NotNull
     private Long partnerId;
 
     @Builder

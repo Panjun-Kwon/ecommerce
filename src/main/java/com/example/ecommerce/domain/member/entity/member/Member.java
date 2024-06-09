@@ -1,6 +1,7 @@
 package com.example.ecommerce.domain.member.entity.member;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -18,6 +19,8 @@ public class Member {
     @Column(name = "member_id")
     private Long id;
 
+    @Column(unique = true, updatable = false)
+    @NotNull
     private String username;
     @Embedded
     private Address address;

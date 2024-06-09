@@ -1,6 +1,7 @@
 package com.example.ecommerce.domain.partner.entity.partner;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -18,6 +19,8 @@ public class Partner {
     @Column(name = "partner_id")
     private Long id;
 
+    @Column(unique = true)
+    @NotNull
     private String name;
 
     @Builder

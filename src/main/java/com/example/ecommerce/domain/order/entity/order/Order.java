@@ -2,6 +2,8 @@ package com.example.ecommerce.domain.order.entity.order;
 
 import com.example.ecommerce.domain.order.entity.order_line.OrderLine;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotNull;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -30,7 +32,10 @@ public class Order {
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinColumn(name = "order_id")
     private List<OrderLine> orderLineList = new ArrayList<>();
+    @Min(0)
     private int orderPrice;
+    @Column(updatable = false)
+    @NotNull
     private LocalDateTime orderTime;
 
     @Builder
