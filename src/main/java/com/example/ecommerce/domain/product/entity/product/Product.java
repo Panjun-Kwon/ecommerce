@@ -39,12 +39,14 @@ public class Product {
         this.partnerId = partnerId;
     }
 
-    public int increaseStock(int num) {
-        return this.stock = this.stock + num;
+    public void increaseStock(int num) {
+        this.stock = this.stock + num;
     }
 
-    public int decreaseStock(int num) {
-        return this.stock = this.stock - num;
+    public void decreaseStock(int num) {
+        if (this.stock < num) {
+            throw new RuntimeException("OUT OF STOCK");
+        }
+        this.stock = this.stock - num;
     }
-
 }
