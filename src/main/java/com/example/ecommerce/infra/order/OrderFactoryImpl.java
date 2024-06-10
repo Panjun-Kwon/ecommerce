@@ -7,15 +7,23 @@ import com.example.ecommerce.domain.order.entity.order.Purchaser;
 import com.example.ecommerce.domain.order.entity.order.Receiver;
 import com.example.ecommerce.domain.order.entity.order_line.OrderLine;
 import com.example.ecommerce.domain.order.service.OrderFactory;
+import com.example.ecommerce.domain.order.service.OrderValidator;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
 @Component
+@RequiredArgsConstructor
 public class OrderFactoryImpl implements OrderFactory {
+
+    private final OrderValidator orderValidator;
+
     @Override
     public Order make(OrderCommand.Register command) {
+        orderValidator.validate(command);
+
         Purchaser purchaser = Purchaser.builder()
                 .memberId(command.getPurchaserId())
                 .username(command.getPurchaserUsername())
