@@ -15,7 +15,7 @@ public class ExceptionController {
     @ExceptionHandler(CommonException.class)
     @ResponseStatus(HttpStatus.OK)
     public static CommonResponse commonException(CommonException e) {
-        return CommonResponse.fail(e.getErrorCode());
+        return CommonResponse.fail(e.getMessage(), e.getErrorCode());
     }
 
     @ExceptionHandler(MethodArgumentNotValidException.class)
