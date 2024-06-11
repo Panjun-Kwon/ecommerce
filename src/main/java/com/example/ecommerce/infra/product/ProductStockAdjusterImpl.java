@@ -5,6 +5,7 @@ import com.example.ecommerce.domain.product.service.ProductStockAdjuster;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
+@Deprecated
 @Component
 @RequiredArgsConstructor
 public class ProductStockAdjusterImpl implements ProductStockAdjuster {

@@ -38,3 +38,5 @@ out/
 
 *.yml
 /src/test
+*.http
+

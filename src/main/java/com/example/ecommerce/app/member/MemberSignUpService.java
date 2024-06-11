@@ -13,8 +13,8 @@ import org.springframework.transaction.annotation.Transactional;
 @RequiredArgsConstructor
 public class MemberSignUpService {
 
-    private final MemberStore memberStore;
     private final MemberFactory memberFactory;
+    private final MemberStore memberStore;
 
     public Long signUp(MemberCommand.SignUp command) {
         Member initMember = memberFactory.make(command);
