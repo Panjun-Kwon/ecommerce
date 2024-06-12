@@ -23,16 +23,13 @@ public class MemberRetrieveService {
     public MemberResponse.MemberList retrieveMemberList(Pageable pageable) {
         Page<Member> memberList = memberReader.getMemberAll(pageable);
 
-        List<MemberResponse.MemberDetail> responseList = memberList.stream()
-                .map(member -> MemberResponse.MemberDetail.builder()
-                        .member(MemberInfo.of(member))
-                        .build())
+        List<MemberInfo.MemberList> responseList = memberList.stream()
+                .map(member -> MemberInfo.MemberList.of(member))
                 .collect(Collectors.toList());
 
         return MemberResponse.MemberList.builder()
                 .memberList(responseList)
-                .pageNumber(pageable.getPageNumber())
-                .pageSize(pageable.getPageSize())
+                .currentElements(memberList.getNumberOfElements())
                 .totalPages(memberList.getTotalPages())
                 .totalElements(memberList.getTotalElements())
                 .build();
@@ -41,8 +38,10 @@ public class MemberRetrieveService {
     public MemberResponse.MemberDetail retrieveMemberDetail(Long memberId) {
         Member member = memberReader.getMember(memberId);
 
+        MemberInfo.MemberDetail response = MemberInfo.MemberDetail.of(member);
+
         return MemberResponse.MemberDetail.builder()
-                .member(MemberInfo.detailOf(member))
+                .member(response)
                 .build();
     }
 }

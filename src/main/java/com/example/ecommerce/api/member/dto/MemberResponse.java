@@ -16,16 +16,15 @@ public class MemberResponse {
     @Builder
     @AllArgsConstructor
     public static class MemberDetail {
-        private MemberInfo member;
+        private MemberInfo.MemberDetail member;
     }
 
     @Data
     @Builder
     @AllArgsConstructor
     public static class MemberList {
-        private List<MemberDetail> memberList;
-        private Integer pageNumber;
-        private Integer pageSize;
+        private List<MemberInfo.MemberList> memberList;
+        private Integer currentElements;
         private Integer totalPages;
         private Long totalElements;
     }
