@@ -20,7 +20,7 @@ public class PartnerResponse {
     @Builder
     @AllArgsConstructor
     public static class PartnerList {
-        private List<PartnerInfo.PartnerList> partnerList;
+        private List<PartnerInfo.PartnerSimple> partnerSimple;
         private Integer currentElements;
         private Integer totalPages;
         private Long totalElements;
