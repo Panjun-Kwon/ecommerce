@@ -21,12 +21,12 @@ public class PartnerRetrieveService {
     public PartnerResponse.PartnerList retrievePartnerList(Pageable pageable) {
         Page<Partner> partnerPage = partnerReader.getPartnerAll(pageable);
 
-        List<PartnerInfo.PartnerList> infoList = partnerPage.stream()
-                .map(partner -> PartnerInfo.PartnerList.of(partner))
+        List<PartnerInfo.PartnerSimple> infoList = partnerPage.stream()
+                .map(partner -> PartnerInfo.PartnerSimple.of(partner))
                 .collect(Collectors.toList());
 
         return PartnerResponse.PartnerList.builder()
-                .partnerList(infoList)
+                .partnerSimple(infoList)
                 .currentElements(partnerPage.getNumberOfElements())
                 .totalPages(partnerPage.getTotalPages())
                 .totalElements(partnerPage.getTotalElements())

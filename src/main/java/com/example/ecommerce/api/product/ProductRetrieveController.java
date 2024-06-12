@@ -18,8 +18,8 @@ public class ProductRetrieveController {
     private final ProductRetrieveService productRetrieveService;
 
     @GetMapping
-    public CommonResponse<ProductResponse.ProductList> retrieveProductList(Pageable pageable) {
-        ProductResponse.ProductList data = productRetrieveService.retrieveProductList(pageable);
+    public CommonResponse<ProductResponse.ProductSimple> retrieveProductList(Pageable pageable) {
+        ProductResponse.ProductSimple data = productRetrieveService.retrieveProductList(pageable);
         String message = String.format("상품 목록 조회");
 
         return CommonResponse.success(message, data);

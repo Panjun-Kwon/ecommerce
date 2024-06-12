@@ -30,14 +30,14 @@ public class ProductInfo {
     @Getter
     @Builder
     @AllArgsConstructor
-    public static class ProductList {
+    public static class ProductSimple {
 
         private Long id;
         private String name;
         private int unitPrice;
 
-        public static ProductInfo.ProductList of(Product product) {
-            return ProductList.builder()
+        public static ProductSimple of(Product product) {
+            return ProductSimple.builder()
                     .id(product.getId())
                     .name(product.getName())
                     .unitPrice(product.getUnitPrice())

@@ -16,8 +16,8 @@ public class PartnerInfo {
         private Long id;
         private String name;
 
-        public static PartnerInfo.PartnerDetail of(Partner partner) {
-            return PartnerInfo.PartnerDetail.builder()
+        public static PartnerDetail of(Partner partner) {
+            return PartnerDetail.builder()
                     .id(partner.getId())
                     .name(partner.getName())
                     .build();
@@ -27,13 +27,13 @@ public class PartnerInfo {
     @Getter
     @Builder
     @AllArgsConstructor
-    public static class PartnerList {
+    public static class PartnerSimple {
 
         private Long id;
         private String name;
 
-        public static PartnerInfo.PartnerList of(Partner partner) {
-            return PartnerInfo.PartnerList.builder()
+        public static PartnerSimple of(Partner partner) {
+            return PartnerSimple.builder()
                     .id(partner.getId())
                     .name(partner.getName())
                     .build();
