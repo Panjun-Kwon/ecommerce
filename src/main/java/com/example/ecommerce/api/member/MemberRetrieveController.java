@@ -28,8 +28,8 @@ public class MemberRetrieveController {
     @GetMapping("/{memberId}")
     public CommonResponse<MemberResponse.MemberDetail> retrieveMemberDetail(@PathVariable Long memberId) {
         MemberResponse.MemberDetail data = memberRetrieveService.retrieveMemberDetail(memberId);
-        String message = String.format("멤버(%s) 상세 조회", memberId);
-        
+        String message = String.format("멤버(%d) 상세 조회", memberId);
+
         return CommonResponse.success(message, data);
     }
 }

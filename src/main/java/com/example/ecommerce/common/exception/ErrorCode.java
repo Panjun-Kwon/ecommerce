@@ -11,7 +11,7 @@ public enum ErrorCode {
     SERVER_ERROR("서버 에러"),
     INVALID_PARAMETER("유효하지 않은 파라미터"),
 
-    NOT_FOUND_MEMBER("해당 멤버를 찾을 수 없음");
+    NOT_FOUND_ENTITY("해당 엔티티를 찾을 수 없음");
 
     private final String message;
 }

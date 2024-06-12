@@ -19,8 +19,8 @@ public class MemberReaderImpl implements MemberReader {
     @Override
     public Member getMember(Long memberId) {
         return memberRepository.findById(memberId)
-                .orElseThrow(() -> new CommonException(ErrorCode.NOT_FOUND_MEMBER,
-                        String.format("해당 멤버(%s)를 찾을 수 없음", memberId)));
+                .orElseThrow(() -> new CommonException(ErrorCode.NOT_FOUND_ENTITY,
+                        String.format("해당 엔티티(%d)를 찾을 수 없음", memberId)));
     }
 
     @Override
