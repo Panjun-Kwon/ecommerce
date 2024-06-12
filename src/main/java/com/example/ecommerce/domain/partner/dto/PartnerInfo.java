@@ -3,14 +3,12 @@ package com.example.ecommerce.domain.partner.dto;
 import com.example.ecommerce.domain.partner.entity.partner.Partner;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
-import lombok.Data;
+import lombok.Getter;
 
-@Data
-@Builder
-@AllArgsConstructor
+@Getter
 public class PartnerInfo {
 
-    @Data
+    @Getter
     @Builder
     @AllArgsConstructor
     public static class PartnerDetail {
@@ -26,7 +24,7 @@ public class PartnerInfo {
         }
     }
 
-    @Data
+    @Getter
     @Builder
     @AllArgsConstructor
     public static class PartnerList {

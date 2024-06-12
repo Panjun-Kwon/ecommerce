@@ -40,7 +40,7 @@ public class OrderRegisterService {
                 .map(OrderLine::getProductId)
                 .collect(Collectors.toList());
 
-        productReader.getProductAll(productIdList)
+        productReader.getProductByIdList(productIdList)
                 .stream()
                 .forEach(p -> p.decreaseStock(quantityMap.get(p.getId())));
     }

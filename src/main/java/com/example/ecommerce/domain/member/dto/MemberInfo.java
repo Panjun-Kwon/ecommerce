@@ -3,14 +3,11 @@ package com.example.ecommerce.domain.member.dto;
 import com.example.ecommerce.domain.member.entity.member.Member;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
-import lombok.Data;
+import lombok.Getter;
 
-@Data
-@Builder
-@AllArgsConstructor
 public class MemberInfo {
 
-    @Data
+    @Getter
     @Builder
     @AllArgsConstructor
     public static class MemberDetail {
@@ -30,7 +27,7 @@ public class MemberInfo {
         }
     }
 
-    @Data
+    @Getter
     @Builder
     @AllArgsConstructor
     public static class MemberList {

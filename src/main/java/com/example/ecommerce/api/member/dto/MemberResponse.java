@@ -3,23 +3,20 @@ package com.example.ecommerce.api.member.dto;
 import com.example.ecommerce.domain.member.dto.MemberInfo;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
-import lombok.Data;
+import lombok.Getter;
 
 import java.util.List;
 
-@Data
-@Builder
-@AllArgsConstructor
 public class MemberResponse {
 
-    @Data
+    @Getter
     @Builder
     @AllArgsConstructor
     public static class MemberDetail {
         private MemberInfo.MemberDetail member;
     }
 
-    @Data
+    @Getter
     @Builder
     @AllArgsConstructor
     public static class MemberList {
