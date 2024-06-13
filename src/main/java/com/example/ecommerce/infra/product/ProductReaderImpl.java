@@ -22,7 +22,7 @@ public class ProductReaderImpl implements ProductReader {
     public Product getProduct(Long productId) {
         return productRepository.findById(productId)
                 .orElseThrow(() -> new CommonException(ErrorCode.NOT_FOUND_ENTITY,
-                        String.format("해당 엔티티(%d)를 찾을 수 없음", productId)));
+                        String.format("해당 상품(%d)를 찾을 수 없음", productId)));
     }
 
     @Override

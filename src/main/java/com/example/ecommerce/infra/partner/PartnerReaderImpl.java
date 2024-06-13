@@ -20,7 +20,7 @@ public class PartnerReaderImpl implements PartnerReader {
     public Partner getPartner(Long partnerId) {
         return partnerRepository.findById(partnerId)
                 .orElseThrow(() -> new CommonException(ErrorCode.NOT_FOUND_ENTITY,
-                        String.format("해당 엔티티(%d)를 찾을 수 없음", partnerId)));
+                        String.format("해당 파트너(%d)를 찾을 수 없음", partnerId)));
     }
 
     @Override

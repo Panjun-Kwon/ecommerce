@@ -20,7 +20,7 @@ public class MemberReaderImpl implements MemberReader {
     public Member getMember(Long memberId) {
         return memberRepository.findById(memberId)
                 .orElseThrow(() -> new CommonException(ErrorCode.NOT_FOUND_ENTITY,
-                        String.format("해당 엔티티(%d)를 찾을 수 없음", memberId)));
+                        String.format("해당 멤버(%d)를 찾을 수 없음", memberId)));
     }
 
     @Override
