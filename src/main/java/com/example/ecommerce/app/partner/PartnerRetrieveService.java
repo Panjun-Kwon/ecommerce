@@ -1,8 +1,9 @@
 package com.example.ecommerce.app.partner;
 
-import com.example.ecommerce.api.partner.dto.PartnerResponse;
-import com.example.ecommerce.domain.partner.dto.PartnerInfo;
+import com.example.ecommerce.api.partner.response.RetrievePartnerDetail;
+import com.example.ecommerce.api.partner.response.RetrievePartnerList;
 import com.example.ecommerce.domain.partner.entity.partner.Partner;
+import com.example.ecommerce.domain.partner.service.PartnerMapper;
 import com.example.ecommerce.domain.partner.service.PartnerReader;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -10,36 +11,35 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
 public class PartnerRetrieveService {
 
     private final PartnerReader partnerReader;
+    private final PartnerMapper partnerMapper;
 
-    public PartnerResponse.PartnerList retrievePartnerList(Pageable pageable) {
+    public RetrievePartnerDetail retrievePartnerDetail(Long partnerId) {
+        Partner partner = partnerReader.getPartner(partnerId);
+        RetrievePartnerDetail.PartnerInfo partnerInfo = partnerMapper.retrieveDetailOf(partner);
+
+        return new RetrievePartnerDetail(partnerInfo);
+    }
+
+    public RetrievePartnerList retrievePartnerList(Pageable pageable) {
         Page<Partner> partnerPage = partnerReader.getPartnerAll(pageable);
+        List<RetrievePartnerList.PartnerInfo> partnerInfoList = partnerMapper.retrieveListOf(partnerPage.getContent());
 
-        List<PartnerInfo.PartnerSimple> infoList = partnerPage.stream()
-                .map(partner -> PartnerInfo.PartnerSimple.of(partner))
-                .collect(Collectors.toList());
+        RetrievePartnerList.PageInfo pageInfo = meakePageInfo(partnerPage);
 
-        return PartnerResponse.PartnerList.builder()
-                .partnerSimple(infoList)
+        return new RetrievePartnerList(partnerInfoList, pageInfo);
+    }
+
+    private static RetrievePartnerList.PageInfo meakePageInfo(Page<Partner> partnerPage) {
+        return RetrievePartnerList.PageInfo.builder()
                 .currentElements(partnerPage.getNumberOfElements())
                 .totalPages(partnerPage.getTotalPages())
                 .totalElements(partnerPage.getTotalElements())
-                .build();
-    }
-
-    public PartnerResponse.PartnerDetail retrievePartnerDetail(Long partnerId) {
-        Partner partner = partnerReader.getPartner(partnerId);
-
-        PartnerInfo.PartnerDetail info = PartnerInfo.PartnerDetail.of(partner);
-
-        return PartnerResponse.PartnerDetail.builder()
-                .partner(info)
                 .build();
     }
 }
