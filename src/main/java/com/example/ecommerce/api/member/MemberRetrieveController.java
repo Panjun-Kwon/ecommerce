@@ -1,6 +1,7 @@
 package com.example.ecommerce.api.member;
 
-import com.example.ecommerce.api.member.dto.MemberResponse;
+import com.example.ecommerce.api.member.response.RetrieveMemberDetail;
+import com.example.ecommerce.api.member.response.RetrieveMemberList;
 import com.example.ecommerce.app.member.MemberRetrieveService;
 import com.example.ecommerce.common.response.CommonResponse;
 import lombok.RequiredArgsConstructor;
@@ -17,18 +18,18 @@ public class MemberRetrieveController {
 
     private final MemberRetrieveService memberRetrieveService;
 
-    @GetMapping
-    private CommonResponse<MemberResponse.MemberList> retrieveMemberList(Pageable pageable) {
-        MemberResponse.MemberList data = memberRetrieveService.retrieveMemberList(pageable);
-        String message = String.format("멤버 목록 조회");
+    @GetMapping("/{memberId}")
+    public CommonResponse<RetrieveMemberDetail> retrieveMemberDetail(@PathVariable Long memberId) {
+        RetrieveMemberDetail data = memberRetrieveService.retrieveMemberDetail(memberId);
+        String message = String.format("멤버(%d) 상세 조회", memberId);
 
         return CommonResponse.success(message, data);
     }
 
-    @GetMapping("/{memberId}")
-    public CommonResponse<MemberResponse.MemberDetail> retrieveMemberDetail(@PathVariable Long memberId) {
-        MemberResponse.MemberDetail data = memberRetrieveService.retrieveMemberDetail(memberId);
-        String message = String.format("멤버(%d) 상세 조회", memberId);
+    @GetMapping
+    private CommonResponse<RetrieveMemberList> retrieveMemberList(Pageable pageable) {
+        RetrieveMemberList data = memberRetrieveService.retrieveMemberList(pageable);
+        String message = String.format("멤버 목록 조회");
 
         return CommonResponse.success(message, data);
     }
