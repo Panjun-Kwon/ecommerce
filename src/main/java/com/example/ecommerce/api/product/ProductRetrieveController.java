@@ -1,6 +1,7 @@
 package com.example.ecommerce.api.product;
 
-import com.example.ecommerce.api.product.dto.ProductResponse;
+import com.example.ecommerce.api.product.response.RetrieveProductDetail;
+import com.example.ecommerce.api.product.response.RetrieveProductList;
 import com.example.ecommerce.app.product.ProductRetrieveService;
 import com.example.ecommerce.common.response.CommonResponse;
 import lombok.RequiredArgsConstructor;
@@ -17,18 +18,18 @@ public class ProductRetrieveController {
 
     private final ProductRetrieveService productRetrieveService;
 
-    @GetMapping
-    public CommonResponse<ProductResponse.ProductSimple> retrieveProductList(Pageable pageable) {
-        ProductResponse.ProductSimple data = productRetrieveService.retrieveProductList(pageable);
-        String message = String.format("상품 목록 조회");
+    @GetMapping("/{productId}")
+    public CommonResponse<RetrieveProductDetail> retrieveProductDetail(@PathVariable Long productId) {
+        RetrieveProductDetail data = productRetrieveService.retrieveProductDetail(productId);
+        String message = String.format("상품(%d) 상세 조회", productId);
 
         return CommonResponse.success(message, data);
     }
 
-    @GetMapping("/{productId}")
-    public CommonResponse<ProductResponse.ProductDetail> retrieveProductDetail(@PathVariable Long productId) {
-        ProductResponse.ProductDetail data = productRetrieveService.retrieveProductDetail(productId);
-        String message = String.format("상품(%d) 상세 조회", productId);
+    @GetMapping
+    public CommonResponse<RetrieveProductList> retrieveProductList(Pageable pageable) {
+        RetrieveProductList data = productRetrieveService.retrieveProductList(pageable);
+        String message = String.format("상품 목록 조회");
 
         return CommonResponse.success(message, data);
     }
