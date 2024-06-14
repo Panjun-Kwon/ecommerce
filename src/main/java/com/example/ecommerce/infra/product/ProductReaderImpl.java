@@ -34,4 +34,14 @@ public class ProductReaderImpl implements ProductReader {
     public Page<Product> getProductAll(Pageable pageable) {
         return productRepository.findAll(pageable);
     }
+
+    @Override
+    public boolean existProduct(Long productId) {
+        return productRepository.existsById(productId);
+    }
+
+    @Override
+    public boolean existProductByName(String name) {
+        return productRepository.existsByName(name);
+    }
 }

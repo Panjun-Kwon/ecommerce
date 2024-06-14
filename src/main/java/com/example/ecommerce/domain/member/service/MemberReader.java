@@ -8,4 +8,6 @@ public interface MemberReader {
     Member getMember(Long memberId);
 
     Page<Member> getMemberAll(Pageable pageable);
+
+    boolean existMember(Long purchaserId);
 }

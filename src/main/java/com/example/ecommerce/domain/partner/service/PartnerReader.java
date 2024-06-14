@@ -8,4 +8,6 @@ public interface PartnerReader {
     Partner getPartner(Long partnerId);
 
     Page<Partner> getPartnerAll(Pageable pageable);
+
+    boolean existPartner(Long partnerId);
 }

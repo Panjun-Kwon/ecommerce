@@ -12,4 +12,8 @@ public interface ProductReader {
     List<Product> getProductByIdList(List<Long> productIdList);
 
     Page<Product> getProductAll(Pageable pageable);
+
+    boolean existProduct(Long productId);
+
+    boolean existProductByName(String name);
 }

@@ -27,4 +27,9 @@ public class MemberReaderImpl implements MemberReader {
     public Page<Member> getMemberAll(Pageable pageable) {
         return memberRepository.findAll(pageable);
     }
+
+    @Override
+    public boolean existMember(Long purchaserId) {
+        return memberRepository.existsById(purchaserId);
+    }
 }

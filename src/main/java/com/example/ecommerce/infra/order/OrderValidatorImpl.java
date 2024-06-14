@@ -14,6 +14,9 @@ import java.util.List;
 @Component
 @RequiredArgsConstructor
 public class OrderValidatorImpl implements OrderValidator {
+
+    private final MemberReader memberReader;
+
     @Override
     public void validate(OrderCommand.Register command) {
         validatePurchaserId(command.getPurchaserId());
@@ -25,6 +28,11 @@ public class OrderValidatorImpl implements OrderValidator {
     public void validatePurchaserId(Long purchaserId) {
         if (purchaserId == null) {
             throw new CommonException(ErrorCode.INVALID_PARAMETER, "PURCHASER ID IS REQUIRED");
+        }
+
+        if (!memberReader.existMember(purchaserId)) {
+            throw new CommonException(ErrorCode.NOT_FOUND_ENTITY,
+                    String.format("해당 구매자(%d)를 찾을 수 없음", purchaserId));
         }
     }
 
