@@ -1,5 +1,7 @@
 package com.example.ecommerce.infra.partner;
 
+import com.example.ecommerce.common.exception.CommonException;
+import com.example.ecommerce.common.exception.ErrorCode;
 import com.example.ecommerce.domain.partner.dto.PartnerCommand;
 import com.example.ecommerce.domain.partner.service.PartnerRepository;
 import com.example.ecommerce.domain.partner.service.PartnerValidator;
@@ -21,11 +23,11 @@ public class PartnerValidatorImpl implements PartnerValidator {
     @Override
     public void validateName(String name) {
         if (!StringUtils.hasText(name)) {
-            throw new RuntimeException("NAME IS REQUIRED");
+            throw new CommonException(ErrorCode.INVALID_PARAMETER, "NAME IS REQUIRED");
         }
 
         if (partnerRepository.existsByName(name)) {
-            throw new RuntimeException("NAME DUPLICATED");
+            throw new CommonException(ErrorCode.INVALID_PARAMETER, "NAME DUPLICATED");
         }
     }
 }

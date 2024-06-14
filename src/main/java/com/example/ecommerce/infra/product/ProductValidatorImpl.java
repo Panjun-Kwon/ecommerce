@@ -1,5 +1,7 @@
 package com.example.ecommerce.infra.product;
 
+import com.example.ecommerce.common.exception.CommonException;
+import com.example.ecommerce.common.exception.ErrorCode;
 import com.example.ecommerce.domain.product.dto.ProductCommand;
 import com.example.ecommerce.domain.product.service.ProductRepository;
 import com.example.ecommerce.domain.product.service.ProductValidator;
@@ -24,32 +26,32 @@ public class ProductValidatorImpl implements ProductValidator {
     @Override
     public void validateName(String name) {
         if (!StringUtils.hasText(name)) {
-            throw new RuntimeException("NAME IS REQUIRED");
+            throw new CommonException(ErrorCode.INVALID_PARAMETER, "NAME IS REQUIRED");
         }
 
         if (productRepository.existsByName(name)) {
-            throw new RuntimeException("NAME DUPLICATED");
+            throw new CommonException(ErrorCode.INVALID_PARAMETER, "NAME DUPLICATED");
         }
     }
 
     @Override
     public void validateUnitPrice(int unitPrice) {
         if (unitPrice < 0) {
-            throw new RuntimeException("UNIT PRICE IS GREATER THAN 0");
+            throw new CommonException(ErrorCode.INVALID_PARAMETER, "UNIT PRICE IS GREATER THAN 0");
         }
     }
 
     @Override
     public void validateStock(int stock) {
         if (stock < 0) {
-            throw new RuntimeException("STOCK IS GREATER THAN 0");
+            throw new CommonException(ErrorCode.INVALID_PARAMETER, "STOCK IS GREATER THAN 0");
         }
     }
 
     @Override
     public void validateProductId(Long productId) {
         if (productId == null) {
-            throw new RuntimeException("PRODUCT ID IS REQUIRED");
+            throw new CommonException(ErrorCode.INVALID_PARAMETER, "PRODUCT ID IS REQUIRED");
         }
     }
 }
