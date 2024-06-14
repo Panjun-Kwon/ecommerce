@@ -33,14 +33,14 @@ public class Order {
     @JoinColumn(name = "order_id")
     private List<OrderLine> orderLineList = new ArrayList<>();
     @Min(0)
-    private int orderPrice;
+    private Integer orderPrice;
     @Column(updatable = false)
     @NotNull
     private LocalDateTime orderTime;
 
     @Builder
     private Order(Purchaser purchaser, Receiver receiver, List<OrderLine> orderLineList,
-                  int orderPrice) {
+                  Integer orderPrice) {
         this.purchaser = purchaser;
         this.receiver = receiver;
         this.orderLineList = orderLineList;

@@ -10,8 +10,8 @@ public class ProductCommand {
     @NoArgsConstructor(access = AccessLevel.PROTECTED)
     public static class Register {
         private String name;
-        private int unitPrice;
-        private int stock;
+        private Integer unitPrice;
+        private Integer stock;
         private Long partnerId;
     }
 }

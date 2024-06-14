@@ -19,7 +19,7 @@ public interface OrderValidator {
 
     void validateName(String name);
 
-    void validateUnitPrice(int unitPrice);
+    void validateUnitPrice(Integer unitPrice);
 
-    void validateQuantity(int quantity);
+    void validateQuantity(Integer quantity);
 }

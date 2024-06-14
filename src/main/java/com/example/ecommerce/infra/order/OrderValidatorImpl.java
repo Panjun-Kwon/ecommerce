@@ -2,6 +2,7 @@ package com.example.ecommerce.infra.order;
 
 import com.example.ecommerce.common.exception.CommonException;
 import com.example.ecommerce.common.exception.ErrorCode;
+import com.example.ecommerce.domain.member.service.MemberReader;
 import com.example.ecommerce.domain.order.dto.OrderCommand;
 import com.example.ecommerce.domain.order.service.OrderValidator;
 import lombok.RequiredArgsConstructor;
@@ -66,14 +67,14 @@ public class OrderValidatorImpl implements OrderValidator {
     }
 
     @Override
-    public void validateUnitPrice(int unitPrice) {
+    public void validateUnitPrice(Integer unitPrice) {
         if (unitPrice < 0) {
             throw new CommonException(ErrorCode.INVALID_PARAMETER, "UNIT PRICE IS GREATER THAN 0");
         }
     }
 
     @Override
-    public void validateQuantity(int quantity) {
+    public void validateQuantity(Integer quantity) {
         if (quantity < 0) {
             throw new CommonException(ErrorCode.INVALID_PARAMETER, "QUANTITY IS GREATER THAN 0");
         }

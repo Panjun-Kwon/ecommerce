@@ -27,12 +27,12 @@ public class OrderLine {
     @NotNull
     private String name;
     @Min(0)
-    private int unitPrice;
+    private Integer unitPrice;
     @Min(0)
-    private int quantity;
+    private Integer quantity;
 
     @Builder
-    private OrderLine(Long productId, String name, int unitPrice, int quantity) {
+    private OrderLine(Long productId, String name, Integer unitPrice, Integer quantity) {
         this.productId = productId;
         this.name = name;
         this.unitPrice = unitPrice;

@@ -27,4 +27,9 @@ public class PartnerReaderImpl implements PartnerReader {
     public Page<Partner> getPartnerAll(Pageable pageable) {
         return partnerRepository.findAll(pageable);
     }
+
+    @Override
+    public boolean existPartner(Long partnerId) {
+        return partnerRepository.existsById(partnerId);
+    }
 }

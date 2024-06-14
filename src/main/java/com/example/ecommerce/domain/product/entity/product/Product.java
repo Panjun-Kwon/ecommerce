@@ -24,26 +24,26 @@ public class Product {
     @NotNull
     private String name;
     @Min(0)
-    private int unitPrice;
+    private Integer unitPrice;
     @Min(0)
-    private int stock;
+    private Integer stock;
     @Column(updatable = false)
     @NotNull
     private Long partnerId;
 
     @Builder
-    private Product(String name, int unitPrice, int stock, Long partnerId) {
+    private Product(String name, Integer unitPrice, Integer stock, Long partnerId) {
         this.name = name;
         this.unitPrice = unitPrice;
         this.stock = stock;
         this.partnerId = partnerId;
     }
 
-    public void increaseStock(int num) {
+    public void increaseStock(Integer num) {
         this.stock = this.stock + num;
     }
 
-    public void decreaseStock(int num) {
+    public void decreaseStock(Integer num) {
         if (this.stock < num) {
             throw new RuntimeException("OUT OF STOCK");
         }
