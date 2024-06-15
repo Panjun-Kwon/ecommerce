@@ -38,6 +38,6 @@ public class ExceptionController {
     @ExceptionHandler(Exception.class)
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
     public static CommonResponse serverError(Exception e) {
-        return CommonResponse.error(ErrorCode.SERVER_ERROR);
+        return CommonResponse.error(e.getMessage(), ErrorCode.SERVER_ERROR);
     }
 }

@@ -1,7 +1,9 @@
 package com.example.ecommerce.infra.order;
 
+import com.example.ecommerce.api.order.request.Register;
 import com.example.ecommerce.api.order.response.RetrieveOrderDetail;
 import com.example.ecommerce.api.order.response.RetrieveOrderList;
+import com.example.ecommerce.domain.order.dto.OrderCommand;
 import com.example.ecommerce.domain.order.entity.order.Order;
 import com.example.ecommerce.domain.order.service.OrderMapper;
 import org.springframework.stereotype.Component;
@@ -69,5 +71,18 @@ public class OrderMapperImpl implements OrderMapper {
                 .collect(Collectors.toList());
 
         return orderInfo;
+    }
+
+    @Override
+    public OrderCommand.Register commandOf(Register request) {
+        OrderCommand.Register command = OrderCommand.Register.builder()
+                .purchaserId(request.getPurchaserId())
+                .purchaserUsername(request.getPurchaserUsername())
+                .receiverAddressCity(request.getReceiverAddressCity())
+                .receiverAddressStreet(request.getReceiverAddressStreet())
+                .orderLineList(request.getOrderLineList())
+                .build();
+
+        return command;
     }
 }

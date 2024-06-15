@@ -1,7 +1,9 @@
 package com.example.ecommerce.infra.member;
 
+import com.example.ecommerce.api.member.request.SignUp;
 import com.example.ecommerce.api.member.response.RetrieveMemberDetail;
 import com.example.ecommerce.api.member.response.RetrieveMemberList;
+import com.example.ecommerce.domain.member.dto.MemberCommand;
 import com.example.ecommerce.domain.member.entity.member.Member;
 import com.example.ecommerce.domain.member.service.MemberMapper;
 import org.springframework.stereotype.Component;
@@ -15,8 +17,8 @@ public class MemberMapperImpl implements MemberMapper {
     @Override
     public RetrieveMemberDetail.MemberInfo retrieveDetailOf(Member member) {
         RetrieveMemberDetail.AddressInfo addressInfo = RetrieveMemberDetail.AddressInfo.builder()
-                .city(member.getAddress().getStreet())
-                .street(member.getAddress().getStreet())
+                .city(member.getAddress() == null ? null : member.getAddress().getStreet())
+                .street(member.getAddress() == null ? null : member.getAddress().getStreet())
                 .build();
 
         RetrieveMemberDetail.MemberInfo memberInfo = RetrieveMemberDetail.MemberInfo.builder()
@@ -38,5 +40,14 @@ public class MemberMapperImpl implements MemberMapper {
                 .collect(Collectors.toList());
 
         return memberInfoList;
+    }
+
+    @Override
+    public MemberCommand.SignUp commandOf(SignUp request) {
+        MemberCommand.SignUp command = MemberCommand.SignUp.builder()
+                .username(request.getUsername())
+                .build();
+
+        return command;
     }
 }

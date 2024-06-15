@@ -1,7 +1,9 @@
 package com.example.ecommerce.infra.product;
 
+import com.example.ecommerce.api.partner.request.Register;
 import com.example.ecommerce.api.product.response.RetrieveProductDetail;
 import com.example.ecommerce.api.product.response.RetrieveProductList;
+import com.example.ecommerce.domain.partner.dto.PartnerCommand;
 import com.example.ecommerce.domain.partner.entity.partner.Partner;
 import com.example.ecommerce.domain.product.entity.product.Product;
 import com.example.ecommerce.domain.product.service.ProductMapper;
@@ -41,5 +43,14 @@ public class ProductMapperImpl implements ProductMapper {
                 .collect(Collectors.toList());
 
         return productInfoList;
+    }
+
+    @Override
+    public PartnerCommand.Register commandOf(Register request) {
+        PartnerCommand.Register command = PartnerCommand.Register.builder()
+                .name(request.getName())
+                .build();
+
+        return command;
     }
 }

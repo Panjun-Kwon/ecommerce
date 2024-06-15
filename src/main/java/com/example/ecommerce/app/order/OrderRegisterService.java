@@ -1,9 +1,11 @@
 package com.example.ecommerce.app.order;
 
+import com.example.ecommerce.api.order.request.Register;
 import com.example.ecommerce.domain.order.dto.OrderCommand;
 import com.example.ecommerce.domain.order.entity.order.Order;
 import com.example.ecommerce.domain.order.entity.order_line.OrderLine;
 import com.example.ecommerce.domain.order.service.OrderFactory;
+import com.example.ecommerce.domain.order.service.OrderMapper;
 import com.example.ecommerce.domain.order.service.OrderStore;
 import com.example.ecommerce.domain.product.service.ProductReader;
 import lombok.RequiredArgsConstructor;
@@ -22,8 +24,10 @@ public class OrderRegisterService {
     private final OrderFactory orderFactory;
     private final OrderStore orderStore;
     private final ProductReader productReader;
+    private final OrderMapper orderMapper;
 
-    public Long register(OrderCommand.Register command) {
+    public Long register(Register request) {
+        OrderCommand.Register command = orderMapper.commandOf(request);
         Order initOrder = orderFactory.make(command);
         Order order = orderStore.store(initOrder);
         decreaseProductStock(order);
