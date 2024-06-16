@@ -1,6 +1,8 @@
 package com.example.ecommerce.app.order;
 
 import com.example.ecommerce.api.order.request.Register;
+import com.example.ecommerce.common.exception.BizException;
+import com.example.ecommerce.common.exception.CommonException;
 import com.example.ecommerce.domain.order.dto.OrderCommand;
 import com.example.ecommerce.domain.order.entity.order.Order;
 import com.example.ecommerce.domain.order.entity.order_line.OrderLine;
@@ -29,8 +31,8 @@ public class OrderRegisterService {
     public Long register(Register request) {
         OrderCommand.Register command = orderMapper.commandOf(request);
         Order initOrder = orderFactory.make(command);
+        decreaseProductStock(initOrder);
         Order order = orderStore.store(initOrder);
-        decreaseProductStock(order);
         return order.getId();
     }
 
@@ -44,8 +46,18 @@ public class OrderRegisterService {
                 .map(OrderLine::getProductId)
                 .collect(Collectors.toList());
 
+        BizException bizException = new BizException();
         productReader.getProductByIdList(productIdList)
                 .stream()
-                .forEach(p -> p.decreaseStock(quantityMap.get(p.getId())));
+                .forEach(p -> {
+                    try {
+                        p.decreaseStock(quantityMap.get(p.getId()));
+                    } catch (CommonException e) {
+                        bizException.addException(e);
+                    }
+                });
+        if (!bizException.getExceptions().isEmpty()) {
+            throw bizException;
+        }
     }
 }

@@ -18,10 +18,26 @@ public class ExceptionController {
         return CommonResponse.fail(e.getMessage(), e.getErrorCode());
     }
 
+    @ExceptionHandler(BizException.class)
+    @ResponseStatus(HttpStatus.OK)
+    public static List<CommonResponse> bizException(BizException e) {
+        List<CommonResponse> errors = new ArrayList<>();
+        if (!e.getExceptions().isEmpty()) {
+            e.getExceptions().stream()
+                    .forEach(error -> {
+                        String message = String.format("%s",
+                                error.getMessage());
+                        errors.add(CommonResponse.fail(message, ErrorCode.MULTIPLE_EXCEPTIONS));
+                    });
+        }
+
+        return errors;
+    }
+
     @ExceptionHandler(MethodArgumentNotValidException.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     public static List<CommonResponse> clientError(MethodArgumentNotValidException e) {
-        ArrayList<CommonResponse> errors = new ArrayList<>();
+        List<CommonResponse> errors = new ArrayList<>();
         if (e.hasFieldErrors()) {
             e.getFieldErrors().stream()
                     .forEach(error -> {

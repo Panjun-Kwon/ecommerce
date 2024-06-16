@@ -39,4 +39,4 @@ out/
 *.yml
 /src/test
 *.http
-
+*.sql

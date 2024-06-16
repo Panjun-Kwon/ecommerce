@@ -1,5 +1,7 @@
 package com.example.ecommerce.domain.product.entity.product;
 
+import com.example.ecommerce.common.exception.CommonException;
+import com.example.ecommerce.common.exception.ErrorCode;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotNull;
@@ -45,7 +47,8 @@ public class Product {
 
     public void decreaseStock(Integer num) {
         if (this.stock < num) {
-            throw new RuntimeException("OUT OF STOCK");
+            String message = String.format("PRODUCT(%d) IS OUT OF STOCK", id);
+            throw new CommonException(ErrorCode.BUSINESS_FAIL, message);
         }
         this.stock = this.stock - num;
     }
