@@ -5,6 +5,10 @@ import com.example.ecommerce.api.order.response.RetrieveOrderDetail;
 import com.example.ecommerce.api.order.response.RetrieveOrderList;
 import com.example.ecommerce.domain.order.dto.OrderCommand;
 import com.example.ecommerce.domain.order.entity.order.Order;
+import com.example.ecommerce.domain.order.entity.order.Purchaser;
+import com.example.ecommerce.domain.order.entity.order.Receiver;
+import com.example.ecommerce.domain.order.entity.order.ShippingAddress;
+import com.example.ecommerce.domain.order.entity.order_line.OrderProduct;
 import com.example.ecommerce.domain.order.service.OrderMapper;
 import org.springframework.stereotype.Component;
 
@@ -22,8 +26,8 @@ public class OrderMapperImpl implements OrderMapper {
                 .build();
 
         RetrieveOrderDetail.AddressInfo addressInfo = RetrieveOrderDetail.AddressInfo.builder()
-                .city(order.getReceiver().getAddress().getCity())
-                .street(order.getReceiver().getAddress().getStreet())
+                .city(order.getShippingAddress().getCity())
+                .street(order.getShippingAddress().getStreet())
                 .build();
 
         RetrieveOrderDetail.ReceiverInfo receiverInfo = RetrieveOrderDetail.ReceiverInfo.builder()
@@ -31,11 +35,11 @@ public class OrderMapperImpl implements OrderMapper {
                 .build();
 
         List<RetrieveOrderDetail.OrderLineInfo> orderLineInfoList = order.getOrderLineList().stream()
-                .map(orderLine -> RetrieveOrderDetail.OrderLineInfo.builder()
-                        .id(orderLine.getId())
-                        .name(orderLine.getName())
-                        .unitPrice(orderLine.getUnitPrice())
-                        .quantity(orderLine.getQuantity())
+                .map(ol -> RetrieveOrderDetail.OrderLineInfo.builder()
+                        .id(ol.getId())
+                        .name(ol.getOrderProduct().getName())
+                        .price(ol.getOrderProduct().getPrice())
+                        .quantity(ol.getQuantity())
                         .build())
                 .collect(Collectors.toList());
 
@@ -55,18 +59,18 @@ public class OrderMapperImpl implements OrderMapper {
     public List<RetrieveOrderList.OrderInfo> retrieveListOf(List<Order> orderList) {
 
         List<RetrieveOrderList.OrderInfo> orderInfo = orderList.stream()
-                .map(order -> RetrieveOrderList.OrderInfo.builder()
-                        .id(order.getId())
+                .map(ol -> RetrieveOrderList.OrderInfo.builder()
+                        .id(ol.getId())
                         .purchaser(RetrieveOrderList.PurchaserInfo.builder()
-                                .memberId(order.getPurchaser().getMemberId())
-                                .username(order.getPurchaser().getUsername())
+                                .memberId(ol.getPurchaser().getMemberId())
+                                .username(ol.getPurchaser().getUsername())
                                 .build())
                         .orderLine(RetrieveOrderList.OrderLineInfo.builder()
-                                .id(order.getOrderLineList().get(0).getId())
-                                .name(order.getOrderLineList().get(0).getName())
+                                .id(ol.getOrderLineList().get(0).getId())
+                                .name(ol.getOrderLineList().get(0).getOrderProduct().getName())
                                 .build())
-                        .orderPrice(order.getOrderPrice())
-                        .orderTime(order.getOrderTime())
+                        .orderPrice(ol.getOrderPrice())
+                        .orderTime(ol.getOrderTime())
                         .build())
                 .collect(Collectors.toList());
 
@@ -75,12 +79,38 @@ public class OrderMapperImpl implements OrderMapper {
 
     @Override
     public OrderCommand.Register commandOf(Register request) {
+
+        List<OrderCommand.RegisterOrderLine> orderLineList = request.getOrderLineList().stream()
+                .map(ol -> OrderCommand.RegisterOrderLine.builder()
+                        .orderProduct(OrderProduct.builder()
+                                .productId(ol.getOrderProduct().getProductId())
+                                .name(ol.getOrderProduct().getName())
+                                .price(ol.getOrderProduct().getPrice())
+                                .build())
+                        .quantity(ol.getQuantity())
+                        .build())
+                .collect(Collectors.toList());
+
+        Purchaser purchaser = Purchaser.builder()
+                .memberId(request.getPurchaser().getMemberId())
+                .username(request.getPurchaser().getUsername())
+                .build();
+
+        Receiver receiver = Receiver.builder()
+                .name(request.getReceiver().getName())
+                .phoneNum(request.getReceiver().getPhoneNum())
+                .build();
+
+        ShippingAddress shippingAddress = ShippingAddress.builder()
+                .city(request.getShippingAddress().getCity())
+                .street(request.getShippingAddress().getStreet())
+                .build();
+
         OrderCommand.Register command = OrderCommand.Register.builder()
-                .purchaserId(request.getPurchaserId())
-                .purchaserUsername(request.getPurchaserUsername())
-                .receiverAddressCity(request.getReceiverAddressCity())
-                .receiverAddressStreet(request.getReceiverAddressStreet())
-                .orderLineList(request.getOrderLineList())
+                .orderLineList(orderLineList)
+                .purchaser(purchaser)
+                .receiver(receiver)
+                .shippingAddress(shippingAddress)
                 .build();
 
         return command;

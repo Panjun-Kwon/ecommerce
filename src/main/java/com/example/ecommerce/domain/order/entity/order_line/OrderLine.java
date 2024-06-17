@@ -2,7 +2,6 @@ package com.example.ecommerce.domain.order.entity.order_line;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Min;
-import jakarta.validation.constraints.NotNull;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -20,22 +19,14 @@ public class OrderLine {
     @Column(name = "order_line_id")
     private Long id;
 
-    @Column(updatable = false)
-    @NotNull
-    private Long productId;
-    @Column(updatable = false)
-    @NotNull
-    private String name;
-    @Min(0)
-    private Integer unitPrice;
+    @Embedded
+    private OrderProduct orderProduct;
     @Min(0)
     private Integer quantity;
 
     @Builder
-    private OrderLine(Long productId, String name, Integer unitPrice, Integer quantity) {
-        this.productId = productId;
-        this.name = name;
-        this.unitPrice = unitPrice;
+    public OrderLine(OrderProduct orderProduct, Integer quantity) {
+        this.orderProduct = orderProduct;
         this.quantity = quantity;
     }
 }

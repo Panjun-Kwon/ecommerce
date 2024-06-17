@@ -1,8 +1,8 @@
 package com.example.ecommerce.app.order;
 
 import com.example.ecommerce.api.order.request.Register;
-import com.example.ecommerce.common.exception.BizException;
 import com.example.ecommerce.common.exception.CommonException;
+import com.example.ecommerce.common.exception.MultiException;
 import com.example.ecommerce.domain.order.dto.OrderCommand;
 import com.example.ecommerce.domain.order.entity.order.Order;
 import com.example.ecommerce.domain.order.entity.order_line.OrderLine;
@@ -40,24 +40,24 @@ public class OrderRegisterService {
         List<OrderLine> orderLineList = order.getOrderLineList();
 
         Map<Long, Integer> quantityMap = orderLineList.stream()
-                .collect(Collectors.toMap(OrderLine::getProductId, OrderLine::getQuantity));
+                .collect(Collectors.toMap(ol -> ol.getOrderProduct().getProductId(), OrderLine::getQuantity));
 
         List<Long> productIdList = orderLineList.stream()
-                .map(OrderLine::getProductId)
+                .map(ol -> ol.getOrderProduct().getProductId())
                 .collect(Collectors.toList());
 
-        BizException bizException = new BizException();
+        MultiException multiException = new MultiException();
         productReader.getProductByIdList(productIdList)
                 .stream()
                 .forEach(p -> {
                     try {
                         p.decreaseStock(quantityMap.get(p.getId()));
                     } catch (CommonException e) {
-                        bizException.addException(e);
+                        multiException.addException(e);
                     }
                 });
-        if (!bizException.getExceptions().isEmpty()) {
-            throw bizException;
+        if (!multiException.getExceptions().isEmpty()) {
+            throw multiException;
         }
     }
 }

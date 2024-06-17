@@ -4,6 +4,7 @@ import com.example.ecommerce.api.order.request.Register;
 import com.example.ecommerce.app.order.OrderRegisterService;
 import com.example.ecommerce.common.response.CommonResponse;
 import lombok.RequiredArgsConstructor;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -17,7 +18,8 @@ public class OrderRegisterController {
     private final OrderRegisterService orderRegisterService;
 
     @PostMapping
-    public CommonResponse<Long> registerOrder(@RequestBody Register request) {
+    public CommonResponse<Long> registerOrder(@Validated @RequestBody Register request) {
+        System.out.println("request.getOrderLineList().get(0).getOrderProduct().getProductId() = " + request.getOrderLineList().get(0).getOrderProduct().getProductId());
         Long data = orderRegisterService.register(request);
         String message = String.format("주문 등록");
 

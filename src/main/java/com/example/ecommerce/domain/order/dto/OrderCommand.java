@@ -1,5 +1,9 @@
 package com.example.ecommerce.domain.order.dto;
 
+import com.example.ecommerce.domain.order.entity.order.Purchaser;
+import com.example.ecommerce.domain.order.entity.order.Receiver;
+import com.example.ecommerce.domain.order.entity.order.ShippingAddress;
+import com.example.ecommerce.domain.order.entity.order_line.OrderProduct;
 import lombok.*;
 
 import java.util.List;
@@ -11,11 +15,10 @@ public class OrderCommand {
     @AllArgsConstructor
     @NoArgsConstructor(access = AccessLevel.PROTECTED)
     public static class Register {
-        private Long purchaserId;
-        private String purchaserUsername;
-        private String receiverAddressCity;
-        private String receiverAddressStreet;
         private List<RegisterOrderLine> orderLineList;
+        private Purchaser purchaser;
+        private Receiver receiver;
+        private ShippingAddress shippingAddress;
     }
 
     @Getter
@@ -23,9 +26,7 @@ public class OrderCommand {
     @AllArgsConstructor
     @NoArgsConstructor(access = AccessLevel.PROTECTED)
     public static class RegisterOrderLine {
-        private Long productId;
-        private String name;
-        private int unitPrice;
-        private int quantity;
+        private OrderProduct orderProduct;
+        private Integer quantity;
     }
 }

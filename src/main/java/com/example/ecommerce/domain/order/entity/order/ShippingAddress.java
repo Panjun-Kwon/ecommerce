@@ -10,11 +10,11 @@ import lombok.*;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class Address {
-    @Column(name = "receiver_address_city")
+public class ShippingAddress {
+    @Column(name = "shipping_address_city")
     @NotNull
     private String city;
-    @Column(name = "receiver_address_street")
+    @Column(name = "shipping_address_street")
     @NotNull
     private String street;
 }

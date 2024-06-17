@@ -25,10 +25,6 @@ public class Order {
     @Column(name = "order_id")
     private Long id;
 
-    @Embedded
-    private Purchaser purchaser;
-    @Embedded
-    private Receiver receiver;
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinColumn(name = "order_id")
     private List<OrderLine> orderLineList = new ArrayList<>();
@@ -37,20 +33,29 @@ public class Order {
     @Column(updatable = false)
     @NotNull
     private LocalDateTime orderTime;
+    @Embedded
+    private Purchaser purchaser;
+    @Embedded
+    private Receiver receiver;
+    @Embedded
+    private ShippingAddress shippingAddress;
 
     @Builder
-    private Order(Purchaser purchaser, Receiver receiver, List<OrderLine> orderLineList,
-                  Integer orderPrice) {
+    public Order(List<OrderLine> orderLineList,
+                 Purchaser purchaser,
+                 Receiver receiver,
+                 ShippingAddress shippingAddress) {
+
+        this.orderLineList = orderLineList;
         this.purchaser = purchaser;
         this.receiver = receiver;
-        this.orderLineList = orderLineList;
-        this.orderPrice = orderPrice;
+        this.shippingAddress = shippingAddress;
         this.orderTime = LocalDateTime.now();
     }
 
     public void calculateOrderPrice() {
         this.orderPrice = orderLineList.stream()
-                .mapToInt(ol -> ol.getUnitPrice() * ol.getQuantity())
+                .mapToInt(ol -> ol.getOrderProduct().getPrice() * ol.getQuantity())
                 .sum();
     }
 }

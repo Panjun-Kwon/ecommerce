@@ -54,7 +54,7 @@ public class RetrieveOrderDetail {
     public static class OrderLineInfo {
         private Long id;
         private String name;
-        private int unitPrice;
+        private int price;
         private int quantity;
     }
 }
