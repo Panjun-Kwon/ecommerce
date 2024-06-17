@@ -15,10 +15,16 @@ public class PartnerFactoryImpl implements PartnerFactory {
 
     @Override
     public Partner make(PartnerCommand.Register command) {
+        
         partnerValidator.validate(command);
 
         return Partner.builder()
+                .username(command.getUsername())
+                .password(command.getPassword())
                 .name(command.getName())
+                .phoneNum(command.getPhoneNum())
+                .email(command.getEmail())
+                .address(command.getAddress())
                 .build();
     }
 }
