@@ -15,10 +15,16 @@ public class MemberFactoryImpl implements MemberFactory {
 
     @Override
     public Member make(MemberCommand.SignUp command) {
+
         memberValidator.validate(command);
 
         return Member.builder()
                 .username(command.getUsername())
+                .password(command.getPassword())
+                .name(command.getName())
+                .phoneNum(command.getPhoneNum())
+                .email(command.getEmail())
+                .address(command.getAddress())
                 .build();
     }
 }

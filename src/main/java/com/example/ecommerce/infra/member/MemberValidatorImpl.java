@@ -22,10 +22,6 @@ public class MemberValidatorImpl implements MemberValidator {
 
     @Override
     public void validateUsername(String username) {
-        if (!StringUtils.hasText(username)) {
-            throw new CommonException(ErrorCode.INVALID_PARAMETER, "USERNAME IS REQUIRED");
-        }
-
         if (StringUtils.hasText(username) && memberRepository.existsByUsername(username)) {
             throw new CommonException(ErrorCode.INVALID_PARAMETER, "USERNAME DUPLICATED");
         }
