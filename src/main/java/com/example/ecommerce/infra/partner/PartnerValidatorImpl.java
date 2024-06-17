@@ -2,7 +2,7 @@ package com.example.ecommerce.infra.partner;
 
 import com.example.ecommerce.common.exception.CommonException;
 import com.example.ecommerce.common.exception.ErrorCode;
-import com.example.ecommerce.domain.partner.dto.PartnerCommand;
+import com.example.ecommerce.domain.partner.dto.RegisterCommand;
 import com.example.ecommerce.domain.partner.service.PartnerRepository;
 import com.example.ecommerce.domain.partner.service.PartnerValidator;
 import lombok.RequiredArgsConstructor;
@@ -15,7 +15,7 @@ public class PartnerValidatorImpl implements PartnerValidator {
     private final PartnerRepository partnerRepository;
 
     @Override
-    public void validate(PartnerCommand.Register command) {
+    public void validate(RegisterCommand command) {
         validateName(command.getName());
     }
 

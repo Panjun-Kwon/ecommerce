@@ -1,9 +1,9 @@
 package com.example.ecommerce.infra.partner;
 
-import com.example.ecommerce.api.partner.request.Register;
+import com.example.ecommerce.api.partner.request.RegisterRequest;
 import com.example.ecommerce.api.partner.response.RetrievePartnerDetail;
 import com.example.ecommerce.api.partner.response.RetrievePartnerList;
-import com.example.ecommerce.domain.partner.dto.PartnerCommand;
+import com.example.ecommerce.domain.partner.dto.RegisterCommand;
 import com.example.ecommerce.domain.partner.entity.partner.Address;
 import com.example.ecommerce.domain.partner.entity.partner.Partner;
 import com.example.ecommerce.domain.partner.service.PartnerMapper;
@@ -37,14 +37,14 @@ public class PartnerMapperImpl implements PartnerMapper {
     }
 
     @Override
-    public PartnerCommand.Register commandOf(Register request) {
+    public RegisterCommand commandOf(RegisterRequest request) {
 
         Address address = Address.builder()
-                .city(request.getAddressRequest() == null ? null : request.getAddressRequest().getCity())
-                .street(request.getAddressRequest() == null ? null : request.getAddressRequest().getStreet())
+                .city(request.getAddress() == null ? null : request.getAddress().getCity())
+                .street(request.getAddress() == null ? null : request.getAddress().getStreet())
                 .build();
 
-        PartnerCommand.Register command = PartnerCommand.Register.builder()
+        RegisterCommand command = RegisterCommand.builder()
                 .username(request.getUsername())
                 .password(request.getPassword())
                 .name(request.getName())

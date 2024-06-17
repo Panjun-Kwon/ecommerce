@@ -1,6 +1,6 @@
 package com.example.ecommerce.infra.partner;
 
-import com.example.ecommerce.domain.partner.dto.PartnerCommand;
+import com.example.ecommerce.domain.partner.dto.RegisterCommand;
 import com.example.ecommerce.domain.partner.entity.partner.Partner;
 import com.example.ecommerce.domain.partner.service.PartnerFactory;
 import com.example.ecommerce.domain.partner.service.PartnerValidator;
@@ -14,8 +14,8 @@ public class PartnerFactoryImpl implements PartnerFactory {
     private final PartnerValidator partnerValidator;
 
     @Override
-    public Partner make(PartnerCommand.Register command) {
-        
+    public Partner make(RegisterCommand command) {
+
         partnerValidator.validate(command);
 
         return Partner.builder()

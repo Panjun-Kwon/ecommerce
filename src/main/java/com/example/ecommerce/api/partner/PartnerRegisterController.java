@@ -1,6 +1,6 @@
 package com.example.ecommerce.api.partner;
 
-import com.example.ecommerce.api.partner.request.Register;
+import com.example.ecommerce.api.partner.request.RegisterRequest;
 import com.example.ecommerce.app.partner.PartnerRegisterService;
 import com.example.ecommerce.common.response.CommonResponse;
 import lombok.RequiredArgsConstructor;
@@ -18,7 +18,7 @@ public class PartnerRegisterController {
     private final PartnerRegisterService partnerRegisterService;
 
     @PostMapping
-    public CommonResponse<Long> registerPartner(@Validated @RequestBody Register request) {
+    public CommonResponse<Long> registerPartner(@Validated @RequestBody RegisterRequest request) {
         Long data = partnerRegisterService.register(request);
         String message = String.format("파트너 등록");
 

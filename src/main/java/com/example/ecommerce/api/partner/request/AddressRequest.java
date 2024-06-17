@@ -3,7 +3,7 @@ package com.example.ecommerce.api.partner.request;
 import lombok.Getter;
 
 @Getter
-public class Address {
+public class AddressRequest {
     private String city;
     private String street;
 }

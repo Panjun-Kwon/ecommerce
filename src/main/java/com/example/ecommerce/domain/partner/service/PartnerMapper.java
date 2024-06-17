@@ -1,9 +1,9 @@
 package com.example.ecommerce.domain.partner.service;
 
-import com.example.ecommerce.api.partner.request.Register;
+import com.example.ecommerce.api.partner.request.RegisterRequest;
 import com.example.ecommerce.api.partner.response.RetrievePartnerDetail;
 import com.example.ecommerce.api.partner.response.RetrievePartnerList;
-import com.example.ecommerce.domain.partner.dto.PartnerCommand;
+import com.example.ecommerce.domain.partner.dto.RegisterCommand;
 import com.example.ecommerce.domain.partner.entity.partner.Partner;
 
 import java.util.List;
@@ -13,5 +13,5 @@ public interface PartnerMapper {
 
     List<RetrievePartnerList.PartnerInfo> retrieveListOf(List<Partner> content);
 
-    PartnerCommand.Register commandOf(Register request);
+    RegisterCommand commandOf(RegisterRequest request);
 }
