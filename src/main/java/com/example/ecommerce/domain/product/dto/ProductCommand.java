@@ -1,5 +1,6 @@
 package com.example.ecommerce.domain.product.dto;
 
+import com.example.ecommerce.domain.product.entity.product.Registrant;
 import lombok.*;
 
 public class ProductCommand {
@@ -10,8 +11,9 @@ public class ProductCommand {
     @NoArgsConstructor(access = AccessLevel.PROTECTED)
     public static class Register {
         private String name;
-        private Integer unitPrice;
+        private String description;
+        private Integer price;
         private Integer stock;
-        private Long partnerId;
+        private Registrant registrant;
     }
 }

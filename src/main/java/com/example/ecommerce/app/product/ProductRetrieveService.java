@@ -24,7 +24,7 @@ public class ProductRetrieveService {
 
     public RetrieveProductDetail retrieveProductDetail(Long productId) {
         Product product = productReader.getProduct(productId);
-        Partner partner = partnerReader.getPartner(product.getPartnerId());
+        Partner partner = partnerReader.getPartner(product.getRegistrant().getPartnerId());
 
         RetrieveProductDetail.ProductInfo productInfo = productMapper.retrieveDetailOf(product, partner);
 

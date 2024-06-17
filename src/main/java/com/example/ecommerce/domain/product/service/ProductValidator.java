@@ -7,9 +7,5 @@ public interface ProductValidator {
 
     void validateName(String name);
 
-    void validateUnitPrice(Integer unitPrice);
-
-    void validateStock(Integer stock);
-
     void validateProductId(Long productId);
 }

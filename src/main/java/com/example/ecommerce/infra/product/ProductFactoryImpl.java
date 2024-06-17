@@ -15,13 +15,14 @@ public class ProductFactoryImpl implements ProductFactory {
 
     @Override
     public Product make(ProductCommand.Register command) {
+
         productValidator.validate(command);
 
         return Product.builder()
                 .name(command.getName())
-                .unitPrice(command.getUnitPrice())
+                .price(command.getPrice())
                 .stock(command.getStock())
-                .partnerId(command.getPartnerId())
+                .registrant(command.getRegistrant())
                 .build();
     }
 }

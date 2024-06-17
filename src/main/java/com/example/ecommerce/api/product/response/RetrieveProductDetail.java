@@ -16,7 +16,7 @@ public class RetrieveProductDetail {
     public static class ProductInfo {
         private Long id;
         private String name;
-        private int unitPrice;
+        private int price;
         private int stock;
         private PartnerInfo partner;
     }

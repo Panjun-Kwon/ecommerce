@@ -25,20 +25,27 @@ public class Product {
     @Column(unique = true)
     @NotNull
     private String name;
+    @Lob
+    private String description;
     @Min(0)
-    private Integer unitPrice;
+    private Integer price;
     @Min(0)
     private Integer stock;
-    @Column(updatable = false)
-    @NotNull
-    private Long partnerId;
+    @Embedded
+    private Registrant registrant;
 
     @Builder
-    private Product(String name, Integer unitPrice, Integer stock, Long partnerId) {
+    public Product(String name,
+                   String description,
+                   Integer price,
+                   Integer stock,
+                   Registrant registrant) {
+        
         this.name = name;
-        this.unitPrice = unitPrice;
+        this.description = description;
+        this.price = price;
         this.stock = stock;
-        this.partnerId = partnerId;
+        this.registrant = registrant;
     }
 
     public void increaseStock(Integer num) {

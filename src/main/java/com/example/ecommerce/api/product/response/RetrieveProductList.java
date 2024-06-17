@@ -19,7 +19,7 @@ public class RetrieveProductList {
     public static class ProductInfo {
         private Long id;
         private String name;
-        private int unitPrice;
+        private int price;
     }
 
     @Getter
