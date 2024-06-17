@@ -1,6 +1,6 @@
 package com.example.ecommerce.api.partner.request;
 
-import com.example.ecommerce.api.member.request.Address;
+import com.example.ecommerce.api.member.request.AddressRequest;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
@@ -16,5 +16,5 @@ public class Register {
     @Email
     private String email;
     private String phoneNum;
-    private Address address;
+    private AddressRequest addressRequest;
 }

@@ -1,6 +1,7 @@
 package com.example.ecommerce.infra.member;
 
-import com.example.ecommerce.domain.member.dto.MemberCommand;
+import com.example.ecommerce.domain.member.dto.SignUpCommand;
+import com.example.ecommerce.domain.member.entity.member.Address;
 import com.example.ecommerce.domain.member.entity.member.Member;
 import com.example.ecommerce.domain.member.service.MemberFactory;
 import com.example.ecommerce.domain.member.service.MemberValidator;
@@ -14,17 +15,24 @@ public class MemberFactoryImpl implements MemberFactory {
     private final MemberValidator memberValidator;
 
     @Override
-    public Member make(MemberCommand.SignUp command) {
+    public Member make(SignUpCommand command) {
 
         memberValidator.validate(command);
 
-        return Member.builder()
+        Address address = Address.builder()
+                .city(command.getAddress().getCity())
+                .street(command.getAddress().getStreet())
+                .build();
+
+        Member member = Member.builder()
                 .username(command.getUsername())
                 .password(command.getPassword())
                 .name(command.getName())
                 .phoneNum(command.getPhoneNum())
                 .email(command.getEmail())
-                .address(command.getAddress())
+                .address(address)
                 .build();
+
+        return member;
     }
 }

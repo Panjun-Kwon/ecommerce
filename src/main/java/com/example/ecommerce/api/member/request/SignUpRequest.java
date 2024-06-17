@@ -5,7 +5,7 @@ import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
 
 @Getter
-public class SignUp {
+public class SignUpRequest {
     @NotNull
     private String username;
     @NotNull
@@ -15,5 +15,5 @@ public class SignUp {
     @Email
     private String email;
     private String phoneNum;
-    private Address address;
+    private AddressRequest address;
 }
