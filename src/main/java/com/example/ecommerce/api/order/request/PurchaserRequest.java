@@ -4,9 +4,9 @@ import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
 
 @Getter
-public class ShippingAddress {
+public class PurchaserRequest {
     @NotNull
-    private String city;
+    private Long memberId;
     @NotNull
-    private String street;
+    private String username;
 }

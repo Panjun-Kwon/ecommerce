@@ -1,6 +1,6 @@
 package com.example.ecommerce.infra.order;
 
-import com.example.ecommerce.domain.order.dto.OrderCommand;
+import com.example.ecommerce.domain.order.dto.RegisterCommand;
 import com.example.ecommerce.domain.order.entity.order.Order;
 import com.example.ecommerce.domain.order.entity.order.Purchaser;
 import com.example.ecommerce.domain.order.entity.order.Receiver;
@@ -22,7 +22,7 @@ public class OrderFactoryImpl implements OrderFactory {
     private final OrderValidator orderValidator;
 
     @Override
-    public Order make(OrderCommand.Register command) {
+    public Order make(RegisterCommand command) {
 
         orderValidator.validate(command);
 

@@ -1,14 +1,10 @@
 package com.example.ecommerce.infra.order;
 
-import com.example.ecommerce.api.order.request.Register;
+import com.example.ecommerce.api.order.request.RegisterRequest;
 import com.example.ecommerce.api.order.response.RetrieveOrderDetail;
 import com.example.ecommerce.api.order.response.RetrieveOrderList;
-import com.example.ecommerce.domain.order.dto.OrderCommand;
+import com.example.ecommerce.domain.order.dto.*;
 import com.example.ecommerce.domain.order.entity.order.Order;
-import com.example.ecommerce.domain.order.entity.order.Purchaser;
-import com.example.ecommerce.domain.order.entity.order.Receiver;
-import com.example.ecommerce.domain.order.entity.order.ShippingAddress;
-import com.example.ecommerce.domain.order.entity.order_line.OrderProduct;
 import com.example.ecommerce.domain.order.service.OrderMapper;
 import org.springframework.stereotype.Component;
 
@@ -78,11 +74,11 @@ public class OrderMapperImpl implements OrderMapper {
     }
 
     @Override
-    public OrderCommand.Register commandOf(Register request) {
+    public RegisterCommand commandOf(RegisterRequest request) {
 
-        List<OrderCommand.RegisterOrderLine> orderLineList = request.getOrderLineList().stream()
-                .map(ol -> OrderCommand.RegisterOrderLine.builder()
-                        .orderProduct(OrderProduct.builder()
+        List<OrderLineCommand> orderLineList = request.getOrderLineList().stream()
+                .map(ol -> OrderLineCommand.builder()
+                        .orderProduct(OrderProductCommand.builder()
                                 .productId(ol.getOrderProduct().getProductId())
                                 .name(ol.getOrderProduct().getName())
                                 .price(ol.getOrderProduct().getPrice())
@@ -91,22 +87,22 @@ public class OrderMapperImpl implements OrderMapper {
                         .build())
                 .collect(Collectors.toList());
 
-        Purchaser purchaser = Purchaser.builder()
+        PurchaserCommand purchaser = PurchaserCommand.builder()
                 .memberId(request.getPurchaser().getMemberId())
                 .username(request.getPurchaser().getUsername())
                 .build();
 
-        Receiver receiver = Receiver.builder()
+        ReceiverCommand receiver = ReceiverCommand.builder()
                 .name(request.getReceiver().getName())
                 .phoneNum(request.getReceiver().getPhoneNum())
                 .build();
 
-        ShippingAddress shippingAddress = ShippingAddress.builder()
+        ShippingAddressCommand shippingAddress = ShippingAddressCommand.builder()
                 .city(request.getShippingAddress().getCity())
                 .street(request.getShippingAddress().getStreet())
                 .build();
 
-        OrderCommand.Register command = OrderCommand.Register.builder()
+        RegisterCommand command = RegisterCommand.builder()
                 .orderLineList(orderLineList)
                 .purchaser(purchaser)
                 .receiver(receiver)

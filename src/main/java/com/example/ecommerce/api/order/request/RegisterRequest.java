@@ -6,15 +6,15 @@ import lombok.Getter;
 import java.util.List;
 
 @Getter
-public class Register {
+public class RegisterRequest {
     @NotNull
-    private List<OrderLine> orderLineList;
+    private List<OrderLineRequest> orderLineList;
     @NotNull
     private Integer orderPrice;
     @NotNull
-    private Purchaser purchaser;
+    private PurchaserRequest purchaser;
     @NotNull
-    private Receiver receiver;
+    private ReceiverRequest receiver;
     @NotNull
-    private ShippingAddress shippingAddress;
+    private ShippingAddressRequest shippingAddress;
 }

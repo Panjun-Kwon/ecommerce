@@ -3,7 +3,8 @@ package com.example.ecommerce.infra.order;
 import com.example.ecommerce.common.exception.CommonException;
 import com.example.ecommerce.common.exception.ErrorCode;
 import com.example.ecommerce.domain.member.service.MemberReader;
-import com.example.ecommerce.domain.order.dto.OrderCommand;
+import com.example.ecommerce.domain.order.dto.OrderLineCommand;
+import com.example.ecommerce.domain.order.dto.RegisterCommand;
 import com.example.ecommerce.domain.order.service.OrderValidator;
 import com.example.ecommerce.domain.product.service.ProductReader;
 import lombok.RequiredArgsConstructor;
@@ -17,7 +18,7 @@ public class OrderValidatorImpl implements OrderValidator {
     private final ProductReader productReader;
 
     @Override
-    public void validate(OrderCommand.Register command) {
+    public void validate(RegisterCommand command) {
         validatePurchaserId(command.getPurchaser().getMemberId());
         command.getOrderLineList().stream().forEach(this::validateOrderLine);
     }
@@ -31,7 +32,7 @@ public class OrderValidatorImpl implements OrderValidator {
     }
 
     @Override
-    public void validateOrderLine(OrderCommand.RegisterOrderLine command) {
+    public void validateOrderLine(OrderLineCommand command) {
         validateProductId(command.getOrderProduct().getProductId());
     }
 

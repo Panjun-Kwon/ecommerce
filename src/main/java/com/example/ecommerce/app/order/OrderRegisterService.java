@@ -1,9 +1,9 @@
 package com.example.ecommerce.app.order;
 
-import com.example.ecommerce.api.order.request.Register;
+import com.example.ecommerce.api.order.request.RegisterRequest;
 import com.example.ecommerce.common.exception.CommonException;
 import com.example.ecommerce.common.exception.MultiException;
-import com.example.ecommerce.domain.order.dto.OrderCommand;
+import com.example.ecommerce.domain.order.dto.RegisterCommand;
 import com.example.ecommerce.domain.order.entity.order.Order;
 import com.example.ecommerce.domain.order.entity.order_line.OrderLine;
 import com.example.ecommerce.domain.order.service.OrderFactory;
@@ -28,8 +28,8 @@ public class OrderRegisterService {
     private final ProductReader productReader;
     private final OrderMapper orderMapper;
 
-    public Long register(Register request) {
-        OrderCommand.Register command = orderMapper.commandOf(request);
+    public Long register(RegisterRequest request) {
+        RegisterCommand command = orderMapper.commandOf(request);
         Order initOrder = orderFactory.make(command);
         decreaseProductStock(initOrder);
         Order order = orderStore.store(initOrder);

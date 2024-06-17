@@ -4,7 +4,7 @@ import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
 
 @Getter
-public class OrderProduct {
+public class OrderProductRequest {
     @NotNull
     private Long productId;
     @NotNull

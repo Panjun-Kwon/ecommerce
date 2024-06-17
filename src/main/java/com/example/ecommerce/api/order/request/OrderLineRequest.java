@@ -5,9 +5,9 @@ import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
 
 @Getter
-public class OrderLine {
+public class OrderLineRequest {
     @NotNull
-    private OrderProduct orderProduct;
+    private OrderProductRequest orderProduct;
     @Min(0)
     private Integer quantity;
 }
