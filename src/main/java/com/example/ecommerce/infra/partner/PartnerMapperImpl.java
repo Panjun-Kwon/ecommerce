@@ -40,8 +40,8 @@ public class PartnerMapperImpl implements PartnerMapper {
     public PartnerCommand.Register commandOf(Register request) {
 
         Address address = Address.builder()
-                .city(request.getAddress() == null ? null : request.getAddress().getCity())
-                .street(request.getAddress() == null ? null : request.getAddress().getStreet())
+                .city(request.getAddressRequest() == null ? null : request.getAddressRequest().getCity())
+                .street(request.getAddressRequest() == null ? null : request.getAddressRequest().getStreet())
                 .build();
 
         PartnerCommand.Register command = PartnerCommand.Register.builder()
