@@ -1,10 +1,10 @@
 package com.example.ecommerce.infra.product;
 
-import com.example.ecommerce.api.product.request.Register;
+import com.example.ecommerce.api.product.request.RegisterRequest;
 import com.example.ecommerce.api.product.response.RetrieveProductDetail;
 import com.example.ecommerce.api.product.response.RetrieveProductList;
 import com.example.ecommerce.domain.partner.entity.partner.Partner;
-import com.example.ecommerce.domain.product.dto.ProductCommand;
+import com.example.ecommerce.domain.product.dto.RegisterCommand;
 import com.example.ecommerce.domain.product.entity.product.Product;
 import com.example.ecommerce.domain.product.entity.product.Registrant;
 import com.example.ecommerce.domain.product.service.ProductMapper;
@@ -49,14 +49,14 @@ public class ProductMapperImpl implements ProductMapper {
     }
 
     @Override
-    public ProductCommand.Register commandOf(Register request) {
+    public RegisterCommand commandOf(RegisterRequest request) {
 
         Registrant registrant = Registrant.builder()
                 .partnerId(request.getRegistrant().getPartnerId())
                 .name(request.getRegistrant().getName())
                 .build();
 
-        ProductCommand.Register command = ProductCommand.Register.builder()
+        RegisterCommand command = RegisterCommand.builder()
                 .name(request.getName())
                 .description(request.getDescription())
                 .price(request.getPrice())

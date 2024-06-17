@@ -1,6 +1,6 @@
 package com.example.ecommerce.api.product;
 
-import com.example.ecommerce.api.product.request.Register;
+import com.example.ecommerce.api.product.request.RegisterRequest;
 import com.example.ecommerce.app.product.ProductRegisterService;
 import com.example.ecommerce.common.response.CommonResponse;
 import com.example.ecommerce.domain.product.service.ProductMapper;
@@ -20,7 +20,7 @@ public class ProductRegisterController {
     private final ProductMapper productMapper;
 
     @PostMapping
-    public CommonResponse<Long> registerProduct(@Validated @RequestBody Register request) {
+    public CommonResponse<Long> registerProduct(@Validated @RequestBody RegisterRequest request) {
         Long data = productRegisterService.register(request);
         String message = String.format("상품 등록");
 

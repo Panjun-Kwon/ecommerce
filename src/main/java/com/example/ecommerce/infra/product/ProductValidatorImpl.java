@@ -3,7 +3,7 @@ package com.example.ecommerce.infra.product;
 import com.example.ecommerce.common.exception.CommonException;
 import com.example.ecommerce.common.exception.ErrorCode;
 import com.example.ecommerce.domain.partner.service.PartnerReader;
-import com.example.ecommerce.domain.product.dto.ProductCommand;
+import com.example.ecommerce.domain.product.dto.RegisterCommand;
 import com.example.ecommerce.domain.product.service.ProductReader;
 import com.example.ecommerce.domain.product.service.ProductValidator;
 import lombok.RequiredArgsConstructor;
@@ -17,7 +17,7 @@ public class ProductValidatorImpl implements ProductValidator {
     private final PartnerReader partnerReader;
 
     @Override
-    public void validate(ProductCommand.Register command) {
+    public void validate(RegisterCommand command) {
         validateName(command.getName());
         validateProductId(command.getRegistrant().getPartnerId());
     }

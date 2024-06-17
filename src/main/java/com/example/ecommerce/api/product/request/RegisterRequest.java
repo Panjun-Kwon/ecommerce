@@ -4,7 +4,7 @@ import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
 
 @Getter
-public class Register {
+public class RegisterRequest {
     @NotNull
     private String name;
     private String description;
@@ -13,5 +13,5 @@ public class Register {
     @NotNull
     private Integer stock;
     @NotNull
-    private Registrant registrant;
+    private RegistrantRequest registrant;
 }

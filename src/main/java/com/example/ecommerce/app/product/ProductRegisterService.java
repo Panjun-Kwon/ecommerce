@@ -1,7 +1,7 @@
 package com.example.ecommerce.app.product;
 
-import com.example.ecommerce.api.product.request.Register;
-import com.example.ecommerce.domain.product.dto.ProductCommand;
+import com.example.ecommerce.api.product.request.RegisterRequest;
+import com.example.ecommerce.domain.product.dto.RegisterCommand;
 import com.example.ecommerce.domain.product.entity.product.Product;
 import com.example.ecommerce.domain.product.service.ProductFactory;
 import com.example.ecommerce.domain.product.service.ProductMapper;
@@ -19,8 +19,8 @@ public class ProductRegisterService {
     private final ProductStore productStore;
     private final ProductMapper productMapper;
 
-    public Long register(Register request) {
-        ProductCommand.Register command = productMapper.commandOf(request);
+    public Long register(RegisterRequest request) {
+        RegisterCommand command = productMapper.commandOf(request);
         Product initProduct = productFactory.make(command);
         Product product = productStore.store(initProduct);
         return product.getId();

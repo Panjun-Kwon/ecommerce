@@ -4,7 +4,7 @@ import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
 
 @Getter
-public class Registrant {
+public class RegistrantRequest {
     @NotNull
     private Long partnerId;
     @NotNull
