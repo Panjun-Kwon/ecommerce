@@ -18,9 +18,9 @@ public class ExceptionController {
         return CommonResponse.fail(e.getMessage(), e.getErrorCode());
     }
 
-    @ExceptionHandler(BizException.class)
+    @ExceptionHandler(MultiException.class)
     @ResponseStatus(HttpStatus.OK)
-    public static List<CommonResponse> bizException(BizException e) {
+    public static List<CommonResponse> bizException(MultiException e) {
         List<CommonResponse> errors = new ArrayList<>();
         if (!e.getExceptions().isEmpty()) {
             e.getExceptions().stream()
