@@ -25,6 +25,8 @@ public class Member {
     private String username;
     @NotNull
     private String password;
+    @Enumerated(EnumType.STRING)
+    private Role role;
 
     @Column(updatable = false)
     @NotNull
@@ -34,6 +36,12 @@ public class Member {
     private String phoneNum;
     @Embedded
     private Address address;
+
+    public Member(Long id, @NotNull String username, Role role) {
+        this.id = id;
+        this.username = username;
+        this.role = role;
+    }
 
     @Builder
     public Member(String username,
@@ -45,6 +53,7 @@ public class Member {
 
         this.username = username;
         this.password = password;
+        this.role = Role.MEMBER;
         this.name = name;
         this.email = email;
         this.phoneNum = phoneNum;

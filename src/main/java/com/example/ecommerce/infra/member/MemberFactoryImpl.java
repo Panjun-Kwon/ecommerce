@@ -6,6 +6,7 @@ import com.example.ecommerce.domain.member.entity.member.Member;
 import com.example.ecommerce.domain.member.service.MemberFactory;
 import com.example.ecommerce.domain.member.service.MemberValidator;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -13,6 +14,7 @@ import org.springframework.stereotype.Component;
 public class MemberFactoryImpl implements MemberFactory {
 
     private final MemberValidator memberValidator;
+    private final PasswordEncoder passwordEncoder;
 
     @Override
     public Member make(SignUpCommand command) {
@@ -26,7 +28,7 @@ public class MemberFactoryImpl implements MemberFactory {
 
         Member member = Member.builder()
                 .username(command.getUsername())
-                .password(command.getPassword())
+                .password(passwordEncoder.encode(command.getPassword()))
                 .name(command.getName())
                 .phoneNum(command.getPhoneNum())
                 .email(command.getEmail())

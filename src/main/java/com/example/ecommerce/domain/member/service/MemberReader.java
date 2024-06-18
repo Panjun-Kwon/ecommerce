@@ -10,4 +10,6 @@ public interface MemberReader {
     Page<Member> getMemberAll(Pageable pageable);
 
     boolean existMember(Long purchaserId);
+
+    Member getMemberByUsername(String username);
 }

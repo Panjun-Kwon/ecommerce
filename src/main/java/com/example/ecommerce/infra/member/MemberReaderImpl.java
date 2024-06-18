@@ -32,4 +32,11 @@ public class MemberReaderImpl implements MemberReader {
     public boolean existMember(Long purchaserId) {
         return memberRepository.existsById(purchaserId);
     }
+
+    @Override
+    public Member getMemberByUsername(String username) {
+        return memberRepository.findByUsername(username)
+                .orElseThrow(() -> new CommonException(ErrorCode.NOT_FOUND_ENTITY,
+                        String.format("해당 멤버(%s)를 찾을 수 없음", username)));
+    }
 }
