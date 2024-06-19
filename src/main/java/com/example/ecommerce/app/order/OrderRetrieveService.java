@@ -1,17 +1,14 @@
 package com.example.ecommerce.app.order;
 
-import com.example.ecommerce.api.order.response.RetrieveOrderDetail;
-import com.example.ecommerce.api.order.response.RetrieveOrderList;
-import com.example.ecommerce.domain.order.entity.order.Order;
-import com.example.ecommerce.domain.order.service.OrderMapper;
-import com.example.ecommerce.domain.order.service.OrderReader;
-import lombok.RequiredArgsConstructor;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
+import com.example.ecommerce.api.order.response.*;
+import com.example.ecommerce.domain.order.entity.order.*;
+import com.example.ecommerce.domain.order.service.*;
+import lombok.*;
+import org.springframework.data.domain.*;
+import org.springframework.stereotype.*;
+import org.springframework.transaction.annotation.*;
 
-import java.util.List;
+import java.util.*;
 
 @Service
 @Transactional(readOnly = true)
@@ -21,24 +18,24 @@ public class OrderRetrieveService {
     private final OrderReader orderReader;
     private final OrderMapper orderMapper;
 
-    public RetrieveOrderDetail retrieveOrderDetail(Long orderId) {
+    public OrderDetailResponse retrieveOrderDetail(Long orderId) {
         Order order = orderReader.getOrder(orderId);
-        RetrieveOrderDetail.OrderInfo orderInfo = orderMapper.retrieveDetailOf(order);
+        OrderDetailResponse.OrderInfo orderInfo = orderMapper.retrieveDetailOf(order);
 
-        return new RetrieveOrderDetail(orderInfo);
+        return new OrderDetailResponse(orderInfo);
     }
 
-    public RetrieveOrderList retrieveOrderList(Pageable pageable) {
+    public OrderListResponse retrieveOrderList(Pageable pageable) {
         Page<Order> orderPage = orderReader.getOrderAll(pageable);
-        List<RetrieveOrderList.OrderInfo> orderInfo = orderMapper.retrieveListOf(orderPage.getContent());
+        List<OrderListResponse.OrderInfo> orderInfo = orderMapper.retrieveListOf(orderPage.getContent());
 
-        RetrieveOrderList.PageInfo pageInfo = makePageInfo(orderPage);
+        OrderListResponse.PageInfo pageInfo = makePageInfo(orderPage);
 
-        return new RetrieveOrderList(orderInfo, pageInfo);
+        return new OrderListResponse(orderInfo, pageInfo);
     }
 
-    private static RetrieveOrderList.PageInfo makePageInfo(Page<Order> orderPage) {
-        return RetrieveOrderList.PageInfo.builder()
+    private static OrderListResponse.PageInfo makePageInfo(Page<Order> orderPage) {
+        return OrderListResponse.PageInfo.builder()
                 .currentElements(orderPage.getNumberOfElements())
                 .totalPages(orderPage.getTotalPages())
                 .totalElements(orderPage.getTotalElements())

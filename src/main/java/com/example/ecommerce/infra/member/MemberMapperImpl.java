@@ -1,31 +1,32 @@
 package com.example.ecommerce.infra.member;
 
-import com.example.ecommerce.api.member.request.SignUpRequest;
-import com.example.ecommerce.api.member.response.RetrieveMemberDetail;
-import com.example.ecommerce.api.member.response.RetrieveMemberList;
-import com.example.ecommerce.domain.member.dto.AddressCommand;
-import com.example.ecommerce.domain.member.dto.SignUpCommand;
-import com.example.ecommerce.domain.member.entity.member.Member;
-import com.example.ecommerce.domain.member.service.MemberMapper;
-import org.springframework.stereotype.Component;
+import com.example.ecommerce.api.member.request.*;
+import com.example.ecommerce.api.member.response.*;
+import com.example.ecommerce.domain.member.dto.*;
+import com.example.ecommerce.domain.member.entity.member.*;
+import com.example.ecommerce.domain.member.service.*;
+import org.springframework.stereotype.*;
 
-import java.util.List;
-import java.util.stream.Collectors;
+import java.util.*;
+import java.util.stream.*;
 
 @Component
 public class MemberMapperImpl implements MemberMapper {
 
     @Override
-    public RetrieveMemberDetail.MemberInfo retrieveDetailOf(Member member) {
+    public MemberDetailResponse.MemberInfo retrieveDetailOf(Member member) {
 
-        RetrieveMemberDetail.AddressInfo addressInfo = RetrieveMemberDetail.AddressInfo.builder()
+        MemberDetailResponse.AddressInfo addressInfo = MemberDetailResponse.AddressInfo.builder()
                 .city(member.getAddress() == null ? null : member.getAddress().getStreet())
                 .street(member.getAddress() == null ? null : member.getAddress().getStreet())
                 .build();
 
-        RetrieveMemberDetail.MemberInfo memberInfo = RetrieveMemberDetail.MemberInfo.builder()
+        MemberDetailResponse.MemberInfo memberInfo = MemberDetailResponse.MemberInfo.builder()
                 .id(member.getId())
                 .username(member.getUsername())
+                .name(member.getName())
+                .email(member.getEmail())
+                .phoneNum(member.getPhoneNum())
                 .address(addressInfo)
                 .build();
 
@@ -33,16 +34,36 @@ public class MemberMapperImpl implements MemberMapper {
     }
 
     @Override
-    public List<RetrieveMemberList.MemberInfo> retrieveListOf(List<Member> memberList) {
+    public List<MemberListResponse.MemberInfo> retrieveListOf(List<Member> memberList) {
 
-        List<RetrieveMemberList.MemberInfo> memberInfoList = memberList.stream()
-                .map(member -> RetrieveMemberList.MemberInfo.builder()
+        List<MemberListResponse.MemberInfo> memberInfoList = memberList.stream()
+                .map(member -> MemberListResponse.MemberInfo.builder()
                         .id(member.getId())
                         .username(member.getUsername())
                         .build())
                 .collect(Collectors.toList());
 
         return memberInfoList;
+    }
+
+    @Override
+    public MemberMyPageResponse.MemberInfo retrieveMyPageDetailOf(Member member) {
+
+        MemberMyPageResponse.AddressInfo addressInfo = MemberMyPageResponse.AddressInfo.builder()
+                .city(member.getAddress() == null ? null : member.getAddress().getStreet())
+                .street(member.getAddress() == null ? null : member.getAddress().getStreet())
+                .build();
+
+        MemberMyPageResponse.MemberInfo memberInfo = MemberMyPageResponse.MemberInfo.builder()
+                .id(member.getId())
+                .username(member.getUsername())
+                .name(member.getName())
+                .email(member.getEmail())
+                .phoneNum(member.getPhoneNum())
+                .address(addressInfo)
+                .build();
+
+        return memberInfo;
     }
 
     @Override

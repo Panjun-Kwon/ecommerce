@@ -1,14 +1,13 @@
 package com.example.ecommerce.infra.order;
 
-import com.example.ecommerce.common.exception.CommonException;
-import com.example.ecommerce.common.exception.ErrorCode;
-import com.example.ecommerce.domain.order.entity.order.Order;
-import com.example.ecommerce.domain.order.service.OrderReader;
-import com.example.ecommerce.domain.order.service.OrderRepository;
-import lombok.RequiredArgsConstructor;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
-import org.springframework.stereotype.Component;
+import com.example.ecommerce.common.exception.*;
+import com.example.ecommerce.domain.order.entity.order.*;
+import com.example.ecommerce.domain.order.service.*;
+import lombok.*;
+import org.springframework.data.domain.*;
+import org.springframework.stereotype.*;
+
+import java.util.*;
 
 @Component
 @RequiredArgsConstructor
@@ -38,5 +37,10 @@ public class OrderReaderImpl implements OrderReader {
     @Override
     public Page<Order> getOrderAllFetch(Pageable pageable) {
         return orderRepository.findAll(pageable);
+    }
+
+    @Override
+    public List<Order> getOrderByPurchaserId(Long memberId) {
+        return orderRepository.findByPurchaserId(memberId);
     }
 }
