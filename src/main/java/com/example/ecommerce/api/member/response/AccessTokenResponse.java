@@ -6,5 +6,6 @@ import lombok.*;
 @Builder
 @AllArgsConstructor
 public class AccessTokenResponse {
+    private Long id;
     private String accessToken;
 }

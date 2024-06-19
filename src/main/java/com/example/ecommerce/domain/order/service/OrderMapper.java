@@ -13,7 +13,7 @@ public interface OrderMapper {
 
     List<OrderListResponse.OrderInfo> retrieveListOf(List<Order> orderList);
 
-    List<MemberMyPageResponse.OrderInfo> retrieveMyPageListOf(List<Order> orderList);
+    List<MemberPageResponse.OrderInfo> retrieveMyPageListOf(List<Order> orderList);
 
     RegisterCommand commandOf(RegisterRequest request);
 }

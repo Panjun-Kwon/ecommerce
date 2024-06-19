@@ -12,7 +12,9 @@ public interface MemberMapper {
 
     List<MemberListResponse.MemberInfo> retrieveListOf(List<Member> memberPage);
 
-    MemberMyPageResponse.MemberInfo retrieveMyPageDetailOf(Member member);
+    MemberPageResponse.MemberInfo retrieveMyPageDetailOf(Member member);
+
+    MemberProfileResponse.ProfileInfo retrieveMyProfileDetailOf(Member member);
 
     SignUpCommand commandOf(SignUpRequest request);
 }

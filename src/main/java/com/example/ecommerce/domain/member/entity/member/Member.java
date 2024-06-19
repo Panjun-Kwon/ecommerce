@@ -1,14 +1,11 @@
 package com.example.ecommerce.domain.member.entity.member;
 
 import jakarta.persistence.*;
-import jakarta.validation.constraints.Email;
-import jakarta.validation.constraints.NotNull;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import jakarta.validation.constraints.*;
+import lombok.*;
 
-import static jakarta.persistence.GenerationType.IDENTITY;
-import static lombok.AccessLevel.PROTECTED;
+import static jakarta.persistence.GenerationType.*;
+import static lombok.AccessLevel.*;
 
 @Entity
 @Table(name = "members")
@@ -27,13 +24,8 @@ public class Member {
     private String password;
     @Enumerated(EnumType.STRING)
     private Role role;
-
-    @Column(updatable = false)
-    @NotNull
-    private String name;
-    @Email
-    private String email;
-    private String phoneNum;
+    @Enumerated
+    private Profile profile;
     @Embedded
     private Address address;
 
@@ -46,17 +38,13 @@ public class Member {
     @Builder
     public Member(String username,
                   String password,
-                  String name,
-                  String email,
-                  String phoneNum,
+                  Profile profile,
                   Address address) {
 
         this.username = username;
         this.password = password;
         this.role = Role.MEMBER;
-        this.name = name;
-        this.email = email;
-        this.phoneNum = phoneNum;
+        this.profile = profile;
         this.address = address;
     }
 }

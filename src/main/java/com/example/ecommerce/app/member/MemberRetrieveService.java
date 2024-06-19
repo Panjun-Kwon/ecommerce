@@ -46,12 +46,19 @@ public class MemberRetrieveService {
                 .build();
     }
 
-    public MemberMyPageResponse retrieveMemberMyPage(Long memberId) {
+    public MemberPageResponse retrieveMemberPage(Long memberId) {
         Member member = memberReader.getMember(memberId);
-        MemberMyPageResponse.MemberInfo memberInfo = memberMapper.retrieveMyPageDetailOf(member);
+        MemberPageResponse.MemberInfo memberInfo = memberMapper.retrieveMyPageDetailOf(member);
         List<Order> orderList = orderReader.getOrderByPurchaserId(memberId);
-        List<MemberMyPageResponse.OrderInfo> orderInfoList = orderMapper.retrieveMyPageListOf(orderList);
+        List<MemberPageResponse.OrderInfo> orderInfoList = orderMapper.retrieveMyPageListOf(orderList);
 
-        return new MemberMyPageResponse(memberInfo, orderInfoList);
+        return new MemberPageResponse(memberInfo, orderInfoList);
+    }
+
+    public MemberProfileResponse retrieveMemberProfile(Long memberId) {
+        Member member = memberReader.getMember(memberId);
+        MemberProfileResponse.ProfileInfo profileInfo = memberMapper.retrieveMyProfileDetailOf(member);
+
+        return new MemberProfileResponse(profileInfo);
     }
 }

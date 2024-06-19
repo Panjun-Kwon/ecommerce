@@ -14,17 +14,7 @@ public class MemberDetailResponse {
     public static class MemberInfo {
         private Long id;
         private String username;
-        private String name;
-        private String email;
-        private String phoneNum;
-        private AddressInfo address;
-    }
-
-    @Getter
-    @Builder
-    @AllArgsConstructor
-    public static class AddressInfo {
-        private String city;
-        private String street;
+        private MemberProfileResponse profile;
+        private AddressResponse.AddressInfo address;
     }
 }

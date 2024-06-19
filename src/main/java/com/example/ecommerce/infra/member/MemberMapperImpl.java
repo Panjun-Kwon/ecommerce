@@ -16,17 +16,21 @@ public class MemberMapperImpl implements MemberMapper {
     @Override
     public MemberDetailResponse.MemberInfo retrieveDetailOf(Member member) {
 
-        MemberDetailResponse.AddressInfo addressInfo = MemberDetailResponse.AddressInfo.builder()
+        AddressResponse.AddressInfo addressInfo = AddressResponse.AddressInfo.builder()
                 .city(member.getAddress() == null ? null : member.getAddress().getStreet())
                 .street(member.getAddress() == null ? null : member.getAddress().getStreet())
+                .build();
+
+        MemberProfileResponse.ProfileInfo profileInfo = MemberProfileResponse.ProfileInfo.builder()
+                .name(member.getProfile().getName())
+                .email(member.getProfile().getEmail())
+                .phoneNum(member.getProfile().getPhoneNum())
                 .build();
 
         MemberDetailResponse.MemberInfo memberInfo = MemberDetailResponse.MemberInfo.builder()
                 .id(member.getId())
                 .username(member.getUsername())
-                .name(member.getName())
-                .email(member.getEmail())
-                .phoneNum(member.getPhoneNum())
+                .profile(new MemberProfileResponse(profileInfo))
                 .address(addressInfo)
                 .build();
 
@@ -47,23 +51,38 @@ public class MemberMapperImpl implements MemberMapper {
     }
 
     @Override
-    public MemberMyPageResponse.MemberInfo retrieveMyPageDetailOf(Member member) {
+    public MemberPageResponse.MemberInfo retrieveMyPageDetailOf(Member member) {
 
-        MemberMyPageResponse.AddressInfo addressInfo = MemberMyPageResponse.AddressInfo.builder()
+        AddressResponse.AddressInfo addressInfo = AddressResponse.AddressInfo.builder()
                 .city(member.getAddress() == null ? null : member.getAddress().getStreet())
                 .street(member.getAddress() == null ? null : member.getAddress().getStreet())
                 .build();
 
-        MemberMyPageResponse.MemberInfo memberInfo = MemberMyPageResponse.MemberInfo.builder()
+        MemberProfileResponse.ProfileInfo profileInfo = MemberProfileResponse.ProfileInfo.builder()
+                .name(member.getProfile().getName())
+                .email(member.getProfile().getEmail())
+                .phoneNum(member.getProfile().getPhoneNum())
+                .build();
+
+        MemberPageResponse.MemberInfo memberInfo = MemberPageResponse.MemberInfo.builder()
                 .id(member.getId())
                 .username(member.getUsername())
-                .name(member.getName())
-                .email(member.getEmail())
-                .phoneNum(member.getPhoneNum())
+                .profile(profileInfo)
                 .address(addressInfo)
                 .build();
 
         return memberInfo;
+    }
+
+    @Override
+    public MemberProfileResponse.ProfileInfo retrieveMyProfileDetailOf(Member member) {
+        MemberProfileResponse.ProfileInfo profileInfo = MemberProfileResponse.ProfileInfo.builder()
+                .name(member.getProfile().getName())
+                .email(member.getProfile().getEmail())
+                .phoneNum(member.getProfile().getPhoneNum())
+                .build();
+
+        return profileInfo;
     }
 
     @Override

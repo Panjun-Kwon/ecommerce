@@ -7,10 +7,12 @@ import com.example.ecommerce.domain.member.entity.member.*;
 import lombok.*;
 import org.springframework.data.domain.*;
 import org.springframework.security.core.annotation.*;
+import org.springframework.transaction.annotation.*;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api")
+@Transactional(readOnly = true)
 @RequiredArgsConstructor
 public class MemberRetrieveController {
 
@@ -31,10 +33,18 @@ public class MemberRetrieveController {
     }
 
     @GetMapping("/auth/members/my/page")
-    public CommonResponse<MemberMyPageResponse> retrieveMyPage(@AuthenticationPrincipal AuthMember authMember) {
+    public CommonResponse<MemberPageResponse> retrievePage(@AuthenticationPrincipal AuthMember authMember) {
         Long memberId = authMember.getMember().getId();
-        MemberMyPageResponse data = memberRetrieveService.retrieveMemberMyPage(memberId);
+        MemberPageResponse data = memberRetrieveService.retrieveMemberPage(memberId);
         String message = String.format("멤버(%d) 마이 페이지 조회", memberId);
+        return CommonResponse.success(message, data);
+    }
+
+    @GetMapping("/auth/members/my/profile")
+    public CommonResponse<MemberProfileResponse> retrieveProfile(@AuthenticationPrincipal AuthMember authMember) {
+        Long memberId = authMember.getMember().getId();
+        MemberProfileResponse data = memberRetrieveService.retrieveMemberProfile(memberId);
+        String message = String.format("멤버(%d) 마이 프로필 조회", memberId);
         return CommonResponse.success(message, data);
     }
 }

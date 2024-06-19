@@ -81,14 +81,14 @@ public class OrderMapperImpl implements OrderMapper {
     }
 
     @Override
-    public List<MemberMyPageResponse.OrderInfo> retrieveMyPageListOf(List<Order> orderList) {
+    public List<MemberPageResponse.OrderInfo> retrieveMyPageListOf(List<Order> orderList) {
 
-        List<MemberMyPageResponse.OrderInfo> orderInfo = orderList.stream()
-                .map(ol -> MemberMyPageResponse.OrderInfo.builder()
+        List<MemberPageResponse.OrderInfo> orderInfo = orderList.stream()
+                .map(ol -> MemberPageResponse.OrderInfo.builder()
                         .id(ol.getId())
-                        .orderLine(MemberMyPageResponse.OrderLineInfo.builder()
+                        .orderLine(MemberPageResponse.OrderLineInfo.builder()
                                 .id(ol.getOrderLineList().get(0).getId())
-                                .orderProduct(MemberMyPageResponse.OrderProductInfo.builder()
+                                .orderProduct(MemberPageResponse.OrderProductInfo.builder()
                                         .productId(ol.getOrderLineList().get(0).getOrderProduct().getProductId())
                                         .name(ol.getOrderLineList().get(0).getOrderProduct().getName())
                                         .build())

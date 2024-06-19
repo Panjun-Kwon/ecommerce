@@ -6,5 +6,5 @@ import lombok.*;
 @Builder
 @AllArgsConstructor
 public class MemberIdResponse {
-    Long memberId;
+    private Long id;
 }

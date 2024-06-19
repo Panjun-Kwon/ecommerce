@@ -7,7 +7,7 @@ import java.util.*;
 
 @Getter
 @AllArgsConstructor
-public class MemberMyPageResponse {
+public class MemberPageResponse {
 
     private MemberInfo member;
     private List<OrderInfo> orderList;
@@ -18,18 +18,8 @@ public class MemberMyPageResponse {
     public static class MemberInfo {
         private Long id;
         private String username;
-        private String name;
-        private String email;
-        private String phoneNum;
-        private AddressInfo address;
-    }
-
-    @Getter
-    @Builder
-    @AllArgsConstructor
-    public static class AddressInfo {
-        private String city;
-        private String street;
+        private MemberProfileResponse.ProfileInfo profile;
+        private AddressResponse.AddressInfo address;
     }
 
     @Getter
@@ -54,7 +44,7 @@ public class MemberMyPageResponse {
     @Builder
     @AllArgsConstructor
     public static class OrderProductInfo {
-        private Long productId;
+        private Long id;
         private String name;
     }
 }
