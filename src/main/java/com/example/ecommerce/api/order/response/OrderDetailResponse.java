@@ -1,15 +1,13 @@
 package com.example.ecommerce.api.order.response;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
+import lombok.*;
 
-import java.time.LocalDateTime;
-import java.util.List;
+import java.time.*;
+import java.util.*;
 
 @Getter
 @AllArgsConstructor
-public class RetrieveOrderDetail {
+public class OrderDetailResponse {
 
     private OrderInfo order;
 
@@ -18,11 +16,11 @@ public class RetrieveOrderDetail {
     @AllArgsConstructor
     public static class OrderInfo {
         private Long id;
-        private PurchaserInfo purchaser;
-        private ReceiverInfo receiver;
         private List<OrderLineInfo> orderLineList;
         private int orderPrice;
         private LocalDateTime orderTime;
+        private PurchaserInfo purchaser;
+        private ReceiverInfo receiver;
     }
 
     @Getter
@@ -37,13 +35,14 @@ public class RetrieveOrderDetail {
     @Builder
     @AllArgsConstructor
     public static class ReceiverInfo {
-        private AddressInfo address;
+        private String name;
+        private String phoneNum;
     }
 
     @Getter
     @Builder
     @AllArgsConstructor
-    public static class AddressInfo {
+    public static class ShippingAddressInfo {
         private String city;
         private String street;
     }
@@ -53,8 +52,16 @@ public class RetrieveOrderDetail {
     @AllArgsConstructor
     public static class OrderLineInfo {
         private Long id;
-        private String name;
-        private int price;
+        private OrderProductInfo orderProduct;
         private int quantity;
+    }
+
+    @Getter
+    @Builder
+    @AllArgsConstructor
+    public static class OrderProductInfo {
+        private Long productId;
+        private String name;
+        private Integer price;
     }
 }

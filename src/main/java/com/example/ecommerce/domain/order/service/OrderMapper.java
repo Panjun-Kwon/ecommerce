@@ -1,17 +1,19 @@
 package com.example.ecommerce.domain.order.service;
 
-import com.example.ecommerce.api.order.request.RegisterRequest;
-import com.example.ecommerce.api.order.response.RetrieveOrderDetail;
-import com.example.ecommerce.api.order.response.RetrieveOrderList;
-import com.example.ecommerce.domain.order.dto.RegisterCommand;
-import com.example.ecommerce.domain.order.entity.order.Order;
+import com.example.ecommerce.api.member.response.*;
+import com.example.ecommerce.api.order.request.*;
+import com.example.ecommerce.api.order.response.*;
+import com.example.ecommerce.domain.order.dto.*;
+import com.example.ecommerce.domain.order.entity.order.*;
 
-import java.util.List;
+import java.util.*;
 
 public interface OrderMapper {
-    RetrieveOrderDetail.OrderInfo retrieveDetailOf(Order order);
+    OrderDetailResponse.OrderInfo retrieveDetailOf(Order order);
 
-    List<RetrieveOrderList.OrderInfo> retrieveListOf(List<Order> orderList);
+    List<OrderListResponse.OrderInfo> retrieveListOf(List<Order> orderList);
+
+    List<MemberMyPageResponse.OrderInfo> retrieveMyPageListOf(List<Order> orderList);
 
     RegisterCommand commandOf(RegisterRequest request);
 }

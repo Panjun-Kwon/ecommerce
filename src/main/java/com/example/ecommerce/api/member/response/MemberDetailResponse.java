@@ -1,12 +1,10 @@
 package com.example.ecommerce.api.member.response;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
+import lombok.*;
 
 @Getter
 @AllArgsConstructor
-public class RetrieveMemberDetail {
+public class MemberDetailResponse {
 
     private MemberInfo member;
 
@@ -16,6 +14,9 @@ public class RetrieveMemberDetail {
     public static class MemberInfo {
         private Long id;
         private String username;
+        private String name;
+        private String email;
+        private String phoneNum;
         private AddressInfo address;
     }
 

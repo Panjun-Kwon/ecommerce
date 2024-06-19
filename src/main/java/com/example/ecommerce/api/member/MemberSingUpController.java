@@ -1,27 +1,24 @@
 package com.example.ecommerce.api.member;
 
-import com.example.ecommerce.api.member.request.SignUpRequest;
-import com.example.ecommerce.app.member.MemberSignUpService;
-import com.example.ecommerce.common.response.CommonResponse;
-import lombok.RequiredArgsConstructor;
-import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import com.example.ecommerce.api.member.request.*;
+import com.example.ecommerce.api.member.response.*;
+import com.example.ecommerce.app.member.*;
+import com.example.ecommerce.common.response.*;
+import lombok.*;
+import org.springframework.validation.annotation.*;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/members")
+@RequestMapping("/api/members")
 @RequiredArgsConstructor
 public class MemberSingUpController {
 
     private final MemberSignUpService memberSignUpService;
 
     @PostMapping
-    public CommonResponse<Long> signUp(@Validated @RequestBody SignUpRequest request) {
-        Long data = memberSignUpService.signUp(request);
-        String message = String.format("회원 가입");
-
+    public CommonResponse<MemberIdResponse> signUp(@Validated @RequestBody SignUpRequest request) {
+        MemberIdResponse data = new MemberIdResponse(memberSignUpService.signUp(request));
+        String message = "회원 가입";
         return CommonResponse.success(message, data);
     }
 

@@ -1,17 +1,18 @@
 package com.example.ecommerce.domain.member.service;
 
-import com.example.ecommerce.api.member.request.SignUpRequest;
-import com.example.ecommerce.api.member.response.RetrieveMemberDetail;
-import com.example.ecommerce.api.member.response.RetrieveMemberList;
-import com.example.ecommerce.domain.member.dto.SignUpCommand;
-import com.example.ecommerce.domain.member.entity.member.Member;
+import com.example.ecommerce.api.member.request.*;
+import com.example.ecommerce.api.member.response.*;
+import com.example.ecommerce.domain.member.dto.*;
+import com.example.ecommerce.domain.member.entity.member.*;
 
-import java.util.List;
+import java.util.*;
 
 public interface MemberMapper {
-    RetrieveMemberDetail.MemberInfo retrieveDetailOf(Member member);
+    MemberDetailResponse.MemberInfo retrieveDetailOf(Member member);
 
-    List<RetrieveMemberList.MemberInfo> retrieveListOf(List<Member> memberPage);
+    List<MemberListResponse.MemberInfo> retrieveListOf(List<Member> memberPage);
+
+    MemberMyPageResponse.MemberInfo retrieveMyPageDetailOf(Member member);
 
     SignUpCommand commandOf(SignUpRequest request);
 }

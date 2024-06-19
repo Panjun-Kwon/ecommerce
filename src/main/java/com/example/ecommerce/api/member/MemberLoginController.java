@@ -1,27 +1,24 @@
 package com.example.ecommerce.api.member;
 
-import com.example.ecommerce.api.member.request.LoginRequest;
-import com.example.ecommerce.app.member.MemberLoginService;
-import com.example.ecommerce.common.response.CommonResponse;
-import lombok.RequiredArgsConstructor;
-import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import com.example.ecommerce.api.member.request.*;
+import com.example.ecommerce.api.member.response.*;
+import com.example.ecommerce.app.member.*;
+import com.example.ecommerce.common.response.*;
+import lombok.*;
+import org.springframework.validation.annotation.*;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/members")
+@RequestMapping("/api/members")
 @RequiredArgsConstructor
 public class MemberLoginController {
 
     private final MemberLoginService memberLoginService;
 
     @PostMapping("/login")
-    public CommonResponse<String> login(@Validated @RequestBody LoginRequest loginRequest) {
-        String data = memberLoginService.login(loginRequest);
-        String message = String.format("Access Token 발급");
-
+    public CommonResponse<AccessTokenResponse> login(@Validated @RequestBody LoginRequest loginRequest) {
+        AccessTokenResponse data = new AccessTokenResponse(memberLoginService.login(loginRequest));
+        String message = "로그인";
         return CommonResponse.success(message, data);
     }
 

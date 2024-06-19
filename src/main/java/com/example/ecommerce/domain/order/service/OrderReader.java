@@ -1,8 +1,9 @@
 package com.example.ecommerce.domain.order.service;
 
-import com.example.ecommerce.domain.order.entity.order.Order;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
+import com.example.ecommerce.domain.order.entity.order.*;
+import org.springframework.data.domain.*;
+
+import java.util.*;
 
 public interface OrderReader {
     Order getOrder(Long orderId);
@@ -12,4 +13,6 @@ public interface OrderReader {
     Page<Order> getOrderAll(Pageable pageable);
 
     Page<Order> getOrderAllFetch(Pageable pageable);
+
+    List<Order> getOrderByPurchaserId(Long memberId);
 }

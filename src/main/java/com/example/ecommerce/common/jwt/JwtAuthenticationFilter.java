@@ -29,7 +29,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
     @PostConstruct
     public void init() {
-        requestMatcherList.add(new AntPathRequestMatcher("/auth/**"));
+        requestMatcherList.add(new AntPathRequestMatcher("/api/auth/**"));
     }
 
     @Override

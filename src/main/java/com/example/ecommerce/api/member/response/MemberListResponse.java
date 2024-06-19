@@ -8,7 +8,7 @@ import java.util.List;
 
 @Getter
 @AllArgsConstructor
-public class RetrieveMemberList {
+public class MemberListResponse {
 
     private List<MemberInfo> memberList;
     private PageInfo page;
