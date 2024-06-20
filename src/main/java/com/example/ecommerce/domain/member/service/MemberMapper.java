@@ -8,13 +8,15 @@ import com.example.ecommerce.domain.member.entity.member.*;
 import java.util.*;
 
 public interface MemberMapper {
-    MemberDetailResponse.MemberInfo retrieveDetailOf(Member member);
+    MemberDetailResponse.MemberInfo memberDetailOf(Member member);
 
-    List<MemberListResponse.MemberInfo> retrieveListOf(List<Member> memberPage);
+    AddressResponse.AddressInfo addressOf(Member member);
 
-    MemberPageResponse.MemberInfo retrieveMyPageDetailOf(Member member);
+    List<MemberListResponse.MemberInfo> memberListOf(List<Member> memberPage);
 
-    MemberProfileResponse.ProfileInfo retrieveMyProfileDetailOf(Member member);
+    MemberPageResponse.MemberInfo memberPageOf(Member member);
+
+    MemberProfileResponse.ProfileInfo memberProfileOf(Member member);
 
     SignUpCommand commandOf(SignUpRequest request);
 

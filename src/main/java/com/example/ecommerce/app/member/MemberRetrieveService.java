@@ -1,10 +1,10 @@
 package com.example.ecommerce.app.member;
 
 import com.example.ecommerce.api.member.response.*;
+import com.example.ecommerce.api.order.response.*;
+import com.example.ecommerce.app.order.*;
 import com.example.ecommerce.domain.member.entity.member.*;
 import com.example.ecommerce.domain.member.service.*;
-import com.example.ecommerce.domain.order.entity.order.*;
-import com.example.ecommerce.domain.order.service.*;
 import lombok.*;
 import org.springframework.data.domain.*;
 import org.springframework.stereotype.*;
@@ -18,20 +18,19 @@ import java.util.*;
 public class MemberRetrieveService {
 
     private final MemberReader memberReader;
-    private final OrderReader orderReader;
     private final MemberMapper memberMapper;
-    private final OrderMapper orderMapper;
+    private final OrderRetrieveService orderRetrieveService;
 
     public MemberDetailResponse retrieveMemberDetail(Long memberId) {
         Member member = memberReader.getMember(memberId);
-        MemberDetailResponse.MemberInfo memberInfo = memberMapper.retrieveDetailOf(member);
+        MemberDetailResponse.MemberInfo memberInfo = memberMapper.memberDetailOf(member);
 
         return new MemberDetailResponse(memberInfo);
     }
 
     public MemberListResponse retrieveMemberList(Pageable pageable) {
         Page<Member> memberPage = memberReader.getMemberAll(pageable);
-        List<MemberListResponse.MemberInfo> memberInfoList = memberMapper.retrieveListOf(memberPage.getContent());
+        List<MemberListResponse.MemberInfo> memberInfoList = memberMapper.memberListOf(memberPage.getContent());
 
         MemberListResponse.PageInfo pageInfo = makePageInfo(memberPage);
 
@@ -48,16 +47,15 @@ public class MemberRetrieveService {
 
     public MemberPageResponse retrieveMemberPage(Long memberId) {
         Member member = memberReader.getMember(memberId);
-        MemberPageResponse.MemberInfo memberInfo = memberMapper.retrieveMyPageDetailOf(member);
-        List<Order> orderList = orderReader.getOrderByPurchaserId(memberId);
-        List<MemberPageResponse.OrderInfo> orderInfoList = orderMapper.retrieveMyPageListOf(orderList);
+        MemberPageResponse.MemberInfo memberInfo = memberMapper.memberPageOf(member);
+        List<MemberOrderListResponse.OrderInfo> orderInfoList = orderRetrieveService.memberOrderList(memberId).getOrderList();
 
         return new MemberPageResponse(memberInfo, orderInfoList);
     }
 
     public MemberProfileResponse retrieveMemberProfile(Long memberId) {
         Member member = memberReader.getMember(memberId);
-        MemberProfileResponse.ProfileInfo profileInfo = memberMapper.retrieveMyProfileDetailOf(member);
+        MemberProfileResponse.ProfileInfo profileInfo = memberMapper.memberProfileOf(member);
 
         return new MemberProfileResponse(profileInfo);
     }

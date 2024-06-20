@@ -139,4 +139,25 @@ public class OrderMapperImpl implements OrderMapper {
 
         return command;
     }
+
+    @Override
+    public List<MemberOrderListResponse.OrderInfo> retrieveMemberOrderListOf(List<Order> memberOrderList) {
+
+        List<MemberOrderListResponse.OrderInfo> orderInfo = memberOrderList.stream()
+                .map(ol -> MemberOrderListResponse.OrderInfo.builder()
+                        .id(ol.getId())
+                        .orderLine(MemberOrderListResponse.OrderLineInfo.builder()
+                                .id(ol.getOrderLineList().get(0).getId())
+                                .orderProduct(MemberOrderListResponse.OrderProductInfo.builder()
+                                        .id(ol.getOrderLineList().get(0).getOrderProduct().getProductId())
+                                        .name(ol.getOrderLineList().get(0).getOrderProduct().getName())
+                                        .build())
+                                .build())
+                        .orderPrice(ol.getOrderPrice())
+                        .orderTime(ol.getOrderTime())
+                        .build())
+                .collect(Collectors.toList());
+
+        return orderInfo;
+    }
 }

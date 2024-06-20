@@ -42,4 +42,12 @@ public class OrderRetrieveService {
                 .build();
     }
 
+    public MemberOrderListResponse memberOrderList(Long memberId) {
+
+        List<Order> memberOrderList = orderReader.getOrderByPurchaserId(memberId);
+        List<MemberOrderListResponse.OrderInfo> memberOrderInfoList =
+                orderMapper.retrieveMemberOrderListOf(memberOrderList);
+
+        return new MemberOrderListResponse(memberOrderInfoList);
+    }
 }

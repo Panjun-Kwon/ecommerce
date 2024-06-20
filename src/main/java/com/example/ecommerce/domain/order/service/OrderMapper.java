@@ -16,4 +16,6 @@ public interface OrderMapper {
     List<MemberPageResponse.OrderInfo> retrieveMyPageListOf(List<Order> orderList);
 
     RegisterCommand commandOf(RegisterRequest request);
+
+    List<MemberOrderListResponse.OrderInfo> retrieveMemberOrderListOf(List<Order> memberOrderList);
 }
