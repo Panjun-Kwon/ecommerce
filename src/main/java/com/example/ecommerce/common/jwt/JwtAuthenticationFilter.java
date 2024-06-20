@@ -1,28 +1,27 @@
 package com.example.ecommerce.common.jwt;
 
-import com.example.ecommerce.domain.member.entity.member.AuthMember;
-import jakarta.annotation.PostConstruct;
-import jakarta.servlet.FilterChain;
-import jakarta.servlet.ServletException;
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpServletResponse;
-import lombok.RequiredArgsConstructor;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
-import org.springframework.security.web.util.matcher.RequestMatcher;
-import org.springframework.stereotype.Component;
-import org.springframework.util.StringUtils;
-import org.springframework.web.filter.OncePerRequestFilter;
+import com.example.ecommerce.domain.member.entity.member.*;
+import jakarta.annotation.*;
+import jakarta.servlet.*;
+import jakarta.servlet.http.*;
+import lombok.*;
+import org.springframework.security.authentication.*;
+import org.springframework.security.core.*;
+import org.springframework.security.core.context.*;
+import org.springframework.security.web.util.matcher.*;
+import org.springframework.stereotype.*;
+import org.springframework.util.*;
+import org.springframework.web.filter.*;
 
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
+import java.io.*;
+import java.util.*;
+
+import static com.example.ecommerce.common.jwt.JwtUtils.*;
 
 @Component
 @RequiredArgsConstructor
 public class JwtAuthenticationFilter extends OncePerRequestFilter {
+
 
     private final JwtUtils jwtUtils;
     private List<RequestMatcher> requestMatcherList = new ArrayList<>();
@@ -37,10 +36,10 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
                                     HttpServletResponse response,
                                     FilterChain filterChain) throws ServletException, IOException {
 
-        String accessToken = request.getHeader("Authorization");
+        String accessToken = request.getHeader(TOKEN_HEADER);
 
-        if (StringUtils.hasText(accessToken) && accessToken.startsWith("Bearer ")) {
-            accessToken = accessToken.replace("Bearer ", "");
+        if (StringUtils.hasText(accessToken) && accessToken.startsWith(TOKEN_PREFIX)) {
+            accessToken = accessToken.replace(TOKEN_PREFIX, "");
 
             AuthMember authMember = jwtUtils.getAuth(accessToken);
 

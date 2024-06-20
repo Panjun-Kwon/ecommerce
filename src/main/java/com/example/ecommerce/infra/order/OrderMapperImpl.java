@@ -89,7 +89,7 @@ public class OrderMapperImpl implements OrderMapper {
                         .orderLine(MemberPageResponse.OrderLineInfo.builder()
                                 .id(ol.getOrderLineList().get(0).getId())
                                 .orderProduct(MemberPageResponse.OrderProductInfo.builder()
-                                        .productId(ol.getOrderLineList().get(0).getOrderProduct().getProductId())
+                                        .id(ol.getOrderLineList().get(0).getOrderProduct().getProductId())
                                         .name(ol.getOrderLineList().get(0).getOrderProduct().getName())
                                         .build())
                                 .build())

@@ -16,4 +16,17 @@ public class Profile {
     @Email
     private String email;
     private String phoneNum;
+
+    public void modify(String email, String phoneNum) {
+        modifyEmail(email);
+        modifyPhoneNum(phoneNum);
+    }
+
+    public void modifyEmail(String email) {
+        this.email = email;
+    }
+
+    public void modifyPhoneNum(String phoneNum) {
+        this.phoneNum = phoneNum;
+    }
 }

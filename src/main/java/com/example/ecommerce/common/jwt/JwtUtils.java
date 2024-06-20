@@ -1,20 +1,21 @@
 package com.example.ecommerce.common.jwt;
 
-import com.example.ecommerce.domain.member.entity.member.AuthMember;
-import com.example.ecommerce.domain.member.entity.member.Member;
-import com.example.ecommerce.domain.member.entity.member.Role;
+import com.example.ecommerce.domain.member.entity.member.*;
 import io.jsonwebtoken.*;
-import io.jsonwebtoken.io.Decoders;
-import io.jsonwebtoken.security.Keys;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.stereotype.Component;
+import io.jsonwebtoken.io.*;
+import io.jsonwebtoken.security.*;
+import org.springframework.beans.factory.annotation.*;
+import org.springframework.stereotype.*;
 
-import java.security.Key;
-import java.util.Date;
+import java.security.*;
+import java.util.*;
 
 @Component
 public class JwtUtils {
 
+    public static final String TOKEN_HEADER = "Authorization";
+    public static final String TOKEN_PREFIX = "Bearer ";
+    public static final long EXPIRATION_TIME = 1000L * 60 * 60;
     private final Key key;
 
     public JwtUtils(@Value("${jwt.secretKey}") String secretKey) {
@@ -24,7 +25,7 @@ public class JwtUtils {
 
     public String generateAccessToken(AuthMember authMember) {
         Date issuedAt = new Date();
-        Date expiredAt = new Date(issuedAt.getTime() + 1000L * 60 * 60);
+        Date expiredAt = new Date(issuedAt.getTime() + EXPIRATION_TIME);
 
         return Jwts.builder()
                 .claim("id", authMember.getMember().getId())

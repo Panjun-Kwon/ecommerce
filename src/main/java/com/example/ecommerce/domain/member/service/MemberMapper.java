@@ -17,4 +17,6 @@ public interface MemberMapper {
     MemberProfileResponse.ProfileInfo retrieveMyProfileDetailOf(Member member);
 
     SignUpCommand commandOf(SignUpRequest request);
+
+    ProfileCommand commandOf(ProfileRequest request);
 }

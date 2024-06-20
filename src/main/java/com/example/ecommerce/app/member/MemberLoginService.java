@@ -20,6 +20,7 @@ public class MemberLoginService {
     private final JwtUtils jwtUtils;
 
     public AccessTokenResponse login(LoginRequest request) {
+
         Authentication authentication = authenticationProvider.authenticate(
                 new UsernamePasswordAuthenticationToken(request.getUsername(), request.getPassword()));
 

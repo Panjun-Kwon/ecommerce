@@ -104,4 +104,15 @@ public class MemberMapperImpl implements MemberMapper {
 
         return command;
     }
+
+    @Override
+    public ProfileCommand commandOf(ProfileRequest request) {
+
+        ProfileCommand command = ProfileCommand.builder()
+                .email(request.getEmail())
+                .phoneNum(request.getPhoneNum())
+                .build();
+
+        return command;
+    }
 }
