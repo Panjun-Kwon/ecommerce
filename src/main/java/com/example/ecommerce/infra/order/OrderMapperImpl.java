@@ -1,6 +1,5 @@
 package com.example.ecommerce.infra.order;
 
-import com.example.ecommerce.api.member.response.*;
 import com.example.ecommerce.api.order.request.*;
 import com.example.ecommerce.api.order.response.*;
 import com.example.ecommerce.domain.order.dto.*;
@@ -43,7 +42,7 @@ public class OrderMapperImpl implements OrderMapper {
                         .build())
                 .collect(Collectors.toList());
 
-        OrderDetailResponse.OrderInfo orderInfo = OrderDetailResponse.OrderInfo.builder()
+        return OrderDetailResponse.OrderInfo.builder()
                 .id(order.getId())
                 .purchaser(purchaserInfo)
                 .receiver(receiverInfo)
@@ -51,14 +50,12 @@ public class OrderMapperImpl implements OrderMapper {
                 .orderPrice(order.getOrderPrice())
                 .orderTime(order.getOrderTime())
                 .build();
-
-        return orderInfo;
     }
 
     @Override
     public List<OrderListResponse.OrderInfo> retrieveListOf(List<Order> orderList) {
 
-        List<OrderListResponse.OrderInfo> orderInfo = orderList.stream()
+        return orderList.stream()
                 .map(ol -> OrderListResponse.OrderInfo.builder()
                         .id(ol.getId())
                         .purchaser(OrderListResponse.PurchaserInfo.builder()
@@ -76,20 +73,18 @@ public class OrderMapperImpl implements OrderMapper {
                         .orderTime(ol.getOrderTime())
                         .build())
                 .collect(Collectors.toList());
-
-        return orderInfo;
     }
 
     @Override
-    public List<MemberPageResponse.OrderInfo> retrieveMyPageListOf(List<Order> orderList) {
+    public List<MemberOrderListResponse.OrderInfo> retrieveMemberOrderListOf(List<Order> memberOrderList) {
 
-        List<MemberPageResponse.OrderInfo> orderInfo = orderList.stream()
-                .map(ol -> MemberPageResponse.OrderInfo.builder()
+        return memberOrderList.stream()
+                .map(ol -> MemberOrderListResponse.OrderInfo.builder()
                         .id(ol.getId())
-                        .orderLine(MemberPageResponse.OrderLineInfo.builder()
+                        .orderLine(MemberOrderListResponse.OrderLineInfo.builder()
                                 .id(ol.getOrderLineList().get(0).getId())
-                                .orderProduct(MemberPageResponse.OrderProductInfo.builder()
-                                        .id(ol.getOrderLineList().get(0).getOrderProduct().getProductId())
+                                .orderProduct(MemberOrderListResponse.OrderProductInfo.builder()
+                                        .productId(ol.getOrderLineList().get(0).getOrderProduct().getProductId())
                                         .name(ol.getOrderLineList().get(0).getOrderProduct().getName())
                                         .build())
                                 .build())
@@ -97,8 +92,15 @@ public class OrderMapperImpl implements OrderMapper {
                         .orderTime(ol.getOrderTime())
                         .build())
                 .collect(Collectors.toList());
+    }
 
-        return orderInfo;
+    @Override
+    public ShippingAddressCommand commandOf(ShippingAddressRequest request) {
+
+        return ShippingAddressCommand.builder()
+                .city(request.getCity())
+                .street(request.getStreet())
+                .build();
     }
 
     @Override
@@ -130,34 +132,11 @@ public class OrderMapperImpl implements OrderMapper {
                 .street(request.getShippingAddress().getStreet())
                 .build();
 
-        RegisterCommand command = RegisterCommand.builder()
+        return RegisterCommand.builder()
                 .orderLineList(orderLineList)
                 .purchaser(purchaser)
                 .receiver(receiver)
                 .shippingAddress(shippingAddress)
                 .build();
-
-        return command;
-    }
-
-    @Override
-    public List<MemberOrderListResponse.OrderInfo> retrieveMemberOrderListOf(List<Order> memberOrderList) {
-
-        List<MemberOrderListResponse.OrderInfo> orderInfo = memberOrderList.stream()
-                .map(ol -> MemberOrderListResponse.OrderInfo.builder()
-                        .id(ol.getId())
-                        .orderLine(MemberOrderListResponse.OrderLineInfo.builder()
-                                .id(ol.getOrderLineList().get(0).getId())
-                                .orderProduct(MemberOrderListResponse.OrderProductInfo.builder()
-                                        .id(ol.getOrderLineList().get(0).getOrderProduct().getProductId())
-                                        .name(ol.getOrderLineList().get(0).getOrderProduct().getName())
-                                        .build())
-                                .build())
-                        .orderPrice(ol.getOrderPrice())
-                        .orderTime(ol.getOrderTime())
-                        .build())
-                .collect(Collectors.toList());
-
-        return orderInfo;
     }
 }

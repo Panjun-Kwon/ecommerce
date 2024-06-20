@@ -54,4 +54,8 @@ public class Order {
                 .mapToInt(ol -> ol.getOrderProduct().getPrice() * ol.getQuantity())
                 .sum();
     }
+
+    public void changeShippingAddress(ShippingAddress shippingAddress) {
+        this.shippingAddress = shippingAddress;
+    }
 }

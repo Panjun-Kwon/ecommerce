@@ -33,7 +33,7 @@ public class MemberOrderListResponse {
     @Builder
     @AllArgsConstructor
     public static class OrderProductInfo {
-        private Long id;
+        private Long productId;
         private String name;
     }
 }

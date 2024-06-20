@@ -18,7 +18,7 @@ public class MemberModifyController {
 
     private final MemberModifyService memberModifyService;
 
-    @PostMapping("/auth/members/my/profile")
+    @PutMapping("/auth/members/my/profile")
     public CommonResponse<Void> modifyProfile(
             @AuthenticationPrincipal AuthMember authMember,
             @Validated @RequestBody ProfileRequest request) {
@@ -26,6 +26,7 @@ public class MemberModifyController {
         Long memberId = authMember.getMember().getId();
         memberModifyService.modifyProfile(memberId, request);
         String message = String.format("멤버(%d) 마이 프로필 수정", memberId);
+
         return CommonResponse.success(message, null);
     }
 }
