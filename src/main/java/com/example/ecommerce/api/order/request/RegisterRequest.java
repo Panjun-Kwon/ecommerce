@@ -33,7 +33,7 @@ public class RegisterRequest {
     }
 
     @Getter
-    public class OrderProductRequest {
+    public static class OrderProductRequest {
         @NotNull
         private Long productId;
         @NotNull

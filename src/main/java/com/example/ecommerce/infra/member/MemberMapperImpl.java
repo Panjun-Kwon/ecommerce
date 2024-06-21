@@ -23,7 +23,7 @@ public class MemberMapperImpl implements MemberMapper {
         MemberDetailResponse.MemberInfo memberInfo = MemberDetailResponse.MemberInfo.builder()
                 .id(member.getId())
                 .username(member.getUsername())
-                .profile(new MemberProfileResponse(profileInfo))
+                .profile(new MemberProfileResponse(member.getId(), profileInfo))
                 .address(addressInfo)
                 .build();
 

@@ -6,6 +6,7 @@ import lombok.*;
 @AllArgsConstructor
 public class MemberProfileResponse {
 
+    private Long memberId;
     private ProfileInfo profile;
 
     @Getter

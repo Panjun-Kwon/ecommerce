@@ -19,7 +19,7 @@ public class PartnerValidatorImpl implements PartnerValidator {
 
     @Override
     public void validateName(String name) {
-        if (partnerRepository.existsByName(name)) {
+        if (partnerRepository.existsByProfileName(name)) {
             throw new CommonException(ErrorCode.INVALID_PARAMETER, "NAME DUPLICATED");
         }
     }

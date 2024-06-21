@@ -6,5 +6,5 @@ import lombok.*;
 @Builder
 @AllArgsConstructor
 public class PartnerIdResponse {
-    private Long id;
+    private Long partnerId;
 }

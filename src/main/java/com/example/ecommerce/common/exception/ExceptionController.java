@@ -1,16 +1,15 @@
 package com.example.ecommerce.common.exception;
 
-import com.example.ecommerce.common.response.CommonResponse;
-import org.springframework.http.HttpStatus;
-import org.springframework.web.bind.MethodArgumentNotValidException;
-import org.springframework.web.bind.annotation.ExceptionHandler;
-import org.springframework.web.bind.annotation.ResponseStatus;
-import org.springframework.web.bind.annotation.RestControllerAdvice;
+import com.example.ecommerce.common.response.*;
+import lombok.extern.slf4j.*;
+import org.springframework.http.*;
+import org.springframework.web.bind.*;
+import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 @RestControllerAdvice
+@Slf4j
 public class ExceptionController {
     @ExceptionHandler(CommonException.class)
     @ResponseStatus(HttpStatus.OK)
@@ -54,6 +53,7 @@ public class ExceptionController {
     @ExceptionHandler(Exception.class)
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
     public static CommonResponse serverError(Exception e) {
+        log.warn("{}", e.getStackTrace());
         return CommonResponse.error(e.getMessage(), ErrorCode.SERVER_ERROR);
     }
 }

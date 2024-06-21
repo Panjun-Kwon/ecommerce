@@ -57,6 +57,6 @@ public class MemberRetrieveService {
         Member member = memberReader.getMember(memberId);
         MemberProfileResponse.ProfileInfo profileInfo = memberMapper.memberProfileOf(member);
 
-        return new MemberProfileResponse(profileInfo);
+        return new MemberProfileResponse(memberId, profileInfo);
     }
 }
