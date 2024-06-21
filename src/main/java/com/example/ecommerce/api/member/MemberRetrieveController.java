@@ -7,32 +7,29 @@ import com.example.ecommerce.config.security.*;
 import lombok.*;
 import org.springframework.data.domain.*;
 import org.springframework.security.core.annotation.*;
-import org.springframework.transaction.annotation.*;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/api")
-@Transactional(readOnly = true)
 @RequiredArgsConstructor
 public class MemberRetrieveController {
 
     private final MemberRetrieveService memberRetrieveService;
 
-    @GetMapping("/members/{memberId}")
+    @GetMapping("/api/members/{memberId}")
     public CommonResponse<MemberDetailResponse> retrieveMemberDetail(@PathVariable Long memberId) {
         MemberDetailResponse data = memberRetrieveService.retrieveMemberDetail(memberId);
         String message = String.format("멤버(%d) 상세 조회", memberId);
         return CommonResponse.success(message, data);
     }
 
-    @GetMapping("/members")
+    @GetMapping("/api/members")
     public CommonResponse<MemberListResponse> retrieveMemberList(Pageable pageable) {
         MemberListResponse data = memberRetrieveService.retrieveMemberList(pageable);
         String message = "멤버 목록 조회";
         return CommonResponse.success(message, data);
     }
 
-    @GetMapping("/auth/members/my/page")
+    @GetMapping("/api/auth/members/my/page")
     public CommonResponse<MemberPageResponse> retrievePage(@AuthenticationPrincipal AuthMember authMember) {
         Long memberId = authMember.getId();
         MemberPageResponse data = memberRetrieveService.retrieveMemberPage(memberId);
@@ -40,7 +37,7 @@ public class MemberRetrieveController {
         return CommonResponse.success(message, data);
     }
 
-    @GetMapping("/auth/members/my/profile")
+    @GetMapping("/api/auth/members/my/profile")
     public CommonResponse<MemberProfileResponse> retrieveProfile(@AuthenticationPrincipal AuthMember authMember) {
         Long memberId = authMember.getId();
         MemberProfileResponse data = memberRetrieveService.retrieveMemberProfile(memberId);

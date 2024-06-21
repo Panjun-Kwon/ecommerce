@@ -1,8 +1,6 @@
 package com.example.ecommerce.infra.member;
 
-import com.example.ecommerce.api.member.request.*;
 import com.example.ecommerce.api.member.response.*;
-import com.example.ecommerce.domain.member.command.*;
 import com.example.ecommerce.domain.member.entity.member.*;
 import com.example.ecommerce.domain.member.service.*;
 import org.springframework.stereotype.*;
@@ -80,10 +78,5 @@ public class MemberMapperImpl implements MemberMapper {
                 .build();
 
         return profileInfo;
-    }
-
-    @Override
-    public SignUpCommand commandOf(SignUpRequest request) {
-        return SignUpCommand.of(request);
     }
 }

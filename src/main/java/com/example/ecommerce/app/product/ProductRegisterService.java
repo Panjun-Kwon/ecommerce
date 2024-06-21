@@ -14,13 +14,12 @@ import org.springframework.transaction.annotation.*;
 @RequiredArgsConstructor
 public class ProductRegisterService {
 
-    private final ProductMapper productMapper;
     private final ProductValidator productValidator;
     private final ProductFactory productFactory;
     private final ProductStore productStore;
 
     public ProductIdResponse register(RegisterRequest request) {
-        RegisterCommand command = productMapper.commandOf(request);
+        RegisterCommand command = RegisterCommand.of(request);
         productValidator.validateRegister(command);
         Product initProduct = productFactory.make(command);
         Product product = productStore.store(initProduct);

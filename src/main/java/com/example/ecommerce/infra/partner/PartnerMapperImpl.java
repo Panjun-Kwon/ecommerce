@@ -1,8 +1,6 @@
 package com.example.ecommerce.infra.partner;
 
-import com.example.ecommerce.api.partner.request.*;
 import com.example.ecommerce.api.partner.response.*;
-import com.example.ecommerce.domain.partner.command.*;
 import com.example.ecommerce.domain.partner.entity.partner.*;
 import com.example.ecommerce.domain.partner.service.*;
 import org.springframework.stereotype.*;
@@ -32,10 +30,5 @@ public class PartnerMapperImpl implements PartnerMapper {
                 .collect(Collectors.toList());
 
         return partnerInfoList;
-    }
-
-    @Override
-    public RegisterCommand commandOf(RegisterRequest request) {
-        return RegisterCommand.of(request);
     }
 }

@@ -4,6 +4,7 @@ import com.example.ecommerce.api.member.request.*;
 import com.example.ecommerce.app.member.*;
 import com.example.ecommerce.common.response.*;
 import com.example.ecommerce.config.security.*;
+import jakarta.validation.*;
 import lombok.*;
 import org.springframework.security.core.annotation.*;
 import org.springframework.validation.annotation.*;
@@ -18,10 +19,10 @@ public class MemberModifyController {
     @PutMapping("/api/auth/members/my/password")
     public CommonResponse<Void> modifyPassword(
             @AuthenticationPrincipal AuthMember authMember,
-            @RequestParam String password) {
+            @Valid @RequestBody PasswordRequest request) {
 
         Long memberId = authMember.getId();
-        memberModifyService.modifyPassword(memberId, password);
+        memberModifyService.modifyPassword(memberId, request.getPassword());
         String message = String.format("멤버(%d) 비밀번호 수정", memberId);
         return CommonResponse.success(message, null);
     }
@@ -29,10 +30,10 @@ public class MemberModifyController {
     @PutMapping("/api/auth/members/my/email")
     public CommonResponse<Void> modifyEmail(
             @AuthenticationPrincipal AuthMember authMember,
-            @RequestParam String email) {
+            @Valid @RequestBody EmailRequest request) {
 
         Long memberId = authMember.getId();
-        memberModifyService.modifyEmail(memberId, email);
+        memberModifyService.modifyEmail(memberId, request.getEmail());
         String message = String.format("멤버(%d) 이메일 수정", memberId);
         return CommonResponse.success(message, null);
     }
@@ -40,10 +41,10 @@ public class MemberModifyController {
     @PutMapping("/api/auth/members/my/phone_num")
     public CommonResponse<Void> modifyPhoneNum(
             @AuthenticationPrincipal AuthMember authMember,
-            @RequestParam String phoneNum) {
+            @Valid @RequestBody PhoneNumRequest request) {
 
         Long memberId = authMember.getId();
-        memberModifyService.modifyPhoneNum(memberId, phoneNum);
+        memberModifyService.modifyPhoneNum(memberId, request.getPhoneNum());
         String message = String.format("멤버(%d) 전화번호 수정", memberId);
         return CommonResponse.success(message, null);
     }

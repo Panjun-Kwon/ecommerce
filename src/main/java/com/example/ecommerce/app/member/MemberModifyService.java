@@ -4,6 +4,7 @@ import com.example.ecommerce.api.member.request.*;
 import com.example.ecommerce.domain.member.entity.member.*;
 import com.example.ecommerce.domain.member.service.*;
 import lombok.*;
+import org.springframework.security.crypto.password.*;
 import org.springframework.stereotype.*;
 import org.springframework.transaction.annotation.*;
 
@@ -13,10 +14,11 @@ import org.springframework.transaction.annotation.*;
 public class MemberModifyService {
 
     private final MemberReader memberReader;
+    private final PasswordEncoder passwordEncoder;
 
     public void modifyPassword(Long memberId, String password) {
         Member member = memberReader.getMember(memberId);
-        member.modifyEmail(password);
+        member.modifyPassword(password, passwordEncoder);
     }
 
     public void modifyEmail(Long memberId, String email) {
@@ -26,7 +28,7 @@ public class MemberModifyService {
 
     public void modifyPhoneNum(Long memberId, String phoneNum) {
         Member member = memberReader.getMember(memberId);
-        member.modifyEmail(phoneNum);
+        member.modifyPhoneNum(phoneNum);
     }
 
     public void modifyAddress(Long memberId, AddressRequest request) {

@@ -20,14 +20,13 @@ import java.util.stream.*;
 @RequiredArgsConstructor
 public class OrderRegisterService {
 
-    private final OrderMapper orderMapper;
     private final OrderValidator orderValidator;
     private final OrderFactory orderFactory;
     private final OrderStore orderStore;
     private final ProductReader productReader;
 
     public OrderIdResponse register(RegisterRequest request) {
-        RegisterCommand command = orderMapper.commandOf(request);
+        RegisterCommand command = RegisterCommand.of(request);
         orderValidator.validateRegister(command);
         Order initOrder = orderFactory.make(command);
         decreaseProductStock(initOrder);

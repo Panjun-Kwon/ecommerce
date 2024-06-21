@@ -1,9 +1,7 @@
 package com.example.ecommerce.infra.product;
 
-import com.example.ecommerce.api.product.request.*;
 import com.example.ecommerce.api.product.response.*;
 import com.example.ecommerce.domain.partner.entity.partner.*;
-import com.example.ecommerce.domain.product.command.*;
 import com.example.ecommerce.domain.product.entity.product.*;
 import com.example.ecommerce.domain.product.service.*;
 import org.springframework.stereotype.*;
@@ -44,10 +42,5 @@ public class ProductMapperImpl implements ProductMapper {
                 .collect(Collectors.toList());
 
         return productInfoList;
-    }
-
-    @Override
-    public RegisterCommand commandOf(RegisterRequest request) {
-        return RegisterCommand.of(request);
     }
 }

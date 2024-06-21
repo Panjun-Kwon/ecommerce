@@ -14,13 +14,12 @@ import org.springframework.transaction.annotation.*;
 @RequiredArgsConstructor
 public class PartnerRegisterService {
 
-    private final PartnerMapper partnerMapper;
     private final PartnerValidator partnerValidator;
     private final PartnerFactory partnerFactory;
     private final PartnerStore partnerStore;
 
     public PartnerIdResponse register(RegisterRequest request) {
-        RegisterCommand command = partnerMapper.commandOf(request);
+        RegisterCommand command = RegisterCommand.of(request);
         partnerValidator.validateRegister(command);
         Partner initPartner = partnerFactory.make(command);
         Partner partner = partnerStore.store(initPartner);

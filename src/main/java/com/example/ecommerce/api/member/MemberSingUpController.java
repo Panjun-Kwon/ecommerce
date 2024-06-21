@@ -10,14 +10,13 @@ import org.springframework.validation.annotation.*;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/api/members")
 @Transactional
 @RequiredArgsConstructor
 public class MemberSingUpController {
 
     private final MemberSignUpService memberSignUpService;
 
-    @PostMapping
+    @PostMapping("/api/members")
     public CommonResponse<MemberIdResponse> signUp(@Validated @RequestBody SignUpRequest request) {
         MemberIdResponse data = memberSignUpService.signUp(request);
         String message = "회원 가입";

@@ -15,14 +15,13 @@ import org.springframework.transaction.annotation.*;
 @RequiredArgsConstructor
 public class MemberSignUpService {
 
-    private final MemberMapper memberMapper;
     private final MemberValidator memberValidator;
     private final MemberFactory memberFactory;
     private final PasswordEncoder passwordEncoder;
     private final MemberStore memberStore;
 
     public MemberIdResponse signUp(SignUpRequest request) {
-        SignUpCommand command = memberMapper.commandOf(request);
+        SignUpCommand command = SignUpCommand.of(request);
         memberValidator.validateSignUpCommand(command);
         Member initMember = memberFactory.make(command);
         initMember.encodePassword(passwordEncoder);

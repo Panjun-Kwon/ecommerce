@@ -1,8 +1,6 @@
 package com.example.ecommerce.infra.order;
 
-import com.example.ecommerce.api.order.request.*;
 import com.example.ecommerce.api.order.response.*;
-import com.example.ecommerce.domain.order.command.*;
 import com.example.ecommerce.domain.order.entity.order.*;
 import com.example.ecommerce.domain.order.service.*;
 import org.springframework.stereotype.*;
@@ -92,19 +90,5 @@ public class OrderMapperImpl implements OrderMapper {
                         .orderTime(ol.getOrderTime())
                         .build())
                 .collect(Collectors.toList());
-    }
-
-    @Override
-    public ShippingAddressCommand commandOf(ShippingAddressRequest request) {
-
-        return ShippingAddressCommand.builder()
-                .city(request.getCity())
-                .street(request.getStreet())
-                .build();
-    }
-
-    @Override
-    public RegisterCommand commandOf(RegisterRequest request) {
-        return RegisterCommand.of(request);
     }
 }
