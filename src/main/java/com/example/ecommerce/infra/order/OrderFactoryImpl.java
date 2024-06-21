@@ -1,30 +1,20 @@
 package com.example.ecommerce.infra.order;
 
-import com.example.ecommerce.domain.order.dto.RegisterCommand;
-import com.example.ecommerce.domain.order.entity.order.Order;
-import com.example.ecommerce.domain.order.entity.order.Purchaser;
-import com.example.ecommerce.domain.order.entity.order.Receiver;
-import com.example.ecommerce.domain.order.entity.order.ShippingAddress;
-import com.example.ecommerce.domain.order.entity.order_line.OrderLine;
-import com.example.ecommerce.domain.order.entity.order_line.OrderProduct;
-import com.example.ecommerce.domain.order.service.OrderFactory;
-import com.example.ecommerce.domain.order.service.OrderValidator;
-import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Component;
+import com.example.ecommerce.domain.order.command.*;
+import com.example.ecommerce.domain.order.entity.order.*;
+import com.example.ecommerce.domain.order.entity.order_line.*;
+import com.example.ecommerce.domain.order.service.*;
+import lombok.*;
+import org.springframework.stereotype.*;
 
-import java.util.List;
-import java.util.stream.Collectors;
+import java.util.*;
+import java.util.stream.*;
 
 @Component
 @RequiredArgsConstructor
 public class OrderFactoryImpl implements OrderFactory {
-
-    private final OrderValidator orderValidator;
-
     @Override
     public Order make(RegisterCommand command) {
-
-        orderValidator.validate(command);
 
         List<OrderLine> orderLineList = command.getOrderLineList().stream()
                 .map(ol -> OrderLine.builder()

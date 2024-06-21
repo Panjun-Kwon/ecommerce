@@ -2,7 +2,7 @@ package com.example.ecommerce.infra.order;
 
 import com.example.ecommerce.api.order.request.*;
 import com.example.ecommerce.api.order.response.*;
-import com.example.ecommerce.domain.order.dto.*;
+import com.example.ecommerce.domain.order.command.*;
 import com.example.ecommerce.domain.order.entity.order.*;
 import com.example.ecommerce.domain.order.service.*;
 import org.springframework.stereotype.*;
@@ -105,38 +105,6 @@ public class OrderMapperImpl implements OrderMapper {
 
     @Override
     public RegisterCommand commandOf(RegisterRequest request) {
-
-        List<OrderLineCommand> orderLineList = request.getOrderLineList().stream()
-                .map(ol -> OrderLineCommand.builder()
-                        .orderProduct(OrderProductCommand.builder()
-                                .productId(ol.getOrderProduct().getProductId())
-                                .name(ol.getOrderProduct().getName())
-                                .price(ol.getOrderProduct().getPrice())
-                                .build())
-                        .quantity(ol.getQuantity())
-                        .build())
-                .collect(Collectors.toList());
-
-        PurchaserCommand purchaser = PurchaserCommand.builder()
-                .memberId(request.getPurchaser().getMemberId())
-                .username(request.getPurchaser().getUsername())
-                .build();
-
-        ReceiverCommand receiver = ReceiverCommand.builder()
-                .name(request.getReceiver().getName())
-                .phoneNum(request.getReceiver().getPhoneNum())
-                .build();
-
-        ShippingAddressCommand shippingAddress = ShippingAddressCommand.builder()
-                .city(request.getShippingAddress().getCity())
-                .street(request.getShippingAddress().getStreet())
-                .build();
-
-        return RegisterCommand.builder()
-                .orderLineList(orderLineList)
-                .purchaser(purchaser)
-                .receiver(receiver)
-                .shippingAddress(shippingAddress)
-                .build();
+        return RegisterCommand.of(request);
     }
 }

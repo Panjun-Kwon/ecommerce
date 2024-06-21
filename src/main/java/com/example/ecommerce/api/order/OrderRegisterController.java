@@ -1,14 +1,12 @@
 package com.example.ecommerce.api.order;
 
-import com.example.ecommerce.api.order.request.RegisterRequest;
-import com.example.ecommerce.app.order.OrderRegisterService;
-import com.example.ecommerce.common.response.CommonResponse;
-import lombok.RequiredArgsConstructor;
-import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import com.example.ecommerce.api.order.request.*;
+import com.example.ecommerce.api.order.response.*;
+import com.example.ecommerce.app.order.*;
+import com.example.ecommerce.common.response.*;
+import jakarta.validation.*;
+import lombok.*;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/orders")
@@ -18,9 +16,9 @@ public class OrderRegisterController {
     private final OrderRegisterService orderRegisterService;
 
     @PostMapping
-    public CommonResponse<Long> registerOrder(@Validated @RequestBody RegisterRequest request) {
-        Long data = orderRegisterService.register(request);
-        String message = String.format("주문 등록");
+    public CommonResponse<OrderIdResponse> registerOrder(@Valid @RequestBody RegisterRequest request) {
+        OrderIdResponse data = orderRegisterService.register(request);
+        String message = "주문 등록";
 
         return CommonResponse.success(message, data);
     }

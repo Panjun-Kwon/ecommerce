@@ -25,7 +25,7 @@ public class MemberSignUpService {
         SignUpCommand command = memberMapper.commandOf(request);
         memberValidator.validateSignUpCommand(command);
         Member initMember = memberFactory.make(command);
-        initMember.encodePassword(passwordEncoder.encode(initMember.getPassword()));
+        initMember.encodePassword(passwordEncoder);
         Member member = memberStore.store(initMember);
         return new MemberIdResponse(member.getId());
     }

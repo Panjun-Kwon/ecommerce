@@ -1,7 +1,7 @@
 package com.example.ecommerce.api.order.request;
 
-import jakarta.validation.constraints.NotNull;
-import lombok.Getter;
+import jakarta.validation.constraints.*;
+import lombok.*;
 
 @Getter
 public class ShippingAddressRequest {

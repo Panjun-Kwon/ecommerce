@@ -1,18 +1,15 @@
 package com.example.ecommerce.domain.order.entity.order_line;
 
 import jakarta.persistence.*;
-import jakarta.validation.constraints.Min;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import jakarta.validation.constraints.*;
+import lombok.*;
 
-import static jakarta.persistence.GenerationType.IDENTITY;
-import static lombok.AccessLevel.PROTECTED;
+import static jakarta.persistence.GenerationType.*;
 
 @Entity
 @Table(name = "order_lines")
-@NoArgsConstructor(access = PROTECTED)
 @Getter
+@NoArgsConstructor
 public class OrderLine {
     @Id
     @GeneratedValue(strategy = IDENTITY)

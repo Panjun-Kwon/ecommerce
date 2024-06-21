@@ -3,6 +3,7 @@ package com.example.ecommerce.domain.member.entity.member;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.*;
 import lombok.*;
+import org.springframework.security.crypto.password.*;
 
 import static jakarta.persistence.GenerationType.*;
 
@@ -42,8 +43,8 @@ public class Member {
         this.address = address;
     }
 
-    public void encodePassword(String password) {
-        this.password = password;
+    public void encodePassword(PasswordEncoder passwordEncoder) {
+        this.password = passwordEncoder.encode(this.password);
     }
 
     public void modifyPassword(String password) {

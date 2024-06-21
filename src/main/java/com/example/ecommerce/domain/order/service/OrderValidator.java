@@ -1,14 +1,13 @@
 package com.example.ecommerce.domain.order.service;
 
-import com.example.ecommerce.domain.order.dto.OrderLineCommand;
-import com.example.ecommerce.domain.order.dto.RegisterCommand;
+import com.example.ecommerce.domain.order.command.*;
 
 public interface OrderValidator {
-    void validate(RegisterCommand command);
+    void validateRegister(RegisterCommand command);
+
+    void validateOrderLine(RegisterCommand.OrderLineCommand command);
 
     void validatePurchaserId(Long purchaserId);
-
-    void validateOrderLine(OrderLineCommand command);
 
     void validateProductId(Long productId);
 }

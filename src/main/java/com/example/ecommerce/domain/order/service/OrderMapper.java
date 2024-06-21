@@ -2,7 +2,7 @@ package com.example.ecommerce.domain.order.service;
 
 import com.example.ecommerce.api.order.request.*;
 import com.example.ecommerce.api.order.response.*;
-import com.example.ecommerce.domain.order.dto.*;
+import com.example.ecommerce.domain.order.command.*;
 import com.example.ecommerce.domain.order.entity.order.*;
 
 import java.util.*;

@@ -1,39 +1,38 @@
 package com.example.ecommerce.app.order;
 
-import com.example.ecommerce.api.order.request.RegisterRequest;
-import com.example.ecommerce.common.exception.CommonException;
-import com.example.ecommerce.common.exception.MultiException;
-import com.example.ecommerce.domain.order.dto.RegisterCommand;
-import com.example.ecommerce.domain.order.entity.order.Order;
-import com.example.ecommerce.domain.order.entity.order_line.OrderLine;
-import com.example.ecommerce.domain.order.service.OrderFactory;
-import com.example.ecommerce.domain.order.service.OrderMapper;
-import com.example.ecommerce.domain.order.service.OrderStore;
-import com.example.ecommerce.domain.product.service.ProductReader;
-import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
+import com.example.ecommerce.api.order.request.*;
+import com.example.ecommerce.api.order.response.*;
+import com.example.ecommerce.common.exception.*;
+import com.example.ecommerce.domain.order.command.*;
+import com.example.ecommerce.domain.order.entity.order.*;
+import com.example.ecommerce.domain.order.entity.order_line.*;
+import com.example.ecommerce.domain.order.service.*;
+import com.example.ecommerce.domain.product.service.*;
+import lombok.*;
+import org.springframework.stereotype.*;
+import org.springframework.transaction.annotation.*;
 
-import java.util.List;
-import java.util.Map;
-import java.util.stream.Collectors;
+import java.util.*;
+import java.util.stream.*;
 
 @Service
 @Transactional
 @RequiredArgsConstructor
 public class OrderRegisterService {
 
+    private final OrderMapper orderMapper;
+    private final OrderValidator orderValidator;
     private final OrderFactory orderFactory;
     private final OrderStore orderStore;
     private final ProductReader productReader;
-    private final OrderMapper orderMapper;
 
-    public Long register(RegisterRequest request) {
+    public OrderIdResponse register(RegisterRequest request) {
         RegisterCommand command = orderMapper.commandOf(request);
+        orderValidator.validateRegister(command);
         Order initOrder = orderFactory.make(command);
         decreaseProductStock(initOrder);
         Order order = orderStore.store(initOrder);
-        return order.getId();
+        return new OrderIdResponse(order.getId());
     }
 
     private void decreaseProductStock(Order order) {
