@@ -3,7 +3,7 @@ package com.example.ecommerce.infra.product;
 import com.example.ecommerce.api.product.request.*;
 import com.example.ecommerce.api.product.response.*;
 import com.example.ecommerce.domain.partner.entity.partner.*;
-import com.example.ecommerce.domain.product.dto.*;
+import com.example.ecommerce.domain.product.command.*;
 import com.example.ecommerce.domain.product.entity.product.*;
 import com.example.ecommerce.domain.product.service.*;
 import org.springframework.stereotype.*;
@@ -48,20 +48,6 @@ public class ProductMapperImpl implements ProductMapper {
 
     @Override
     public RegisterCommand commandOf(RegisterRequest request) {
-
-        Registrant registrant = Registrant.builder()
-                .partnerId(request.getRegistrant().getPartnerId())
-                .name(request.getRegistrant().getName())
-                .build();
-
-        RegisterCommand command = RegisterCommand.builder()
-                .name(request.getName())
-                .description(request.getDescription())
-                .price(request.getPrice())
-                .stock(request.getStock())
-                .registrant(registrant)
-                .build();
-
-        return command;
+        return RegisterCommand.of(request);
     }
 }

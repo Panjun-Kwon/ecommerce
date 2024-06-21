@@ -1,21 +1,16 @@
 package com.example.ecommerce.domain.product.entity.product;
 
-import com.example.ecommerce.common.exception.CommonException;
-import com.example.ecommerce.common.exception.ErrorCode;
+import com.example.ecommerce.common.exception.*;
 import jakarta.persistence.*;
-import jakarta.validation.constraints.Min;
-import jakarta.validation.constraints.NotNull;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import jakarta.validation.constraints.*;
+import lombok.*;
 
-import static jakarta.persistence.GenerationType.IDENTITY;
-import static lombok.AccessLevel.PROTECTED;
+import static jakarta.persistence.GenerationType.*;
 
 @Entity
 @Table(name = "products")
-@NoArgsConstructor(access = PROTECTED)
 @Getter
+@NoArgsConstructor
 public class Product {
     @Id
     @GeneratedValue(strategy = IDENTITY)
@@ -40,7 +35,7 @@ public class Product {
                    Integer price,
                    Integer stock,
                    Registrant registrant) {
-        
+
         this.name = name;
         this.description = description;
         this.price = price;

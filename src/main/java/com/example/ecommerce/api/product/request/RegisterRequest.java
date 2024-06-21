@@ -1,7 +1,8 @@
 package com.example.ecommerce.api.product.request;
 
-import jakarta.validation.constraints.NotNull;
-import lombok.Getter;
+import jakarta.validation.*;
+import jakarta.validation.constraints.*;
+import lombok.*;
 
 @Getter
 public class RegisterRequest {
@@ -12,6 +13,15 @@ public class RegisterRequest {
     private Integer price;
     @NotNull
     private Integer stock;
+    @Valid
     @NotNull
     private RegistrantRequest registrant;
+
+    @Getter
+    public static class RegistrantRequest {
+        @NotNull
+        private Long partnerId;
+        @NotNull
+        private String name;
+    }
 }

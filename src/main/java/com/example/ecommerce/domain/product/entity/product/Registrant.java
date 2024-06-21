@@ -1,15 +1,14 @@
 package com.example.ecommerce.domain.product.entity.product;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Embeddable;
-import jakarta.validation.constraints.NotNull;
+import jakarta.persistence.*;
+import jakarta.validation.constraints.*;
 import lombok.*;
 
 @Embeddable
 @Getter
 @Builder
 @AllArgsConstructor
-@NoArgsConstructor(access = AccessLevel.PROTECTED)
+@NoArgsConstructor
 public class Registrant {
     @Column(name = "registrant_id", updatable = false)
     @NotNull

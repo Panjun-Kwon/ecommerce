@@ -1,15 +1,12 @@
 package com.example.ecommerce.api.product;
 
-import com.example.ecommerce.api.product.request.RegisterRequest;
-import com.example.ecommerce.app.product.ProductRegisterService;
-import com.example.ecommerce.common.response.CommonResponse;
-import com.example.ecommerce.domain.product.service.ProductMapper;
-import lombok.RequiredArgsConstructor;
-import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import com.example.ecommerce.api.product.request.*;
+import com.example.ecommerce.api.product.response.*;
+import com.example.ecommerce.app.product.*;
+import com.example.ecommerce.common.response.*;
+import jakarta.validation.*;
+import lombok.*;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/products")
@@ -17,11 +14,10 @@ import org.springframework.web.bind.annotation.RestController;
 public class ProductRegisterController {
 
     private final ProductRegisterService productRegisterService;
-    private final ProductMapper productMapper;
 
     @PostMapping
-    public CommonResponse<Long> registerProduct(@Validated @RequestBody RegisterRequest request) {
-        Long data = productRegisterService.register(request);
+    public CommonResponse<ProductIdResponse> registerProduct(@Valid @RequestBody RegisterRequest request) {
+        ProductIdResponse data = productRegisterService.register(request);
         String message = String.format("상품 등록");
 
         return CommonResponse.success(message, data);

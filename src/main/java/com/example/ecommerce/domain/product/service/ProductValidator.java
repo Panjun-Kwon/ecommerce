@@ -1,9 +1,9 @@
 package com.example.ecommerce.domain.product.service;
 
-import com.example.ecommerce.domain.product.dto.RegisterCommand;
+import com.example.ecommerce.domain.product.command.*;
 
 public interface ProductValidator {
-    void validate(RegisterCommand command);
+    void validateRegister(RegisterCommand command);
 
     void validateName(String name);
 
