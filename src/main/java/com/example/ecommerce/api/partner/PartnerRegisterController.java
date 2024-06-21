@@ -1,14 +1,12 @@
 package com.example.ecommerce.api.partner;
 
-import com.example.ecommerce.api.partner.request.RegisterRequest;
-import com.example.ecommerce.app.partner.PartnerRegisterService;
-import com.example.ecommerce.common.response.CommonResponse;
-import lombok.RequiredArgsConstructor;
-import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import com.example.ecommerce.api.partner.request.*;
+import com.example.ecommerce.api.partner.response.*;
+import com.example.ecommerce.app.partner.*;
+import com.example.ecommerce.common.response.*;
+import lombok.*;
+import org.springframework.validation.annotation.*;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/partners")
@@ -18,8 +16,8 @@ public class PartnerRegisterController {
     private final PartnerRegisterService partnerRegisterService;
 
     @PostMapping
-    public CommonResponse<Long> registerPartner(@Validated @RequestBody RegisterRequest request) {
-        Long data = partnerRegisterService.register(request);
+    public CommonResponse<PartnerIdResponse> registerPartner(@Validated @RequestBody RegisterRequest request) {
+        PartnerIdResponse data = partnerRegisterService.register(request);
         String message = String.format("파트너 등록");
 
         return CommonResponse.success(message, data);

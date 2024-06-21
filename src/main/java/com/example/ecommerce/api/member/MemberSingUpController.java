@@ -19,7 +19,7 @@ public class MemberSingUpController {
 
     @PostMapping
     public CommonResponse<MemberIdResponse> signUp(@Validated @RequestBody SignUpRequest request) {
-        MemberIdResponse data = new MemberIdResponse(memberSignUpService.signUp(request));
+        MemberIdResponse data = memberSignUpService.signUp(request);
         String message = "회원 가입";
         return CommonResponse.success(message, data);
     }

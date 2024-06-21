@@ -1,12 +1,10 @@
 package com.example.ecommerce.infra.partner;
 
-import com.example.ecommerce.common.exception.CommonException;
-import com.example.ecommerce.common.exception.ErrorCode;
-import com.example.ecommerce.domain.partner.dto.RegisterCommand;
-import com.example.ecommerce.domain.partner.service.PartnerRepository;
-import com.example.ecommerce.domain.partner.service.PartnerValidator;
-import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Component;
+import com.example.ecommerce.common.exception.*;
+import com.example.ecommerce.domain.partner.command.*;
+import com.example.ecommerce.domain.partner.service.*;
+import lombok.*;
+import org.springframework.stereotype.*;
 
 @Component
 @RequiredArgsConstructor
@@ -15,8 +13,8 @@ public class PartnerValidatorImpl implements PartnerValidator {
     private final PartnerRepository partnerRepository;
 
     @Override
-    public void validate(RegisterCommand command) {
-        validateName(command.getName());
+    public void validateRegister(RegisterCommand command) {
+        validateName(command.getProfile().getName());
     }
 
     @Override

@@ -1,30 +1,16 @@
 package com.example.ecommerce.infra.partner;
 
-import com.example.ecommerce.domain.partner.dto.RegisterCommand;
-import com.example.ecommerce.domain.partner.entity.partner.Partner;
-import com.example.ecommerce.domain.partner.service.PartnerFactory;
-import com.example.ecommerce.domain.partner.service.PartnerValidator;
-import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Component;
+import com.example.ecommerce.domain.partner.command.*;
+import com.example.ecommerce.domain.partner.entity.partner.*;
+import com.example.ecommerce.domain.partner.service.*;
+import lombok.*;
+import org.springframework.stereotype.*;
 
 @Component
 @RequiredArgsConstructor
 public class PartnerFactoryImpl implements PartnerFactory {
-
-    private final PartnerValidator partnerValidator;
-
     @Override
     public Partner make(RegisterCommand command) {
-
-        partnerValidator.validate(command);
-
-        return Partner.builder()
-                .username(command.getUsername())
-                .password(command.getPassword())
-                .name(command.getName())
-                .phoneNum(command.getPhoneNum())
-                .email(command.getEmail())
-                .address(command.getAddress())
-                .build();
+        return RegisterCommand.toPartner(command);
     }
 }

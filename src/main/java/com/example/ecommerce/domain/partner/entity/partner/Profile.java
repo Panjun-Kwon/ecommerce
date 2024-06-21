@@ -1,4 +1,4 @@
-package com.example.ecommerce.domain.member.entity.member;
+package com.example.ecommerce.domain.partner.entity.partner;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.*;
@@ -10,8 +10,7 @@ import lombok.*;
 @AllArgsConstructor
 @NoArgsConstructor
 public class Profile {
-
-    @Column(updatable = false)
+    @Column(unique = true, updatable = false)
     @NotNull
     private String name;
     @Email

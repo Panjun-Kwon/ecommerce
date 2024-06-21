@@ -1,13 +1,11 @@
 package com.example.ecommerce.infra.member;
 
-import com.example.ecommerce.common.exception.CommonException;
-import com.example.ecommerce.common.exception.ErrorCode;
-import com.example.ecommerce.domain.member.dto.SignUpCommand;
-import com.example.ecommerce.domain.member.service.MemberRepository;
-import com.example.ecommerce.domain.member.service.MemberValidator;
-import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Component;
-import org.springframework.util.StringUtils;
+import com.example.ecommerce.common.exception.*;
+import com.example.ecommerce.domain.member.command.*;
+import com.example.ecommerce.domain.member.service.*;
+import lombok.*;
+import org.springframework.stereotype.*;
+import org.springframework.util.*;
 
 @Component
 @RequiredArgsConstructor
@@ -16,7 +14,7 @@ public class MemberValidatorImpl implements MemberValidator {
     private final MemberRepository memberRepository;
 
     @Override
-    public void validate(SignUpCommand command) {
+    public void validateSignUpCommand(SignUpCommand command) {
         validateUsername(command.getUsername());
     }
 

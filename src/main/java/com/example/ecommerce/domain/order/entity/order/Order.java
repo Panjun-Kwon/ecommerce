@@ -55,7 +55,7 @@ public class Order {
                 .sum();
     }
 
-    public void changeShippingAddress(ShippingAddress shippingAddress) {
+    public void modifyShippingAddress(ShippingAddress shippingAddress) {
         this.shippingAddress = shippingAddress;
     }
 }

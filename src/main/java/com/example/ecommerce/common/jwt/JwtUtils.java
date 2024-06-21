@@ -1,6 +1,6 @@
 package com.example.ecommerce.common.jwt;
 
-import com.example.ecommerce.domain.member.entity.member.*;
+import com.example.ecommerce.config.security.*;
 import io.jsonwebtoken.*;
 import io.jsonwebtoken.io.*;
 import io.jsonwebtoken.security.*;
@@ -28,9 +28,9 @@ public class JwtUtils {
         Date expiredAt = new Date(issuedAt.getTime() + EXPIRATION_TIME);
 
         return Jwts.builder()
-                .claim("id", authMember.getMember().getId())
-                .claim("username", authMember.getMember().getUsername())
-                .claim("role", authMember.getMember().getRole())
+                .claim("id", authMember.getId())
+                .claim("username", authMember.getUsername())
+                .claim("role", authMember.getRole())
                 .setIssuedAt(issuedAt)
                 .setExpiration(expiredAt)
                 .signWith(key, SignatureAlgorithm.HS256)
@@ -38,21 +38,12 @@ public class JwtUtils {
     }
 
     public AuthMember getAuth(String accessToken) {
-
         Claims claims = validateToken(accessToken);
-
-        Long id = claims.get("id", Long.class);
-        String username = claims.get("username", String.class);
-        Role role = Role.valueOf(claims.get("role", String.class));
-
-        Member member = new Member(id, username, role);
-
-        return new AuthMember(member);
+        return AuthMember.of(claims);
     }
 
     public Claims validateToken(String accessToken) {
         Claims claims = null;
-
         try {
             claims = Jwts.parserBuilder()
                     .setSigningKey(key)
@@ -65,9 +56,8 @@ public class JwtUtils {
             System.out.println("너니 ? 2");
         } catch (MalformedJwtException e) {
             System.out.println("너니 ? 3");
+        } finally {
+            return claims;
         }
-
-        return claims;
     }
-
 }

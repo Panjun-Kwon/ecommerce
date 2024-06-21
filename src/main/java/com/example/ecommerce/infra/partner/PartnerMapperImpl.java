@@ -1,16 +1,14 @@
 package com.example.ecommerce.infra.partner;
 
-import com.example.ecommerce.api.partner.request.RegisterRequest;
-import com.example.ecommerce.api.partner.response.RetrievePartnerDetail;
-import com.example.ecommerce.api.partner.response.RetrievePartnerList;
-import com.example.ecommerce.domain.partner.dto.RegisterCommand;
-import com.example.ecommerce.domain.partner.entity.partner.Address;
-import com.example.ecommerce.domain.partner.entity.partner.Partner;
-import com.example.ecommerce.domain.partner.service.PartnerMapper;
-import org.springframework.stereotype.Component;
+import com.example.ecommerce.api.partner.request.*;
+import com.example.ecommerce.api.partner.response.*;
+import com.example.ecommerce.domain.partner.command.*;
+import com.example.ecommerce.domain.partner.entity.partner.*;
+import com.example.ecommerce.domain.partner.service.*;
+import org.springframework.stereotype.*;
 
-import java.util.List;
-import java.util.stream.Collectors;
+import java.util.*;
+import java.util.stream.*;
 
 @Component
 public class PartnerMapperImpl implements PartnerMapper {
@@ -18,7 +16,7 @@ public class PartnerMapperImpl implements PartnerMapper {
     public RetrievePartnerDetail.PartnerInfo retrieveDetailOf(Partner partner) {
         RetrievePartnerDetail.PartnerInfo partnerInfo = RetrievePartnerDetail.PartnerInfo.builder()
                 .id(partner.getId())
-                .name(partner.getName())
+                .name(partner.getProfile().getName())
                 .build();
 
         return partnerInfo;
@@ -29,7 +27,7 @@ public class PartnerMapperImpl implements PartnerMapper {
         List<RetrievePartnerList.PartnerInfo> partnerInfoList = partnerList.stream()
                 .map(partner -> RetrievePartnerList.PartnerInfo.builder()
                         .id(partner.getId())
-                        .name(partner.getName())
+                        .name(partner.getProfile().getName())
                         .build())
                 .collect(Collectors.toList());
 
@@ -38,21 +36,6 @@ public class PartnerMapperImpl implements PartnerMapper {
 
     @Override
     public RegisterCommand commandOf(RegisterRequest request) {
-
-        Address address = Address.builder()
-                .city(request.getAddress() == null ? null : request.getAddress().getCity())
-                .street(request.getAddress() == null ? null : request.getAddress().getStreet())
-                .build();
-
-        RegisterCommand command = RegisterCommand.builder()
-                .username(request.getUsername())
-                .password(request.getPassword())
-                .name(request.getName())
-                .phoneNum(request.getPhoneNum())
-                .email(request.getEmail())
-                .address(address)
-                .build();
-
-        return command;
+        return RegisterCommand.of(request);
     }
 }

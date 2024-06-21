@@ -1,7 +1,7 @@
 package com.example.ecommerce.domain.member.service;
 
-import com.example.ecommerce.domain.member.dto.SignUpCommand;
-import com.example.ecommerce.domain.member.entity.member.Member;
+import com.example.ecommerce.domain.member.command.*;
+import com.example.ecommerce.domain.member.entity.member.*;
 
 public interface MemberFactory {
     Member make(SignUpCommand command);

@@ -3,7 +3,7 @@ package com.example.ecommerce.api.order;
 import com.example.ecommerce.api.order.response.*;
 import com.example.ecommerce.app.order.*;
 import com.example.ecommerce.common.response.*;
-import com.example.ecommerce.domain.member.entity.member.*;
+import com.example.ecommerce.config.security.*;
 import lombok.*;
 import org.springframework.data.domain.*;
 import org.springframework.security.core.annotation.*;
@@ -36,7 +36,7 @@ public class OrderRetrieveController {
     public CommonResponse<MemberOrderListResponse> retrieveMemberOrderList(
             @AuthenticationPrincipal AuthMember authMember) {
 
-        Long memberId = authMember.getMember().getId();
+        Long memberId = authMember.getId();
         MemberOrderListResponse data = orderRetrieveService.memberOrderList(memberId);
         String message = String.format("멤버(%d)의 주문 내역 조회", memberId);
 

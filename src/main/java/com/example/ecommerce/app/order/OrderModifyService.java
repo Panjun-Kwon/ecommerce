@@ -19,6 +19,6 @@ public class OrderModifyService {
     public void modifyShippingAddress(Long orderId, ShippingAddressRequest request) {
         ShippingAddressCommand command = orderMapper.commandOf(request);
         Order order = orderReader.getOrder(orderId);
-        order.changeShippingAddress(new ShippingAddress(command.getCity(), command.getStreet()));
+        order.modifyShippingAddress(new ShippingAddress(command.getCity(), command.getStreet()));
     }
 }

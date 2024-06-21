@@ -5,13 +5,13 @@ import jakarta.validation.constraints.*;
 import lombok.*;
 
 import static jakarta.persistence.GenerationType.*;
-import static lombok.AccessLevel.*;
 
 @Entity
 @Table(name = "members")
-@NoArgsConstructor(access = PROTECTED)
 @Getter
+@NoArgsConstructor
 public class Member {
+
     @Id
     @GeneratedValue(strategy = IDENTITY)
     @Column(name = "member_id")
@@ -24,16 +24,10 @@ public class Member {
     private String password;
     @Enumerated(EnumType.STRING)
     private Role role;
-    @Enumerated
+    @Embedded
     private Profile profile;
     @Embedded
     private Address address;
-
-    public Member(Long id, @NotNull String username, Role role) {
-        this.id = id;
-        this.username = username;
-        this.role = role;
-    }
 
     @Builder
     public Member(String username,
@@ -41,10 +35,30 @@ public class Member {
                   Profile profile,
                   Address address) {
 
+        this.role = Role.MEMBER;
         this.username = username;
         this.password = password;
-        this.role = Role.MEMBER;
         this.profile = profile;
+        this.address = address;
+    }
+
+    public void encodePassword(String password) {
+        this.password = password;
+    }
+
+    public void modifyPassword(String password) {
+        this.password = password;
+    }
+
+    public void modifyEmail(String email) {
+        this.profile.modifyEmail(email);
+    }
+
+    public void modifyPhoneNum(String phoneNum) {
+        this.profile.modifyPhoneNum(phoneNum);
+    }
+
+    public void modifyAddress(Address address) {
         this.address = address;
     }
 }

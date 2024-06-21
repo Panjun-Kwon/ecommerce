@@ -3,7 +3,7 @@ package com.example.ecommerce.api.member;
 import com.example.ecommerce.api.member.response.*;
 import com.example.ecommerce.app.member.*;
 import com.example.ecommerce.common.response.*;
-import com.example.ecommerce.domain.member.entity.member.*;
+import com.example.ecommerce.config.security.*;
 import lombok.*;
 import org.springframework.data.domain.*;
 import org.springframework.security.core.annotation.*;
@@ -34,7 +34,7 @@ public class MemberRetrieveController {
 
     @GetMapping("/auth/members/my/page")
     public CommonResponse<MemberPageResponse> retrievePage(@AuthenticationPrincipal AuthMember authMember) {
-        Long memberId = authMember.getMember().getId();
+        Long memberId = authMember.getId();
         MemberPageResponse data = memberRetrieveService.retrieveMemberPage(memberId);
         String message = String.format("멤버(%d) 마이 페이지 조회", memberId);
         return CommonResponse.success(message, data);
@@ -42,7 +42,7 @@ public class MemberRetrieveController {
 
     @GetMapping("/auth/members/my/profile")
     public CommonResponse<MemberProfileResponse> retrieveProfile(@AuthenticationPrincipal AuthMember authMember) {
-        Long memberId = authMember.getMember().getId();
+        Long memberId = authMember.getId();
         MemberProfileResponse data = memberRetrieveService.retrieveMemberProfile(memberId);
         String message = String.format("멤버(%d) 마이 프로필 조회", memberId);
         return CommonResponse.success(message, data);

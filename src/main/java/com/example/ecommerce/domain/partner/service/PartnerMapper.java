@@ -1,12 +1,11 @@
 package com.example.ecommerce.domain.partner.service;
 
-import com.example.ecommerce.api.partner.request.RegisterRequest;
-import com.example.ecommerce.api.partner.response.RetrievePartnerDetail;
-import com.example.ecommerce.api.partner.response.RetrievePartnerList;
-import com.example.ecommerce.domain.partner.dto.RegisterCommand;
-import com.example.ecommerce.domain.partner.entity.partner.Partner;
+import com.example.ecommerce.api.partner.request.*;
+import com.example.ecommerce.api.partner.response.*;
+import com.example.ecommerce.domain.partner.command.*;
+import com.example.ecommerce.domain.partner.entity.partner.*;
 
-import java.util.List;
+import java.util.*;
 
 public interface PartnerMapper {
     RetrievePartnerDetail.PartnerInfo retrieveDetailOf(Partner partner);

@@ -1,28 +1,32 @@
 package com.example.ecommerce.app.member;
 
-import com.example.ecommerce.api.member.request.SignUpRequest;
-import com.example.ecommerce.domain.member.dto.SignUpCommand;
-import com.example.ecommerce.domain.member.entity.member.Member;
-import com.example.ecommerce.domain.member.service.MemberFactory;
-import com.example.ecommerce.domain.member.service.MemberMapper;
-import com.example.ecommerce.domain.member.service.MemberStore;
-import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
+import com.example.ecommerce.api.member.request.*;
+import com.example.ecommerce.api.member.response.*;
+import com.example.ecommerce.domain.member.command.*;
+import com.example.ecommerce.domain.member.entity.member.*;
+import com.example.ecommerce.domain.member.service.*;
+import lombok.*;
+import org.springframework.security.crypto.password.*;
+import org.springframework.stereotype.*;
+import org.springframework.transaction.annotation.*;
 
 @Service
 @Transactional
 @RequiredArgsConstructor
 public class MemberSignUpService {
 
-    private final MemberFactory memberFactory;
-    private final MemberStore memberStore;
     private final MemberMapper memberMapper;
+    private final MemberValidator memberValidator;
+    private final MemberFactory memberFactory;
+    private final PasswordEncoder passwordEncoder;
+    private final MemberStore memberStore;
 
-    public Long signUp(SignUpRequest request) {
+    public MemberIdResponse signUp(SignUpRequest request) {
         SignUpCommand command = memberMapper.commandOf(request);
+        memberValidator.validateSignUpCommand(command);
         Member initMember = memberFactory.make(command);
+        initMember.encodePassword(passwordEncoder.encode(initMember.getPassword()));
         Member member = memberStore.store(initMember);
-        return member.getId();
+        return new MemberIdResponse(member.getId());
     }
 }

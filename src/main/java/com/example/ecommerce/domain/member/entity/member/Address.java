@@ -1,14 +1,13 @@
 package com.example.ecommerce.domain.member.entity.member;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Embeddable;
+import jakarta.persistence.*;
 import lombok.*;
 
 @Embeddable
 @Getter
 @Builder
 @AllArgsConstructor
-@NoArgsConstructor(access = AccessLevel.PROTECTED)
+@NoArgsConstructor
 public class Address {
     @Column(name = "address_city")
     private String city;

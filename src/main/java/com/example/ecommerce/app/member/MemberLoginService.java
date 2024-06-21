@@ -3,7 +3,7 @@ package com.example.ecommerce.app.member;
 import com.example.ecommerce.api.member.request.*;
 import com.example.ecommerce.api.member.response.*;
 import com.example.ecommerce.common.jwt.*;
-import com.example.ecommerce.domain.member.entity.member.*;
+import com.example.ecommerce.config.security.*;
 import lombok.*;
 import org.springframework.security.authentication.*;
 import org.springframework.security.core.*;
@@ -23,12 +23,12 @@ public class MemberLoginService {
 
         Authentication authentication = authenticationProvider.authenticate(
                 new UsernamePasswordAuthenticationToken(request.getUsername(), request.getPassword()));
-
         SecurityContextHolder.getContext().setAuthentication(authentication);
 
         AuthMember authMember = (AuthMember) authentication.getPrincipal();
+        Long memberId = authMember.getId();
         String accessToken = jwtUtils.generateAccessToken(authMember);
 
-        return new AccessTokenResponse(authMember.getMember().getId(), accessToken);
+        return new AccessTokenResponse(memberId, accessToken);
     }
 }

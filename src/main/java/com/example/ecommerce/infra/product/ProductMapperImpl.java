@@ -1,17 +1,15 @@
 package com.example.ecommerce.infra.product;
 
-import com.example.ecommerce.api.product.request.RegisterRequest;
-import com.example.ecommerce.api.product.response.RetrieveProductDetail;
-import com.example.ecommerce.api.product.response.RetrieveProductList;
-import com.example.ecommerce.domain.partner.entity.partner.Partner;
-import com.example.ecommerce.domain.product.dto.RegisterCommand;
-import com.example.ecommerce.domain.product.entity.product.Product;
-import com.example.ecommerce.domain.product.entity.product.Registrant;
-import com.example.ecommerce.domain.product.service.ProductMapper;
-import org.springframework.stereotype.Component;
+import com.example.ecommerce.api.product.request.*;
+import com.example.ecommerce.api.product.response.*;
+import com.example.ecommerce.domain.partner.entity.partner.*;
+import com.example.ecommerce.domain.product.dto.*;
+import com.example.ecommerce.domain.product.entity.product.*;
+import com.example.ecommerce.domain.product.service.*;
+import org.springframework.stereotype.*;
 
-import java.util.List;
-import java.util.stream.Collectors;
+import java.util.*;
+import java.util.stream.*;
 
 @Component
 public class ProductMapperImpl implements ProductMapper {
@@ -20,7 +18,7 @@ public class ProductMapperImpl implements ProductMapper {
 
         RetrieveProductDetail.PartnerInfo partnerInfo = RetrieveProductDetail.PartnerInfo.builder()
                 .id(partner.getId())
-                .name(partner.getName())
+                .name(partner.getProfile().getName())
                 .build();
 
         RetrieveProductDetail.ProductInfo productInfo = RetrieveProductDetail.ProductInfo.builder()

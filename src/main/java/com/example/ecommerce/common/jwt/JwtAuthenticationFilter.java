@@ -1,6 +1,6 @@
 package com.example.ecommerce.common.jwt;
 
-import com.example.ecommerce.domain.member.entity.member.*;
+import com.example.ecommerce.config.security.*;
 import jakarta.annotation.*;
 import jakarta.servlet.*;
 import jakarta.servlet.http.*;
@@ -21,7 +21,6 @@ import static com.example.ecommerce.common.jwt.JwtUtils.*;
 @Component
 @RequiredArgsConstructor
 public class JwtAuthenticationFilter extends OncePerRequestFilter {
-
 
     private final JwtUtils jwtUtils;
     private List<RequestMatcher> requestMatcherList = new ArrayList<>();
