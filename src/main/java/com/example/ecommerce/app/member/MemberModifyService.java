@@ -18,7 +18,8 @@ public class MemberModifyService {
 
     public void modifyPassword(Long memberId, String password) {
         Member member = memberReader.getMember(memberId);
-        member.modifyPassword(password, passwordEncoder);
+        member.modifyPassword(password);
+        member.encodePassword(passwordEncoder);
     }
 
     public void modifyEmail(Long memberId, String email) {

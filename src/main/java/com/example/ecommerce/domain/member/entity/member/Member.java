@@ -47,8 +47,8 @@ public class Member {
         this.password = passwordEncoder.encode(this.password);
     }
 
-    public void modifyPassword(String password, PasswordEncoder passwordEncoder) {
-        this.password = passwordEncoder.encode(password);
+    public void modifyPassword(String password) {
+        this.password = password;
     }
 
     public void modifyEmail(String email) {

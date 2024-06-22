@@ -9,19 +9,16 @@ import lombok.*;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/partners")
 @RequiredArgsConstructor
 public class PartnerRegisterController {
 
     private final PartnerRegisterService partnerRegisterService;
 
-    @PostMapping
+    @PostMapping("/api/partners")
     public CommonResponse<PartnerIdResponse> registerPartner(@Valid @RequestBody RegisterRequest request) {
         PartnerIdResponse data = partnerRegisterService.register(request);
         String message = String.format("파트너 등록");
 
         return CommonResponse.success(message, data);
     }
-
-
 }

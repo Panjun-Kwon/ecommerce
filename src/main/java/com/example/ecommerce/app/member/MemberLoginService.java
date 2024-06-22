@@ -16,18 +16,18 @@ import org.springframework.transaction.annotation.*;
 @RequiredArgsConstructor
 public class MemberLoginService {
 
-    private final AuthenticationProvider authenticationProvider;
+    private final AuthenticationProvider memberAuthenticationProvider;
     private final JwtUtils jwtUtils;
 
     public AccessTokenResponse login(LoginRequest request) {
 
-        Authentication authentication = authenticationProvider.authenticate(
+        Authentication authentication = memberAuthenticationProvider.authenticate(
                 new UsernamePasswordAuthenticationToken(request.getUsername(), request.getPassword()));
         SecurityContextHolder.getContext().setAuthentication(authentication);
 
         AuthMember authMember = (AuthMember) authentication.getPrincipal();
         Long memberId = authMember.getId();
-        String accessToken = jwtUtils.generateAccessToken(authMember);
+        String accessToken = jwtUtils.generateMemberAccessToken(authMember);
 
         return new AccessTokenResponse(memberId, accessToken);
     }

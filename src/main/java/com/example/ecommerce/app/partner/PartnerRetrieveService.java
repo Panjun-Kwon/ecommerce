@@ -1,16 +1,13 @@
 package com.example.ecommerce.app.partner;
 
-import com.example.ecommerce.api.partner.response.RetrievePartnerDetail;
-import com.example.ecommerce.api.partner.response.RetrievePartnerList;
-import com.example.ecommerce.domain.partner.entity.partner.Partner;
-import com.example.ecommerce.domain.partner.service.PartnerMapper;
-import com.example.ecommerce.domain.partner.service.PartnerReader;
-import lombok.RequiredArgsConstructor;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
-import org.springframework.stereotype.Service;
+import com.example.ecommerce.api.partner.response.*;
+import com.example.ecommerce.domain.partner.entity.partner.*;
+import com.example.ecommerce.domain.partner.service.*;
+import lombok.*;
+import org.springframework.data.domain.*;
+import org.springframework.stereotype.*;
 
-import java.util.List;
+import java.util.*;
 
 @Service
 @RequiredArgsConstructor
@@ -30,12 +27,12 @@ public class PartnerRetrieveService {
         Page<Partner> partnerPage = partnerReader.getPartnerAll(pageable);
         List<RetrievePartnerList.PartnerInfo> partnerInfoList = partnerMapper.retrieveListOf(partnerPage.getContent());
 
-        RetrievePartnerList.PageInfo pageInfo = meakePageInfo(partnerPage);
+        RetrievePartnerList.PageInfo pageInfo = makePageInfo(partnerPage);
 
         return new RetrievePartnerList(partnerInfoList, pageInfo);
     }
 
-    private static RetrievePartnerList.PageInfo meakePageInfo(Page<Partner> partnerPage) {
+    private static RetrievePartnerList.PageInfo makePageInfo(Page<Partner> partnerPage) {
         return RetrievePartnerList.PageInfo.builder()
                 .currentElements(partnerPage.getNumberOfElements())
                 .totalPages(partnerPage.getTotalPages())
