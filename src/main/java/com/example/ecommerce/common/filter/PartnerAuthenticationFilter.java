@@ -1,5 +1,6 @@
-package com.example.ecommerce.common.jwt;
+package com.example.ecommerce.common.filter;
 
+import com.example.ecommerce.common.jwt.*;
 import com.example.ecommerce.config.security.*;
 import jakarta.annotation.*;
 import jakarta.servlet.*;
@@ -20,14 +21,15 @@ import static com.example.ecommerce.common.jwt.JwtUtils.*;
 
 @Component
 @RequiredArgsConstructor
-public class JwtAuthenticationFilter extends OncePerRequestFilter {
+public class PartnerAuthenticationFilter extends OncePerRequestFilter {
 
     private final JwtUtils jwtUtils;
     private List<RequestMatcher> requestMatcherList = new ArrayList<>();
 
     @PostConstruct
     public void init() {
-        requestMatcherList.add(new AntPathRequestMatcher("/api/auth/**"));
+        requestMatcherList.add(new AntPathRequestMatcher("/api/auth/partner/**"));
+        requestMatcherList.add(new AntPathRequestMatcher("/api/auth/partners/**"));
     }
 
     @Override
@@ -40,7 +42,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
         if (StringUtils.hasText(accessToken) && accessToken.startsWith(TOKEN_PREFIX)) {
             accessToken = accessToken.replace(TOKEN_PREFIX, "");
 
-            AuthMember authMember = jwtUtils.getAuth(accessToken);
+            AuthPartner authMember = jwtUtils.getAuthPartner(accessToken);
 
             Authentication authentication = new UsernamePasswordAuthenticationToken(
                     authMember, null, authMember.getAuthorities());
@@ -52,6 +54,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
     @Override
     protected boolean shouldNotFilter(HttpServletRequest request) throws ServletException {
-        return requestMatcherList.stream().allMatch(requestMatcher -> !requestMatcher.matches(request));
+        return (SecurityContextHolder.getContext().getAuthentication() != null ||
+                requestMatcherList.stream().allMatch(requestMatcher -> !requestMatcher.matches(request)));
     }
 }

@@ -1,11 +1,10 @@
 package com.example.ecommerce.config.security;
 
-import com.example.ecommerce.common.jwt.*;
+import com.example.ecommerce.common.filter.*;
 import lombok.*;
 import org.springframework.context.annotation.*;
 import org.springframework.security.authentication.*;
 import org.springframework.security.authentication.dao.*;
-import org.springframework.security.config.annotation.authentication.configuration.*;
 import org.springframework.security.config.annotation.web.builders.*;
 import org.springframework.security.config.annotation.web.configurers.*;
 import org.springframework.security.config.http.*;
@@ -20,7 +19,9 @@ import org.springframework.security.web.util.matcher.*;
 public class SecurityConfig {
 
     private final AuthMemberService authMemberService;
-    private final JwtAuthenticationFilter jwtAuthenticationFilter;
+    private final AuthPartnerService authPartnerService;
+    private final MemberAuthenticationFilter memberAuthenticationFilter;
+    private final PartnerAuthenticationFilter partnerAuthenticationFilter;
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
@@ -31,15 +32,17 @@ public class SecurityConfig {
                 .csrf(AbstractHttpConfigurer::disable);
 
         http
-                .authenticationProvider(authenticationProvider())
-                .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
+                .authenticationProvider(memberAuthenticationProvider())
+                .authenticationProvider(partnerAuthenticationProvider())
+                .addFilterBefore(memberAuthenticationFilter, UsernamePasswordAuthenticationFilter.class)
+                .addFilterBefore(partnerAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
 
         http
                 .authorizeHttpRequests(
                         authorizeRequest ->
                                 authorizeRequest
                                         .requestMatchers(
-                                                AntPathRequestMatcher.antMatcher("/auth/**")
+                                                AntPathRequestMatcher.antMatcher("/api/auth/**")
                                         ).authenticated()
                                         .anyRequest().permitAll()
                 );
@@ -49,18 +52,20 @@ public class SecurityConfig {
     }
 
     @Bean
-    public AuthenticationManager authenticationManager(
-            AuthenticationConfiguration authenticationConfiguration) throws Exception {
-        return authenticationConfiguration.getAuthenticationManager();
-    }
-
-    @Bean
-    public AuthenticationProvider authenticationProvider() {
+    public AuthenticationProvider memberAuthenticationProvider() {
         DaoAuthenticationProvider provider = new DaoAuthenticationProvider();
         provider.setUserDetailsService(authMemberService);
         provider.setPasswordEncoder(passwordEncoder());
         provider.setHideUserNotFoundExceptions(false);
+        return provider;
+    }
 
+    @Bean
+    public AuthenticationProvider partnerAuthenticationProvider() {
+        DaoAuthenticationProvider provider = new DaoAuthenticationProvider();
+        provider.setUserDetailsService(authPartnerService);
+        provider.setPasswordEncoder(passwordEncoder());
+        provider.setHideUserNotFoundExceptions(false);
         return provider;
     }
 

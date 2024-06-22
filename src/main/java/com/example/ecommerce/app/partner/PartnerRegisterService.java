@@ -6,6 +6,7 @@ import com.example.ecommerce.domain.partner.command.*;
 import com.example.ecommerce.domain.partner.entity.partner.*;
 import com.example.ecommerce.domain.partner.service.*;
 import lombok.*;
+import org.springframework.security.crypto.password.*;
 import org.springframework.stereotype.*;
 import org.springframework.transaction.annotation.*;
 
@@ -16,12 +17,14 @@ public class PartnerRegisterService {
 
     private final PartnerValidator partnerValidator;
     private final PartnerFactory partnerFactory;
+    private final PasswordEncoder passwordEncoder;
     private final PartnerStore partnerStore;
 
     public PartnerIdResponse register(RegisterRequest request) {
         RegisterCommand command = RegisterCommand.of(request);
         partnerValidator.validateRegister(command);
         Partner initPartner = partnerFactory.make(command);
+        initPartner.encodePassword(passwordEncoder);
         Partner partner = partnerStore.store(initPartner);
         return new PartnerIdResponse(partner.getId());
     }

@@ -1,14 +1,11 @@
 package com.example.ecommerce.infra.partner;
 
-import com.example.ecommerce.common.exception.CommonException;
-import com.example.ecommerce.common.exception.ErrorCode;
-import com.example.ecommerce.domain.partner.entity.partner.Partner;
-import com.example.ecommerce.domain.partner.service.PartnerReader;
-import com.example.ecommerce.domain.partner.service.PartnerRepository;
-import lombok.RequiredArgsConstructor;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
-import org.springframework.stereotype.Component;
+import com.example.ecommerce.common.exception.*;
+import com.example.ecommerce.domain.partner.entity.partner.*;
+import com.example.ecommerce.domain.partner.service.*;
+import lombok.*;
+import org.springframework.data.domain.*;
+import org.springframework.stereotype.*;
 
 @Component
 @RequiredArgsConstructor
@@ -31,5 +28,12 @@ public class PartnerReaderImpl implements PartnerReader {
     @Override
     public boolean existPartner(Long partnerId) {
         return partnerRepository.existsById(partnerId);
+    }
+
+    @Override
+    public Partner getPartnerByUsername(String username) {
+        return partnerRepository.findByUsername(username)
+                .orElseThrow(() -> new CommonException(ErrorCode.NOT_FOUND_ENTITY,
+                        String.format("해당 파트너(%s)를 찾을 수 없음", username)));
     }
 }

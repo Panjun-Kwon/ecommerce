@@ -23,7 +23,7 @@ public class JwtUtils {
         this.key = Keys.hmacShaKeyFor(keyBytes);
     }
 
-    public String generateAccessToken(AuthMember authMember) {
+    public String generateMemberAccessToken(AuthMember authMember) {
         Date issuedAt = new Date();
         Date expiredAt = new Date(issuedAt.getTime() + EXPIRATION_TIME);
 
@@ -37,9 +37,28 @@ public class JwtUtils {
                 .compact();
     }
 
-    public AuthMember getAuth(String accessToken) {
+    public AuthMember getAuthMember(String accessToken) {
         Claims claims = validateToken(accessToken);
         return AuthMember.of(claims);
+    }
+
+    public String generatePartnerAccessToken(AuthPartner authPartner) {
+        Date issuedAt = new Date();
+        Date expiredAt = new Date(issuedAt.getTime() + EXPIRATION_TIME);
+
+        return Jwts.builder()
+                .claim("id", authPartner.getId())
+                .claim("username", authPartner.getUsername())
+                .claim("role", authPartner.getRole())
+                .setIssuedAt(issuedAt)
+                .setExpiration(expiredAt)
+                .signWith(key, SignatureAlgorithm.HS256)
+                .compact();
+    }
+
+    public AuthPartner getAuthPartner(String accessToken) {
+        Claims claims = validateToken(accessToken);
+        return AuthPartner.of(claims);
     }
 
     public Claims validateToken(String accessToken) {

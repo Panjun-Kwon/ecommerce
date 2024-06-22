@@ -1,8 +1,7 @@
 package com.example.ecommerce.domain.partner.service;
 
-import com.example.ecommerce.domain.partner.entity.partner.Partner;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
+import com.example.ecommerce.domain.partner.entity.partner.*;
+import org.springframework.data.domain.*;
 
 public interface PartnerReader {
     Partner getPartner(Long partnerId);
@@ -10,4 +9,6 @@ public interface PartnerReader {
     Page<Partner> getPartnerAll(Pageable pageable);
 
     boolean existPartner(Long partnerId);
+
+    Partner getPartnerByUsername(String username);
 }
