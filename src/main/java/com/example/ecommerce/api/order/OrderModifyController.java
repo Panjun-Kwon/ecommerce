@@ -3,6 +3,7 @@ package com.example.ecommerce.api.order;
 import com.example.ecommerce.api.order.request.*;
 import com.example.ecommerce.app.order.*;
 import com.example.ecommerce.common.response.*;
+import com.example.ecommerce.domain.order.command.*;
 import lombok.*;
 import org.springframework.validation.annotation.*;
 import org.springframework.web.bind.annotation.*;
@@ -19,9 +20,8 @@ public class OrderModifyController {
             @PathVariable Long orderId,
             @Validated @RequestBody ShippingAddressRequest request) {
 
-        orderModifyService.modifyShippingAddress(orderId, request);
+        orderModifyService.modifyShippingAddress(orderId, ShippingAddressCommand.of(request));
         String message = String.format("주문(%d) 배송지 변경", orderId);
-
         return CommonResponse.success(message, null);
     }
 

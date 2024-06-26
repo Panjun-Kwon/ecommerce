@@ -22,16 +22,16 @@ public class OrderValidatorImpl implements OrderValidator {
     }
 
     @Override
-    public void validateOrderLine(RegisterCommand.OrderLineCommand command) {
-        validateProductId(command.getOrderProduct().getProductId());
-    }
-
-    @Override
     public void validatePurchaserId(Long purchaserId) {
         if (!memberReader.existMember(purchaserId)) {
             throw new CommonException(ErrorCode.NOT_FOUND_ENTITY,
                     String.format("해당 구매자(%d)를 찾을 수 없음", purchaserId));
         }
+    }
+
+    @Override
+    public void validateOrderLine(RegisterCommand.OrderLineCommand command) {
+        validateProductId(command.getOrderProduct().getProductId());
     }
 
     @Override
