@@ -19,14 +19,12 @@ public class MemberLoginService {
 
     @Transactional
     public AccessTokenInfo login(String username, String password) {
-
         Authentication authentication = memberAuthenticationProvider.authenticate(
                 new UsernamePasswordAuthenticationToken(username, password));
-        
+
         SecurityContextHolder.getContext().setAuthentication(authentication);
         AuthMember authMember = (AuthMember) authentication.getPrincipal();
         String accessToken = jwtUtils.generateMemberAccessToken(authMember);
-
         return new AccessTokenInfo(authMember.getId(), accessToken);
     }
 }

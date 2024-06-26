@@ -14,7 +14,7 @@ public class MemberValidatorImpl implements MemberValidator {
     private final MemberRepository memberRepository;
 
     @Override
-    public void validateSignUpCommand(SignUpCommand command) {
+    public void validateSignUp(SignUpCommand command) {
         validateUsername(command.getUsername());
     }
 

@@ -1,14 +1,11 @@
 package com.example.ecommerce.infra.member;
 
-import com.example.ecommerce.common.exception.CommonException;
-import com.example.ecommerce.common.exception.ErrorCode;
-import com.example.ecommerce.domain.member.entity.member.Member;
-import com.example.ecommerce.domain.member.service.MemberReader;
-import com.example.ecommerce.domain.member.service.MemberRepository;
-import lombok.RequiredArgsConstructor;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
-import org.springframework.stereotype.Component;
+import com.example.ecommerce.common.exception.*;
+import com.example.ecommerce.domain.member.entity.member.*;
+import com.example.ecommerce.domain.member.service.*;
+import lombok.*;
+import org.springframework.data.domain.*;
+import org.springframework.stereotype.*;
 
 @Component
 @RequiredArgsConstructor
@@ -24,8 +21,10 @@ public class MemberReaderImpl implements MemberReader {
     }
 
     @Override
-    public Page<Member> getMemberAll(Pageable pageable) {
-        return memberRepository.findAll(pageable);
+    public Member getMemberByUsername(String username) {
+        return memberRepository.findByUsername(username)
+                .orElseThrow(() -> new CommonException(ErrorCode.NOT_FOUND_ENTITY,
+                        String.format("해당 멤버(%s)를 찾을 수 없음", username)));
     }
 
     @Override
@@ -34,9 +33,7 @@ public class MemberReaderImpl implements MemberReader {
     }
 
     @Override
-    public Member getMemberByUsername(String username) {
-        return memberRepository.findByUsername(username)
-                .orElseThrow(() -> new CommonException(ErrorCode.NOT_FOUND_ENTITY,
-                        String.format("해당 멤버(%s)를 찾을 수 없음", username)));
+    public Page<Member> getMemberAll(Pageable pageable) {
+        return memberRepository.findAll(pageable);
     }
 }

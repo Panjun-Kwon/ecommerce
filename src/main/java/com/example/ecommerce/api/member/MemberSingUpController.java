@@ -20,7 +20,6 @@ public class MemberSingUpController {
     @PostMapping("/api/members")
     public CommonResponse<MemberIdResponse> signUp(@Validated @RequestBody SignUpRequest request) {
         Long memberId = memberSignUpService.signUp(SignUpCommand.of(request));
-        
         return CommonResponse.success("회원 가입", new MemberIdResponse(memberId));
     }
 

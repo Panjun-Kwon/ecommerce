@@ -18,7 +18,6 @@ public class MemberLoginController {
     @PostMapping("/api/members/login")
     public CommonResponse<AccessTokenResponse> login(@Valid @RequestBody LoginRequest loginRequest) {
         AccessTokenInfo info = memberLoginService.login(loginRequest.getUsername(), loginRequest.getPassword());
-
         return CommonResponse.success("로그인", info.toResponse());
     }
 

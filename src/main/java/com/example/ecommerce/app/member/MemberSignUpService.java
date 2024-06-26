@@ -18,11 +18,10 @@ public class MemberSignUpService {
 
     @Transactional
     public Long signUp(SignUpCommand command) {
-        memberValidator.validateSignUpCommand(command);
+        memberValidator.validateSignUp(command);
         Member initMember = command.toMember();
         initMember.encodePassword(passwordEncoder);
         Member member = memberStore.store(initMember);
-
         return member.getId();
     }
 }

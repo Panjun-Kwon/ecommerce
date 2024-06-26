@@ -25,7 +25,6 @@ public class MemberModifyController {
         Long memberId = authMember.getId();
         memberModifyService.modifyPassword(memberId, request.getPassword());
         String message = String.format("멤버(%d) 비밀번호 수정", memberId);
-
         return CommonResponse.success(message, null);
     }
 
@@ -37,7 +36,6 @@ public class MemberModifyController {
         Long memberId = authMember.getId();
         memberModifyService.modifyEmail(memberId, request.getEmail());
         String message = String.format("멤버(%d) 이메일 수정", memberId);
-
         return CommonResponse.success(message, null);
     }
 
@@ -49,7 +47,6 @@ public class MemberModifyController {
         Long memberId = authMember.getId();
         memberModifyService.modifyPhoneNum(memberId, request.getPhoneNum());
         String message = String.format("멤버(%d) 전화번호 수정", memberId);
-
         return CommonResponse.success(message, null);
     }
 
@@ -61,7 +58,6 @@ public class MemberModifyController {
         Long memberId = authMember.getId();
         memberModifyService.modifyAddress(memberId, AddressCommand.of(request));
         String message = String.format("멤버(%d) 전화번호 수정", memberId);
-
         return CommonResponse.success(message, null);
     }
 }
