@@ -35,8 +35,8 @@ public class MemberModifyService {
     }
 
     @Transactional
-    public void modifyAddress(Long memberId, AddressCommand addressCommand) {
+    public void modifyAddress(Long memberId, AddressCommand command) {
         Member member = memberReader.getMember(memberId);
-        member.modifyAddress(addressCommand.toAddress());
+        member.modifyAddress(command.toAddress());
     }
 }

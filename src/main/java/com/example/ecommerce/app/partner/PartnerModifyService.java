@@ -35,8 +35,8 @@ public class PartnerModifyService {
     }
 
     @Transactional
-    public void modifyAddress(Long partnerId, AddressCommand addressCommand) {
+    public void modifyAddress(Long partnerId, AddressCommand command) {
         Partner partner = partnerReader.getPartner(partnerId);
-        partner.modifyAddress(addressCommand.toAddress());
+        partner.modifyAddress(command.toAddress());
     }
 }
