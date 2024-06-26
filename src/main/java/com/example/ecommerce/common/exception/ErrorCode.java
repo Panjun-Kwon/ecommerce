@@ -1,7 +1,6 @@
 package com.example.ecommerce.common.exception;
 
-import lombok.Getter;
-import lombok.RequiredArgsConstructor;
+import lombok.*;
 
 @RequiredArgsConstructor
 @Getter
@@ -11,7 +10,9 @@ public enum ErrorCode {
     SERVER_ERROR("서버 에러"),
     INVALID_PARAMETER("유효하지 않은 파라미터"),
 
-    NOT_FOUND_ENTITY("해당 엔티티를 찾을 수 없음"),
+    NOT_FOUND_ENTITY("엔티티를 찾을 수 없음"),
+    OUT_OF_STOCK("재고 부족"),
+
     MULTIPLE_EXCEPTIONS("다중 오류 발생");
 
     private final String message;

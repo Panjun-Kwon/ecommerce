@@ -1,16 +1,13 @@
 package com.example.ecommerce.infra.product;
 
-import com.example.ecommerce.common.exception.CommonException;
-import com.example.ecommerce.common.exception.ErrorCode;
-import com.example.ecommerce.domain.product.entity.product.Product;
-import com.example.ecommerce.domain.product.service.ProductReader;
-import com.example.ecommerce.domain.product.service.ProductRepository;
-import lombok.RequiredArgsConstructor;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
-import org.springframework.stereotype.Component;
+import com.example.ecommerce.common.exception.*;
+import com.example.ecommerce.domain.product.entity.product.*;
+import com.example.ecommerce.domain.product.service.*;
+import lombok.*;
+import org.springframework.data.domain.*;
+import org.springframework.stereotype.*;
 
-import java.util.List;
+import java.util.*;
 
 @Component
 @RequiredArgsConstructor
@@ -26,8 +23,13 @@ public class ProductReaderImpl implements ProductReader {
     }
 
     @Override
-    public List<Product> getProductByIdList(List<Long> productIdList) {
-        return productRepository.findAllById(productIdList);
+    public boolean existProduct(Long productId) {
+        return productRepository.existsById(productId);
+    }
+
+    @Override
+    public boolean existProductByName(String name) {
+        return productRepository.existsByName(name);
     }
 
     @Override
@@ -36,12 +38,7 @@ public class ProductReaderImpl implements ProductReader {
     }
 
     @Override
-    public boolean existProduct(Long productId) {
-        return productRepository.existsById(productId);
-    }
-
-    @Override
-    public boolean existProductByName(String name) {
-        return productRepository.existsByName(name);
+    public List<Product> getProductAllByIdList(List<Long> productIdList) {
+        return productRepository.findAllById(productIdList);
     }
 }

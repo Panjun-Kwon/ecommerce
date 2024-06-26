@@ -23,7 +23,8 @@ public class ProductValidatorImpl implements ProductValidator {
     @Override
     public void validateName(String name) {
         if (productReader.existProductByName(name)) {
-            throw new CommonException(ErrorCode.INVALID_PARAMETER, "NAME DUPLICATED");
+            throw new CommonException(ErrorCode.INVALID_PARAMETER,
+                    String.format("해당 이름(%s) 상품 존재", name));
         }
     }
 

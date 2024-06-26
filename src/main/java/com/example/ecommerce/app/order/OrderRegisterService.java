@@ -45,7 +45,7 @@ public class OrderRegisterService {
                 .collect(Collectors.toList());
 
         MultiException multiException = new MultiException();
-        productReader.getProductByIdList(productIdList)
+        productReader.getProductAllByIdList(productIdList)
                 .stream()
                 .forEach(p -> {
                     try {
