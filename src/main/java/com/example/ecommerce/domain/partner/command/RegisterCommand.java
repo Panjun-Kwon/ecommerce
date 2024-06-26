@@ -13,7 +13,6 @@ public class RegisterCommand {
     private String username;
     private String password;
     private ProfileCommand profile;
-    private AddressCommand address;
 
     public static RegisterCommand of(RegisterRequest request) {
         if (request == null) return new RegisterCommand();
@@ -21,18 +20,12 @@ public class RegisterCommand {
                 .username(request.getUsername())
                 .password(request.getPassword())
                 .profile(ProfileCommand.of(request.getProfile()))
-                .address(AddressCommand.of(request.getAddress()))
                 .build();
     }
 
-    public static Partner toPartner(RegisterCommand command) {
-        if (command == null) return new Partner();
-        return Partner.builder()
-                .username(command.username)
-                .password(command.password)
-                .profile(ProfileCommand.toProfile(command.profile))
-                .address(AddressCommand.toAddress(command.address))
-                .build();
+    public Partner toPartner() {
+        if (this == null) return new Partner();
+        return new Partner(this.username, this.password, this.profile.toProfile());
     }
 
     @Getter
@@ -44,6 +37,7 @@ public class RegisterCommand {
         private String name;
         private String email;
         private String phoneNum;
+        private AddressCommand address;
 
         public static ProfileCommand of(RegisterRequest.ProfileRequest request) {
             if (request == null) return new ProfileCommand();
@@ -51,15 +45,17 @@ public class RegisterCommand {
                     .name(request.getName())
                     .email(request.getEmail())
                     .phoneNum(request.getPhoneNum())
+                    .address(AddressCommand.of(request.getAddress()))
                     .build();
         }
 
-        public static Profile toProfile(ProfileCommand command) {
-            if (command == null) return new Profile();
+        public Profile toProfile() {
+            if (this == null) return new Profile();
             return Profile.builder()
-                    .name(command.name)
-                    .email(command.email)
-                    .phoneNum(command.phoneNum)
+                    .name(this.name)
+                    .email(this.email)
+                    .phoneNum(this.phoneNum)
+                    .address(this.address.toAddress())
                     .build();
         }
     }
@@ -74,18 +70,12 @@ public class RegisterCommand {
 
         public static AddressCommand of(RegisterRequest.AddressRequest request) {
             if (request == null) return new AddressCommand();
-            return AddressCommand.builder()
-                    .city(request.getCity())
-                    .street(request.getStreet())
-                    .build();
+            return new AddressCommand(request.getCity(), request.getStreet());
         }
 
-        public static Address toAddress(AddressCommand command) {
-            if (command == null) return new Address();
-            return Address.builder()
-                    .city(command.city)
-                    .street(command.street)
-                    .build();
+        public Address toAddress() {
+            if (this == null) return new Address();
+            return new Address(this.city, this.street);
         }
     }
 }

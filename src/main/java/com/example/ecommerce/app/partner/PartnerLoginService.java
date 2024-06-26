@@ -1,9 +1,8 @@
 package com.example.ecommerce.app.partner;
 
-import com.example.ecommerce.api.partner.request.*;
-import com.example.ecommerce.api.partner.response.*;
 import com.example.ecommerce.common.jwt.*;
 import com.example.ecommerce.config.security.*;
+import com.example.ecommerce.domain.partner.info.*;
 import lombok.*;
 import org.springframework.security.authentication.*;
 import org.springframework.security.core.*;
@@ -19,16 +18,13 @@ public class PartnerLoginService {
     private final AuthenticationProvider partnerAuthenticationProvider;
     private final JwtUtils jwtUtils;
 
-    public AccessTokenResponse login(LoginRequest request) {
-
+    public AccessTokenInfo login(String username, String password) {
         Authentication authentication = partnerAuthenticationProvider.authenticate(
-                new UsernamePasswordAuthenticationToken(request.getUsername(), request.getPassword()));
+                new UsernamePasswordAuthenticationToken(username, password));
+
         SecurityContextHolder.getContext().setAuthentication(authentication);
-
         AuthPartner authPartner = (AuthPartner) authentication.getPrincipal();
-        Long partnerId = authPartner.getId();
         String accessToken = jwtUtils.generatePartnerAccessToken(authPartner);
-
-        return new AccessTokenResponse(partnerId, accessToken);
+        return new AccessTokenInfo(authPartner.getId(), accessToken);
     }
 }

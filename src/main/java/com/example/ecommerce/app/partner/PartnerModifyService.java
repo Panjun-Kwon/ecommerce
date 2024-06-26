@@ -1,6 +1,6 @@
 package com.example.ecommerce.app.partner;
 
-import com.example.ecommerce.api.partner.request.*;
+import com.example.ecommerce.domain.partner.command.*;
 import com.example.ecommerce.domain.partner.entity.partner.*;
 import com.example.ecommerce.domain.partner.service.*;
 import lombok.*;
@@ -32,9 +32,8 @@ public class PartnerModifyService {
         partner.modifyPhoneNum(phoneNum);
     }
 
-    public void modifyAddress(Long partnerId, AddressRequest request) {
+    public void modifyAddress(Long partnerId, AddressCommand addressCommand) {
         Partner partner = partnerReader.getPartner(partnerId);
-        Address address = new Address(request.getCity(), request.getStreet());
-        partner.modifyAddress(address);
+        partner.modifyAddress(addressCommand.toAddress());
     }
 }
