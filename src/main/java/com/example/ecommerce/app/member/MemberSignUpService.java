@@ -13,15 +13,13 @@ import org.springframework.transaction.annotation.*;
 public class MemberSignUpService {
 
     private final MemberValidator memberValidator;
-    private final MemberFactory memberFactory;
     private final PasswordEncoder passwordEncoder;
     private final MemberStore memberStore;
 
     @Transactional
     public Long signUp(SignUpCommand command) {
         memberValidator.validateSignUpCommand(command);
-
-        Member initMember = memberFactory.make(command);
+        Member initMember = command.toMember();
         initMember.encodePassword(passwordEncoder);
         Member member = memberStore.store(initMember);
 

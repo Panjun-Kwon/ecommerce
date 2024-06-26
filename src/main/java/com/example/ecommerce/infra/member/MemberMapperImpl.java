@@ -32,8 +32,8 @@ public class MemberMapperImpl implements MemberMapper {
     public AddressResponse.AddressInfo addressOf(Member member) {
 
         AddressResponse.AddressInfo addressInfo = AddressResponse.AddressInfo.builder()
-                .city(member.getAddress() == null ? null : member.getAddress().getStreet())
-                .street(member.getAddress() == null ? null : member.getAddress().getStreet())
+                .city(member.getProfile().getAddress() == null ? null : member.getProfile().getAddress().getStreet())
+                .street(member.getProfile().getAddress() == null ? null : member.getProfile().getAddress().getStreet())
                 .build();
 
         return addressInfo;

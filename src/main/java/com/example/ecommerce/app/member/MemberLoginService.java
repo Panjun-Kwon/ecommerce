@@ -22,8 +22,8 @@ public class MemberLoginService {
 
         Authentication authentication = memberAuthenticationProvider.authenticate(
                 new UsernamePasswordAuthenticationToken(username, password));
+        
         SecurityContextHolder.getContext().setAuthentication(authentication);
-
         AuthMember authMember = (AuthMember) authentication.getPrincipal();
         String accessToken = jwtUtils.generateMemberAccessToken(authMember);
 
