@@ -9,7 +9,6 @@ import org.springframework.stereotype.*;
 import org.springframework.transaction.annotation.*;
 
 @Service
-@Transactional
 @RequiredArgsConstructor
 public class PartnerRegisterService {
 
@@ -17,6 +16,7 @@ public class PartnerRegisterService {
     private final PasswordEncoder passwordEncoder;
     private final PartnerStore partnerStore;
 
+    @Transactional
     public Long register(RegisterCommand command) {
         partnerValidator.validateRegister(command);
         Partner initPartner = command.toPartner();

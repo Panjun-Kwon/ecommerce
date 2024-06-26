@@ -11,13 +11,13 @@ import org.springframework.stereotype.*;
 import org.springframework.transaction.annotation.*;
 
 @Service
-@Transactional
 @RequiredArgsConstructor
 public class PartnerLoginService {
 
     private final AuthenticationProvider partnerAuthenticationProvider;
     private final JwtUtils jwtUtils;
 
+    @Transactional
     public AccessTokenInfo login(String username, String password) {
         Authentication authentication = partnerAuthenticationProvider.authenticate(
                 new UsernamePasswordAuthenticationToken(username, password));
