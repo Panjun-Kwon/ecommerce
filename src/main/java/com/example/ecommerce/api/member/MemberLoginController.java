@@ -4,6 +4,7 @@ import com.example.ecommerce.api.member.request.*;
 import com.example.ecommerce.api.member.response.*;
 import com.example.ecommerce.app.member.*;
 import com.example.ecommerce.common.response.*;
+import com.example.ecommerce.domain.member.info.*;
 import jakarta.validation.*;
 import lombok.*;
 import org.springframework.web.bind.annotation.*;
@@ -16,9 +17,9 @@ public class MemberLoginController {
 
     @PostMapping("/api/members/login")
     public CommonResponse<AccessTokenResponse> login(@Valid @RequestBody LoginRequest loginRequest) {
-        AccessTokenResponse data = memberLoginService.login(loginRequest);
-        String message = "로그인";
-        return CommonResponse.success(message, data);
+        AccessTokenInfo info = memberLoginService.login(loginRequest.getUsername(), loginRequest.getPassword());
+
+        return CommonResponse.success("로그인", info.toResponse());
     }
 
 }

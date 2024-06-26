@@ -4,6 +4,7 @@ import com.example.ecommerce.api.member.request.*;
 import com.example.ecommerce.api.member.response.*;
 import com.example.ecommerce.app.member.*;
 import com.example.ecommerce.common.response.*;
+import com.example.ecommerce.domain.member.command.*;
 import lombok.*;
 import org.springframework.transaction.annotation.*;
 import org.springframework.validation.annotation.*;
@@ -18,9 +19,9 @@ public class MemberSingUpController {
 
     @PostMapping("/api/members")
     public CommonResponse<MemberIdResponse> signUp(@Validated @RequestBody SignUpRequest request) {
-        MemberIdResponse data = memberSignUpService.signUp(request);
-        String message = "회원 가입";
-        return CommonResponse.success(message, data);
+        Long memberId = memberSignUpService.signUp(SignUpCommand.of(request));
+        
+        return CommonResponse.success("회원 가입", new MemberIdResponse(memberId));
     }
 
 }

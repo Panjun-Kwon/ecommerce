@@ -9,7 +9,7 @@ import org.springframework.stereotype.*;
 public class MemberFactoryImpl implements MemberFactory {
     @Override
     public Member make(SignUpCommand command) {
-        Member member = SignUpCommand.toEntity(command);
+        Member member = command.toMember();
         return member;
     }
 }

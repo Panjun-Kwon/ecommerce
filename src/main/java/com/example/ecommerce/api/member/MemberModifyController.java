@@ -4,6 +4,7 @@ import com.example.ecommerce.api.member.request.*;
 import com.example.ecommerce.app.member.*;
 import com.example.ecommerce.common.response.*;
 import com.example.ecommerce.config.security.*;
+import com.example.ecommerce.domain.member.command.*;
 import jakarta.validation.*;
 import lombok.*;
 import org.springframework.security.core.annotation.*;
@@ -24,6 +25,7 @@ public class MemberModifyController {
         Long memberId = authMember.getId();
         memberModifyService.modifyPassword(memberId, request.getPassword());
         String message = String.format("멤버(%d) 비밀번호 수정", memberId);
+
         return CommonResponse.success(message, null);
     }
 
@@ -35,6 +37,7 @@ public class MemberModifyController {
         Long memberId = authMember.getId();
         memberModifyService.modifyEmail(memberId, request.getEmail());
         String message = String.format("멤버(%d) 이메일 수정", memberId);
+
         return CommonResponse.success(message, null);
     }
 
@@ -46,17 +49,19 @@ public class MemberModifyController {
         Long memberId = authMember.getId();
         memberModifyService.modifyPhoneNum(memberId, request.getPhoneNum());
         String message = String.format("멤버(%d) 전화번호 수정", memberId);
+
         return CommonResponse.success(message, null);
     }
 
     @PutMapping("/api/auth/members/my/address")
     public CommonResponse<Void> modifyAddress(
             @AuthenticationPrincipal AuthMember authMember,
-            @Validated @RequestBody AddressRequest address) {
+            @Validated @RequestBody AddressRequest request) {
 
         Long memberId = authMember.getId();
-        memberModifyService.modifyAddress(memberId, address);
+        memberModifyService.modifyAddress(memberId, AddressCommand.of(request));
         String message = String.format("멤버(%d) 전화번호 수정", memberId);
+
         return CommonResponse.success(message, null);
     }
 }
