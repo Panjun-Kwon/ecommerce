@@ -20,14 +20,20 @@ import java.util.*;
 @Component
 @RequiredArgsConstructor
 public class PartnerAuthenticationFilter extends OncePerRequestFilter {
-
     private final JwtUtils jwtUtils;
+
     private List<RequestMatcher> requestMatcherList = new ArrayList<>();
 
     @PostConstruct
     public void init() {
         requestMatcherList.add(new AntPathRequestMatcher("/api/auth/partner/**"));
         requestMatcherList.add(new AntPathRequestMatcher("/api/auth/partners/**"));
+    }
+
+    @Override
+    protected boolean shouldNotFilter(HttpServletRequest request) throws ServletException {
+        return (SecurityContextHolder.getContext().getAuthentication() != null ||
+                requestMatcherList.stream().allMatch(requestMatcher -> !requestMatcher.matches(request)));
     }
 
     @Override
@@ -46,11 +52,5 @@ public class PartnerAuthenticationFilter extends OncePerRequestFilter {
         }
 
         filterChain.doFilter(request, response);
-    }
-
-    @Override
-    protected boolean shouldNotFilter(HttpServletRequest request) throws ServletException {
-        return (SecurityContextHolder.getContext().getAuthentication() != null ||
-                requestMatcherList.stream().allMatch(requestMatcher -> !requestMatcher.matches(request)));
     }
 }
