@@ -22,7 +22,7 @@ public class RegisterCommand {
     public static RegisterCommand of(RegisterRequest request) {
         return RegisterCommand.builder()
                 .orderLineList(request.getOrderLineList().stream()
-                        .map(olr -> OrderLineCommand.of(olr))
+                        .map(ol -> OrderLineCommand.of(ol))
                         .collect(Collectors.toList()))
                 .purchaser(PurchaserCommand.of(request.getPurchaser()))
                 .receiver(ReceiverCommand.of(request.getReceiver()))
@@ -30,14 +30,14 @@ public class RegisterCommand {
                 .build();
     }
 
-    public static Order toOrder(RegisterCommand command) {
+    public Order toOrder() {
         return Order.builder()
-                .orderLineList(command.orderLineList.stream()
-                        .map(olc -> OrderLineCommand.toOrderLine(olc))
+                .orderLineList(this.orderLineList.stream()
+                        .map(ol -> ol.toOrderLine())
                         .collect(Collectors.toList()))
-                .purchaser(PurchaserCommand.toPurchaser(command.getPurchaser()))
-                .receiver(ReceiverCommand.toReceiver(command.getReceiver()))
-                .shippingAddress(ShippingAddressCommand.toShippingAddress(command.getShippingAddress()))
+                .purchaser(this.getPurchaser().toPurchaser())
+                .receiver(this.getReceiver().toReceiver())
+                .shippingAddress(this.getShippingAddress().toShippingAddress())
                 .build();
     }
 
@@ -51,18 +51,12 @@ public class RegisterCommand {
 
         public static OrderLineCommand of(RegisterRequest.OrderLineRequest request) {
             if (request == null) new OrderLineCommand();
-            return OrderLineCommand.builder()
-                    .orderProduct(OrderProductCommand.of(request.getOrderProduct()))
-                    .quantity(request.getQuantity())
-                    .build();
+            return new OrderLineCommand(OrderProductCommand.of(request.getOrderProduct()), request.getQuantity());
         }
 
-        public static OrderLine toOrderLine(OrderLineCommand command) {
-            if (command == null) new OrderLine();
-            return OrderLine.builder()
-                    .orderProduct(OrderProductCommand.toOrderProduct(command.orderProduct))
-                    .quantity(command.quantity)
-                    .build();
+        public OrderLine toOrderLine() {
+            if (this == null) new OrderLine();
+            return new OrderLine(this.orderProduct.toOrderProduct(), this.quantity);
         }
     }
 
@@ -77,20 +71,12 @@ public class RegisterCommand {
 
         public static OrderProductCommand of(RegisterRequest.OrderProductRequest request) {
             if (request == null) new OrderProductCommand();
-            return OrderProductCommand.builder()
-                    .productId(request.getProductId())
-                    .name(request.getName())
-                    .price(request.getPrice())
-                    .build();
+            return new OrderProductCommand(request.getProductId(), request.getName(), request.getPrice());
         }
 
-        public static OrderProduct toOrderProduct(OrderProductCommand command) {
-            if (command == null) new OrderProduct();
-            return OrderProduct.builder()
-                    .productId(command.productId)
-                    .name(command.name)
-                    .price(command.price)
-                    .build();
+        public OrderProduct toOrderProduct() {
+            if (this == null) new OrderProduct();
+            return new OrderProduct(this.productId, this.name, this.price);
         }
     }
 
@@ -104,18 +90,12 @@ public class RegisterCommand {
 
         public static PurchaserCommand of(RegisterRequest.PurchaserRequest request) {
             if (request == null) new PurchaserCommand();
-            return PurchaserCommand.builder()
-                    .memberId(request.getMemberId())
-                    .username(request.getUsername())
-                    .build();
+            return new PurchaserCommand(request.getMemberId(), request.getUsername());
         }
 
-        public static Purchaser toPurchaser(PurchaserCommand command) {
-            if (command == null) new Purchaser();
-            return Purchaser.builder()
-                    .memberId(command.memberId)
-                    .username(command.username)
-                    .build();
+        public Purchaser toPurchaser() {
+            if (this == null) new Purchaser();
+            return new Purchaser(this.memberId, this.username);
         }
     }
 
@@ -129,18 +109,12 @@ public class RegisterCommand {
 
         public static ReceiverCommand of(RegisterRequest.ReceiverRequest request) {
             if (request == null) new ReceiverCommand();
-            return ReceiverCommand.builder()
-                    .name(request.getName())
-                    .phoneNum(request.getPhoneNum())
-                    .build();
+            return new ReceiverCommand(request.getName(), request.getPhoneNum());
         }
 
-        public static Receiver toReceiver(ReceiverCommand command) {
-            if (command == null) new Receiver();
-            return Receiver.builder()
-                    .name(command.name)
-                    .phoneNum(command.phoneNum)
-                    .build();
+        public Receiver toReceiver() {
+            if (this == null) new Receiver();
+            return new Receiver(this.name, this.phoneNum);
         }
     }
 
@@ -154,18 +128,12 @@ public class RegisterCommand {
 
         public static ShippingAddressCommand of(RegisterRequest.ShippingAddressRequest request) {
             if (request == null) new ShippingAddressCommand();
-            return ShippingAddressCommand.builder()
-                    .city(request.getCity())
-                    .street(request.getStreet())
-                    .build();
+            return new ShippingAddressCommand(request.getCity(), request.getStreet());
         }
 
-        public static ShippingAddress toShippingAddress(ShippingAddressCommand command) {
-            if (command == null) new ShippingAddress();
-            return ShippingAddress.builder()
-                    .city(command.city)
-                    .street(command.street)
-                    .build();
+        public ShippingAddress toShippingAddress() {
+            if (this == null) new ShippingAddress();
+            return new ShippingAddress(this.city, this.street);
         }
     }
 }

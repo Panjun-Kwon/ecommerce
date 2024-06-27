@@ -18,6 +18,7 @@ import org.springframework.security.web.util.matcher.*;
 @RequiredArgsConstructor
 public class SecurityConfig {
 
+    private final AuthenticationEntryPoint authenticationEntryPoint;
     private final AuthMemberService authMemberService;
     private final AuthPartnerService authPartnerService;
     private final MemberAuthenticationFilter memberAuthenticationFilter;
@@ -28,14 +29,15 @@ public class SecurityConfig {
 
         http
                 .sessionManagement(session ->
-                        session.sessionCreationPolicy(SessionCreationPolicy.ALWAYS))
+                        session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .csrf(AbstractHttpConfigurer::disable);
 
         http
+                .exceptionHandling(exceptionHandling -> exceptionHandling.authenticationEntryPoint(authenticationEntryPoint))
                 .authenticationProvider(memberAuthenticationProvider())
                 .authenticationProvider(partnerAuthenticationProvider())
                 .addFilterBefore(memberAuthenticationFilter, UsernamePasswordAuthenticationFilter.class)
-                .addFilterBefore(partnerAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
+                .addFilterAfter(partnerAuthenticationFilter, MemberAuthenticationFilter.class);
 
         http
                 .authorizeHttpRequests(

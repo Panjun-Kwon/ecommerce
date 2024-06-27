@@ -4,6 +4,7 @@ import com.example.ecommerce.api.partner.request.*;
 import com.example.ecommerce.app.partner.*;
 import com.example.ecommerce.common.response.*;
 import com.example.ecommerce.config.security.*;
+import com.example.ecommerce.domain.partner.command.*;
 import jakarta.validation.*;
 import lombok.*;
 import org.springframework.security.core.annotation.*;
@@ -52,10 +53,10 @@ public class PartnerModifyController {
     @PutMapping("/api/auth/partners/my/address")
     public CommonResponse<Void> modifyAddress(
             @AuthenticationPrincipal AuthPartner authPartner,
-            @Validated @RequestBody AddressRequest address) {
+            @Validated @RequestBody AddressRequest request) {
 
         Long partnerId = authPartner.getId();
-        partnerModifyService.modifyAddress(partnerId, address);
+        partnerModifyService.modifyAddress(partnerId, AddressCommand.of(request));
         String message = String.format("파트너(%d) 전화번호 수정", partnerId);
         return CommonResponse.success(message, null);
     }

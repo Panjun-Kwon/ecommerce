@@ -17,6 +17,8 @@ public class Profile {
     @Email
     private String email;
     private String phoneNum;
+    @Embedded
+    private Address address;
 
     public void modifyEmail(String email) {
         this.email = email;
@@ -24,5 +26,9 @@ public class Profile {
 
     public void modifyPhoneNum(String phoneNum) {
         this.phoneNum = phoneNum;
+    }
+
+    public void modifyAddress(Address address) {
+        this.address = address;
     }
 }

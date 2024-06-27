@@ -1,15 +1,14 @@
 package com.example.ecommerce.domain.product.service;
 
-import com.example.ecommerce.domain.product.entity.product.Product;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
+import com.example.ecommerce.domain.product.entity.product.*;
+import org.springframework.data.domain.*;
 
-import java.util.List;
+import java.util.*;
 
 public interface ProductReader {
     Product getProduct(Long productId);
 
-    List<Product> getProductByIdList(List<Long> productIdList);
+    List<Product> getProductAllByIdList(List<Long> productIdList);
 
     Page<Product> getProductAll(Pageable pageable);
 

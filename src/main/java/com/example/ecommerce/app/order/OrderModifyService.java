@@ -1,6 +1,6 @@
 package com.example.ecommerce.app.order;
 
-import com.example.ecommerce.api.order.request.*;
+import com.example.ecommerce.domain.order.command.*;
 import com.example.ecommerce.domain.order.entity.order.*;
 import com.example.ecommerce.domain.order.service.*;
 import lombok.*;
@@ -14,8 +14,8 @@ public class OrderModifyService {
 
     private final OrderReader orderReader;
 
-    public void modifyShippingAddress(Long orderId, ShippingAddressRequest request) {
+    public void modifyShippingAddress(Long orderId, ShippingAddressCommand command) {
         Order order = orderReader.getOrder(orderId);
-        order.modifyShippingAddress(new ShippingAddress(request.getCity(), request.getStreet()));
+        order.modifyShippingAddress(command.toShippingAddress());
     }
 }

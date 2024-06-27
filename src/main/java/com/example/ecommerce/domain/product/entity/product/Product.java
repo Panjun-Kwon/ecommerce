@@ -49,8 +49,8 @@ public class Product {
 
     public void decreaseStock(Integer num) {
         if (this.stock < num) {
-            String message = String.format("PRODUCT(%d) IS OUT OF STOCK", id);
-            throw new CommonException(ErrorCode.BUSINESS_FAIL, message);
+            String message = String.format("해당 상품(%d) 재고 부족", id);
+            throw new CommonException(ErrorCode.OUT_OF_STOCK, message);
         }
         this.stock = this.stock - num;
     }

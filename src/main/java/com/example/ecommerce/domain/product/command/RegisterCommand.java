@@ -27,14 +27,14 @@ public class RegisterCommand {
                 .build();
     }
 
-    public static Product toProduct(RegisterCommand command) {
-        if (command == null) return new Product();
+    public Product toProduct() {
+        if (this == null) return new Product();
         return Product.builder()
-                .name(command.name)
-                .description(command.description)
-                .price(command.price)
-                .stock(command.stock)
-                .registrant(RegistrantCommand.toRegistrant(command.registrant))
+                .name(this.name)
+                .description(this.description)
+                .price(this.price)
+                .stock(this.stock)
+                .registrant(this.registrant.toRegistrant())
                 .build();
     }
 
@@ -48,18 +48,12 @@ public class RegisterCommand {
 
         public static RegistrantCommand of(RegisterRequest.RegistrantRequest request) {
             if (request == null) return new RegistrantCommand();
-            return RegistrantCommand.builder()
-                    .partnerId(request.getPartnerId())
-                    .name(request.getName())
-                    .build();
+            return new RegistrantCommand(request.getPartnerId(), request.getName());
         }
 
-        public static Registrant toRegistrant(RegistrantCommand command) {
-            if (command == null) return new Registrant();
-            return Registrant.builder()
-                    .partnerId(command.partnerId)
-                    .name(command.name)
-                    .build();
+        public Registrant toRegistrant() {
+            if (this == null) return new Registrant();
+            return new Registrant(this.partnerId, this.name);
         }
     }
 }

@@ -13,7 +13,6 @@ public class RegisterRequest {
     @Valid
     @NotNull
     private ProfileRequest profile;
-    private AddressRequest address;
 
     @Getter
     public static class ProfileRequest {
@@ -22,6 +21,7 @@ public class RegisterRequest {
         @Email
         private String email;
         private String phoneNum;
+        private AddressRequest address;
     }
 
     @Getter

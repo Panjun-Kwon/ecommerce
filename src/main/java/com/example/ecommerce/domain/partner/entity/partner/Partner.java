@@ -26,20 +26,17 @@ public class Partner {
     private Role role;
     @Embedded
     private Profile profile;
-    @Embedded
-    private Address address;
+
 
     @Builder
     public Partner(String username,
                    String password,
-                   Profile profile,
-                   Address address) {
+                   Profile profile) {
 
         this.role = Role.PARTNER;
         this.username = username;
         this.password = password;
         this.profile = profile;
-        this.address = address;
     }
 
     public void encodePassword(PasswordEncoder passwordEncoder) {
@@ -59,6 +56,7 @@ public class Partner {
     }
 
     public void modifyAddress(Address address) {
-        this.address = address;
+        this.profile.modifyAddress(address);
     }
+
 }

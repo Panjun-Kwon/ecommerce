@@ -27,20 +27,16 @@ public class Member {
     private Role role;
     @Embedded
     private Profile profile;
-    @Embedded
-    private Address address;
 
     @Builder
     public Member(String username,
                   String password,
-                  Profile profile,
-                  Address address) {
+                  Profile profile) {
 
         this.role = Role.MEMBER;
         this.username = username;
         this.password = password;
         this.profile = profile;
-        this.address = address;
     }
 
     public void encodePassword(PasswordEncoder passwordEncoder) {
@@ -60,6 +56,6 @@ public class Member {
     }
 
     public void modifyAddress(Address address) {
-        this.address = address;
+        this.profile.modifyAddress(address);
     }
 }

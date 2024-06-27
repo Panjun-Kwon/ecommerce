@@ -14,17 +14,11 @@ public class ShippingAddressCommand {
 
     public static ShippingAddressCommand of(ShippingAddressRequest request) {
         if (request == null) new ShippingAddressCommand();
-        return ShippingAddressCommand.builder()
-                .city(request.getCity())
-                .street(request.getStreet())
-                .build();
+        return new ShippingAddressCommand(request.getCity(), request.getStreet());
     }
 
-    public static ShippingAddress toShippingAddress(ShippingAddressCommand command) {
-        if (command == null) new ShippingAddress();
-        return ShippingAddress.builder()
-                .city(command.city)
-                .street(command.street)
-                .build();
+    public ShippingAddress toShippingAddress() {
+        if (this == null) new ShippingAddress();
+        return new ShippingAddress(this.city, this.street);
     }
 }
