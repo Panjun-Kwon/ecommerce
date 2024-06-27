@@ -1,9 +1,8 @@
 package com.example.ecommerce.common.exception;
 
-import lombok.Getter;
+import lombok.*;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 @Getter
 public class MultiException extends RuntimeException {
@@ -11,7 +10,7 @@ public class MultiException extends RuntimeException {
     private final List<CommonException> exceptions = new ArrayList<>();
 
     public MultiException() {
-        super("Multiple exceptions occurred");
+        super(ErrorCode.MULTIPLE_EXCEPTIONS.getMessage());
     }
 
     public void addException(CommonException e) {

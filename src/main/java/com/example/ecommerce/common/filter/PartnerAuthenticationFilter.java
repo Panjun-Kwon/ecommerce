@@ -17,8 +17,6 @@ import org.springframework.web.filter.*;
 import java.io.*;
 import java.util.*;
 
-import static com.example.ecommerce.common.jwt.JwtUtils.*;
-
 @Component
 @RequiredArgsConstructor
 public class PartnerAuthenticationFilter extends OncePerRequestFilter {
@@ -37,15 +35,13 @@ public class PartnerAuthenticationFilter extends OncePerRequestFilter {
                                     HttpServletResponse response,
                                     FilterChain filterChain) throws ServletException, IOException {
 
-        String accessToken = request.getHeader(TOKEN_HEADER);
+        String token = request.getHeader(jwtUtils.tokenHeader);
 
-        if (StringUtils.hasText(accessToken) && accessToken.startsWith(TOKEN_PREFIX)) {
-            accessToken = accessToken.replace(TOKEN_PREFIX, "");
-
-            AuthPartner authMember = jwtUtils.getAuthPartner(accessToken);
-
+        String accessToken = jwtUtils.getAccessToken(token);
+        if (StringUtils.hasText(accessToken)) {
+            AuthPartner authPartner = jwtUtils.getAuthPartner(accessToken);
             Authentication authentication = new UsernamePasswordAuthenticationToken(
-                    authMember, null, authMember.getAuthorities());
+                    authPartner, null, authPartner.getAuthorities());
             SecurityContextHolder.getContext().setAuthentication(authentication);
         }
 
